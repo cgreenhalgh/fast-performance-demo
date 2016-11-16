@@ -44,10 +44,10 @@ V0.1:
 - URL-encoded form-style parameters - in URL or POST body
   - room: room name (default "default")
   - pin: room pin/password (default "")
-  - name: action name (required)
+  - name: control input name (required)
   - client: optional client identification
 
-Note: the corresponding action URL in muzicodes is "post:" concatenated with the action name.
+Note: the corresponding control input URL in muzicodes is "post:" concatenated with the specified name.
 
 ### Pedal -> MELD interactions
 
