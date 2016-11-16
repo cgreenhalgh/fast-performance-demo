@@ -22,7 +22,7 @@ Vagrant.configure(2) do |config|
   # Meld pre-reqs - then see meld/README.md
   config.vm.provision "shell", privileged: false, inline: <<-SHELL
     sudo apt-get install -y python-pip python-dev
-    sudo apt-get install python-dev libxml2-dev libxslt1-dev zlib1g-dev 
+    sudo apt-get install -y python-dev libxml2-dev libxslt1-dev zlib1g-dev 
   SHELL
 
 
