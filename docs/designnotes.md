@@ -46,8 +46,14 @@ V0.1:
   - pin: room pin/password (default "")
   - name: control input name (required)
   - client: optional client identification
+  - other parameters will be passed through to muzicodes
 
 Note: the corresponding control input URL in muzicodes is "post:" concatenated with the specified name.
+
+Usage for MELD:
+- name = "meld.load"
+- meldcollection = (additional parameter) uri of collection of annotations for current/newly loaded piece
+- meldmei = (additional parameter) uri of MEI file for current/newloy loaded piece
 
 ### Pedal -> MELD interactions
 
