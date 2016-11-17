@@ -1,5 +1,7 @@
 # Install
 
+assumes you have set up pre-reqs as per ../Vagrantfile!
+
 Clone musiccodes
 ```
 git clone https://github.com/cgreenhalgh/musiccodes.git
@@ -29,3 +31,53 @@ Note, to run Meld within vm use `--host==0.0.0.0` option
 ```
 python manage.py runserver --host=0.0.0.0
 ```
+
+## Proxying
+
+On host, if proxying for public web address install nginx.
+
+E.g. Max OS X using homebrew
+```
+brew install nginx
+```
+Optional (or run explicitly)
+```
+brew services start nginx
+```
+```
+sudo nginx -s stop
+sudo nginx
+```
+edit `/usr/local/etc/nginx/nginx.conf`
+
+change `listen 8080` to `listen 80`
+add
+```
+    server {
+        listen       80;
+        server_name  muzicodes;
+        location / {
+            proxy_pass   http://127.0.0.1:3000;
+        }
+	}
+    server {
+        listen       80;
+        server_name  meld.linkedmusic.org;
+        location / {
+            proxy_pass   http://127.0.0.1:5000;
+        }
+	}
+
+```
+
+edit `/etc/hosts`
+add entry(s)
+```
+127.0.0.1       muzicodes
+127.0.0.1		meld.linkedmusic.org
+```
+
+```
+sudo killall -HUP mDNSResponder
+```
+
