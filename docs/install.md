@@ -81,3 +81,6 @@ add entry(s)
 sudo killall -HUP mDNSResponder
 ```
 
+## Phidgets - buttons etc
+
+see [phidgets](../phidgets/install.md)

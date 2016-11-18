@@ -5,6 +5,9 @@ Vagrant.configure(2) do |config|
     v.memory = 1024
     # for tests (chrome)
     v.gui = true
+
+    # Enable the VM's virtual USB controller & enable the virtual USB 2.0 controller
+    v.customize ["modifyvm", :id, "--usb", "on", "--usbehci", "on"]
   end
 
   # node server for muzicodes
