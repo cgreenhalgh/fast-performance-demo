@@ -81,6 +81,8 @@ add entry(s)
 sudo killall -HUP mDNSResponder
 ```
 
+See also [android](android.md) notes.
+
 ## Phidgets - buttons etc
 
 see [phidgets](../phidgets/install.md)
