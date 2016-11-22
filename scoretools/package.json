@@ -1,0 +1,16 @@
+{
+  "name": "fast-perf-scoretools",
+  "version": "0.0.1",
+  "description": "process score files for FAST IMPACt performance demo",
+  "dependencies": {
+    "js-yaml": "^3.7.0",
+    "mustache": "^2.3.0",
+    "xlsx": "^0.8.0"
+  },
+  "devDependencies": {
+    "coffee-script": "^1.11.1"
+  },
+  "scripts": {
+    "prepublish": "coffee -o lib/ -c src/*.coffee"
+  }
+}

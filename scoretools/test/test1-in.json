@@ -1,0 +1,15 @@
+{
+	"author":"",
+	"recordAudio":false,
+	"markers":[],
+	"parameters":{
+		"vampParameters":{
+			"instrument":0
+		},
+		"initstate":{}
+	},
+	"examples":[],
+	"defaultContext":{},
+	"projections":[],
+	"controls":[]
+}
