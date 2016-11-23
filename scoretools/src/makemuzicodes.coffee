@@ -98,6 +98,18 @@ stages = {}
 
 prefixes = ['auto_', 'mc1_', 'mc2_', 'mc3_', 'default_']
 mcs = ['mc1_', 'mc2_', 'mc3_']
+weathers = ['no', 'wind', 'rain', 'snow', 'sun', 'storm']
+
+# effect urls
+effects = '['
+for w,wi in weathers
+  if not config[w+'_effect']?
+    console.log 'ERROR: '+w+'_effect not defined in '+configfile
+  if wi>0
+    effects += ','
+  effects+= JSON.stringify config[w+'_effect'] 
+effects += ']'
+ex.parameters.initstate.effects = effects 
 
 add_actions = (control, prefix, data) ->
   # monitor
@@ -109,6 +121,11 @@ add_actions = (control, prefix, data) ->
     control.actions.push 
       channel: 'visual'
       url: data[prefix+'visual']
+  # midi
+  if data[prefix+'midi']?
+    control.actions.push
+      channel: ''
+      url: 'data:text/x-midi-hex,'+data[prefix+'midi']
   # stage state
   control.poststate ?= {}
   control.precondition ?= ''
@@ -127,11 +144,19 @@ add_actions = (control, prefix, data) ->
     control.poststate.cued = "true"
     # TODO proper MELD request
 
-set_stage = (control, stage) ->
+set_stage = (control, data) ->
   control.poststate ?= {}
   control.poststate.cued = "false"
-  control.poststate.stage = JSON.stringify stage;
-
+  control.poststate.stage = JSON.stringify data.stage;
+  # weather
+  ws = []
+  for w,wi in weathers
+    if data[w+'_effect']? and data[w+'_effect'].length>0 and data[w+'_effect'].substring(0,1).toLowerCase()=='y'
+      ws.push wi
+  if ws.length == 0
+    ws.push 0
+  control.actions.push 
+    url: '{{effects[(['+(ws.join ',')+'])[Math.floor(Math.random()*'+ws.length+')]]}}'
 
 # find/make named marker
 get_marker = (ex, markertitle, optdescription) ->
@@ -171,14 +196,14 @@ for r in [1..1000]
     # auto on event:load
     control = {inputUrl:'event:load', actions:[]}
     ex.controls.push control
-    set_stage control, data.stage
+    set_stage control, data
     add_actions control, 'auto_', data
     # MELD input POST
     control = 
       inputUrl:'post:meld.load'
       actions: []
     ex.controls.push control
-    set_stage control, data.stage
+    set_stage control, data
     add_actions control, 'auto_', data
     control.poststate.meldmei = 'params.meldmei'
     control.poststate.meldcollection = 'params.meldcollection'
@@ -188,14 +213,14 @@ for r in [1..1000]
     # test button
     control = {inputUrl:'button:'+data.stage, actions:[]}
     ex.controls.push control
-    set_stage control, data.stage
+    set_stage control, data
     add_actions control, 'auto_', data
     # MELD input POST
     control = 
       inputUrl:'post:'+encodeURIComponent('meld.load:'+data.stage)
       actions: []
     ex.controls.push control
-    set_stage control, data.stage
+    set_stage control, data
     add_actions control, 'auto_', data
     control.poststate.meldmei = 'params.meldmei'
     control.poststate.meldcollection = 'params.meldcollection'
