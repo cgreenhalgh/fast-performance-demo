@@ -16,7 +16,12 @@ Config file in YAML, `config.yml`:
 spreadsheet: FILE.xlsx
 experiencein: FILE.json
 experienceout: FILE.json
+mcserver: http://localhost:3000/input
+meldserver: http://localhost:5000/addannotation/
+defaultprojection: 1
 ```
+
+End of note stream for default projection drives cueing of default next stage.
 
 
 ## Experience file generator

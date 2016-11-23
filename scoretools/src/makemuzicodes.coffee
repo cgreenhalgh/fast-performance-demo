@@ -73,6 +73,7 @@ for marker in ex.markers
   delete marker.action
   delete marker.precondition
   marker.poststate = {}
+  marker.precondition = ''
 
 # state - stage (string), cued (bool)
 ex.parameters.initstate = 
@@ -80,13 +81,25 @@ ex.parameters.initstate =
   cued: false
   meldmei: '""'
   meldcollection: '""'
+  meldnextstage: 'null'
+  meldserver: JSON.stringify (config.meldserver ? 'http://localhost:5000/annotations/')
+  mcserver: JSON.stringify (config.mcserver ? 'http://localhost:3000/input')
+
+defaultprojection = String(config.defaultprojection ? '')
+if defaultprojection == ''
+  console.log "WARNING: defaultprojection is not defined in "+configfile
+else
+  if ((p for p in (ex.projections ? []) when p.id==defaultprojection) ? []).length == 0
+    console.log 'WARNING: cannot find default projection "'+defaultprojection+'"'
+  else
+    console.log 'using default projection "'+defaultprojection+'"'
 
 stages = {}
 
-prefixes = ['auto_', 'mc1_', 'mc2_', 'mc3_']
+prefixes = ['auto_', 'mc1_', 'mc2_', 'mc3_', 'default_']
 mcs = ['mc1_', 'mc2_', 'mc3_']
 
-add_actions = (actions, prefix, data) ->
+add_actions = (control, prefix, data) ->
   # monitor
   control.actions.push 
     channel: ''
@@ -98,10 +111,44 @@ add_actions = (actions, prefix, data) ->
       url: data[prefix+'visual']
   # stage state
   control.poststate ?= {}
+  control.precondition ?= ''
+  # cue next stage
+  if data[prefix+'cue']?
+    # if it cues, can it only happen if not already cued?!
+    if (prefix!='auto_' && control.precondition.indexOf 'cued') < 0
+      control.precondition = '!cued'+(if control.precondition.length == 0 then '' else ' && (')+control.precondition+(if control.precondition.length == 0 then '' else ')')
+    control.actions.push 
+      url: '{{meldserver}}{{encodeURIComponent(meldcollection)}}'
+      post: true
+      contentType: 'application/json'
+      body: '{"name":'+(JSON.stringify 'meld.load:'+data[prefix+'cue'])+','+
+        '"callback":"{{mcserver}}"}'
+    control.poststate.meldnextstage = JSON.stringify data[prefix+'cue']
+    control.poststate.cued = "true"
+    # TODO proper MELD request
+
+set_stage = (control, stage) ->
+  control.poststate ?= {}
   control.poststate.cued = "false"
-  control.poststate.stage = JSON.stringify data.stage;
-  # TODO ...
-  #if data[prefix+'cue']?
+  control.poststate.stage = JSON.stringify stage;
+
+
+# find/make named marker
+get_marker = (ex, markertitle, optdescription) ->
+  markers = (marker for marker in ex.markers when marker.title == markertitle) ? []
+  if markers.length > 1
+    console.log 'WARNING: marker "'+markertitle+'" defined '+markers.length+' times; using first'
+  else if markers.length == 0
+    console.log 'WARNING: marker  "'+markertitle+'" undefined - adding to output'
+    marker = 
+      title: markertitle
+      description: optdescription
+      poststate: {}
+      actions: []
+      precondition: ''
+    ex.markers.push marker
+    markers = [marker]
+  return markers[0]
 
 for r in [1..1000]
   cell = sheet[cellid(0,r)]
@@ -115,7 +162,7 @@ for r in [1..1000]
   stages[data.stage] = data
   # defaults for ...-monitor
   for prefix in prefixes
-    data[prefix+'monitor'] ?= 'data:text/plain,stage '+data.stage+' '+prefix+'monitor' 
+    data[prefix+'monitor'] ?= 'data:text/plain,stage '+data.stage+' '+prefix+' triggered!' 
 
   # TODO default-cue
   if r==1
@@ -124,34 +171,80 @@ for r in [1..1000]
     # auto on event:load
     control = {inputUrl:'event:load', actions:[]}
     ex.controls.push control
-    add_actions control.actions, 'auto_', data
+    set_stage control, data.stage
+    add_actions control, 'auto_', data
     # MELD input POST
     control = 
       inputUrl:'post:meld.load'
       actions: []
     ex.controls.push control
-    add_actions control.actions, 'auto_', data
-    control.poststate.meldmei = '"{{params.meldmei}}"'
-    control.poststate.meldcollection = '"{{params.meldcollection}}"'
+    set_stage control, data.stage
+    add_actions control, 'auto_', data
+    control.poststate.meldmei = 'params.meldmei'
+    control.poststate.meldcollection = 'params.meldcollection'
+    control.poststate.meldnextstage = 'null';
   else
     # non-default stage
     # test button
     control = {inputUrl:'button:'+data.stage, actions:[]}
     ex.controls.push control
-    add_actions control.actions, 'auto_', data
+    set_stage control, data.stage
+    add_actions control, 'auto_', data
     # MELD input POST
     control = 
-      inputUrl:'post:meld.load:'+data.stage
+      inputUrl:'post:'+encodeURIComponent('meld.load:'+data.stage)
       actions: []
     ex.controls.push control
-    add_actions control.actions, 'auto_', data
-    control.poststate.meldmei = '"{{params.meldmei}}"'
-    control.poststate.meldcollection = '"{{params.meldcollection}}"'
+    set_stage control, data.stage
+    add_actions control, 'auto_', data
+    control.poststate.meldmei = 'params.meldmei'
+    control.poststate.meldcollection = 'params.meldcollection'
+    control.poststate.meldnextstage = 'null';
 
   # muzicodes
-  # TODO
+  for mc in mcs
+    if not data[mc+'name']
+      continue
+    marker = get_marker ex, data[mc+'name'], ('stage '+data.stage+' '+mc+'name')
+    # in stage precondition
+    suffix = ''
+    if marker.precondition.length > 0
+      if marker.precondition.substring(marker.precondition.length-1) == ')'
+        suffix = ')'
+        marker.precondition = marker.precondition.substring(0, marker.precondition.length-1)
+      marker.precondition += ' || '
+    marker.precondition += 'stage=="'+data.stage+'"'+suffix
+    add_actions marker, mc, data
+    
+  # default cue
+  if defaultprojection!='' && data['default_cue']?
+    control = 
+      inputUrl: 'event:end:'+defaultprojection
+      actions: []
+      precondition: 'stage=='+(JSON.stringify data.stage)
+      poststate: {}
+    ex.controls.push control
+    add_actions control, 'default_', data
+
+# check cross-references
+errors = 0;
+for stage,data of stages
+  for prefix in prefixes
+    if data[prefix+'cue']? and not stages[data[prefix+'cue']]?
+      console.log 'ERROR: stage '+stage+' '+prefix+'cue refers to unknown stage "'+data[prefix+'cue']+'"'
+      errors++
+
+# fake meld input
+control = {inputUrl:'button:Force Next',actions:[],precondition:'!!meldnextstage'}
+ex.controls.push control
+control.actions.push 
+  url: 'http://localhost:3000/input'
+  post: true
+  contentType: 'application/x-www-form-urlencoded'
+  body: 'name={{encodeURIComponent("meld.load:"+meldnextstage)}}&meldmei=&meldcollection='
+  # meldmei, meldcollection
 
 console.log 'write experience '+exoutfile
-fs.writeFileSync exoutfile, (JSON.stringify ex), {encoding: 'utf8'}
+fs.writeFileSync exoutfile, (JSON.stringify ex, null, '  '), {encoding: 'utf8'}
 console.log 'done'
-return 0
+return errors

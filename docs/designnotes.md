@@ -40,7 +40,7 @@ MELD will signal Muzicodes (via HTTP) when its loads a (new) section of the musi
 
 V0.1:
 - HTTP POST
-- muzicodes server (default port 5000), path "/input"
+- muzicodes server (default port 3000), path "/input"
 - URL-encoded form-style parameters - in URL or POST body
   - room: room name (default "default")
   - pin: room pin/password (default "")
