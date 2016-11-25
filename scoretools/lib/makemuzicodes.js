@@ -177,6 +177,7 @@
   ex.parameters.initstate.effects = effects;
 
   add_actions = function(control, prefix, data) {
+    var k, len2, msg, msgs;
     control.actions.push({
       channel: '',
       url: data[prefix + 'monitor']
@@ -188,10 +189,17 @@
       });
     }
     if (data[prefix + 'midi'] != null) {
-      control.actions.push({
-        channel: '',
-        url: 'data:text/x-midi-hex,' + data[prefix + 'midi']
-      });
+      msgs = data[prefix + 'midi'].split(',');
+      for (k = 0, len2 = msgs.length; k < len2; k++) {
+        msg = msgs[k];
+        msg = msg.trim();
+        if (msg.length > 0) {
+          control.actions.push({
+            channel: '',
+            url: 'data:text/x-midi-hex,' + msg
+          });
+        }
+      }
     }
     if (control.poststate == null) {
       control.poststate = {};

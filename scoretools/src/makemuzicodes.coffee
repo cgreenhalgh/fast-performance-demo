@@ -123,9 +123,14 @@ add_actions = (control, prefix, data) ->
       url: data[prefix+'visual']
   # midi
   if data[prefix+'midi']?
-    control.actions.push
-      channel: ''
-      url: 'data:text/x-midi-hex,'+data[prefix+'midi']
+    # multiple 
+    msgs = data[prefix+'midi'].split ','
+    for msg in msgs
+      msg = msg.trim()
+      if msg.length > 0
+        control.actions.push
+          channel: ''
+          url: 'data:text/x-midi-hex,'+msg
   # stage state
   control.poststate ?= {}
   control.precondition ?= ''

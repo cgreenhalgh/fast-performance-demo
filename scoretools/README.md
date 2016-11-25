@@ -53,5 +53,5 @@ Actions/etc. for `auto:` and `mcN:`, i.e. names of following columns can be:
 - `cue` - name of next stage to cue
 - `monitor` - URL to show on monitor (default) channel
 - `visual` - URL to show on "visual" channel 
-- `midi` - hex of midi message to send
+- `midi` - hex of midi message to send (can be list, comma-separated)
 (visual, midinote, midicc, midimsg, effect, mei ids...)
