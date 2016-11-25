@@ -55,3 +55,51 @@ Actions/etc. for `auto:` and `mcN:`, i.e. names of following columns can be:
 - `visual` - URL to show on "visual" channel 
 - `midi` - hex of midi message to send (can be list, comma-separated)
 (visual, midinote, midicc, midimsg, effect, mei ids...)
+
+
+## MIDI files
+
+## convert to ms time code
+
+Tried to do this...
+```
+node lib/midi2ms.js test/Echo1c_Disklavier.mid test/Echo1c_Disklavier_ms.mid 
+```
+
+But reporting times at which tempo changes occur in files doesn't seem to match the music. E.g. the stones should be 100 bpm from the start, but the files starts at 60 bpm and the change seems to be in the file after 28 seconds. 
+
+### testing
+
+initial test `readmidi.coffee` reads `test/TheStones_1b_Disklavier.mid`:
+```
+header: {"formatType":0,"trackCount":1,"ticksPerBeat":480}
+1 tracks
+track:
+  {"deltaTime":0,"type":"meta","subtype":"trackName","text":"Piano"}
+  {"deltaTime":0,"type":"meta","subtype":"instrumentName","text":"Steinway Grand Piano"}
+  {"deltaTime":0,"type":"meta","subtype":"timeSignature","numerator":4,"denominator":4,"metronome":24,"thirtyseconds":8}
+  {"deltaTime":0,"type":"meta","subtype":"keySignature","key":0,"scale":0}
+  {"deltaTime":0,"type":"meta","subtype":"smpteOffset","frameRate":25,"hour":0,"min":0,"sec":0,"frame":0,"subframe":0}
+  {"deltaTime":0,"type":"meta","subtype":"setTempo","microsecondsPerBeat":1000000}
+...
+  {"deltaTime":2,"type":"meta","subtype":"setTempo","microsecondsPerBeat":600000}
+...
+  {"deltaTime":0,"type":"meta","subtype":"endOfTrack"}
+```
+or
+```
+read test/Echo1c_Disklavier.mid
+header: {"formatType":0,"trackCount":1,"ticksPerBeat":480}
+...  
+  {"deltaTime":0,"type":"meta","subtype":"setTempo","microsecondsPerBeat":1000000}
+...
+  {"deltaTime":17042,"type":"meta","subtype":"setTempo","microsecondsPerBeat":507462}
+...
+  {"deltaTime":112,"type":"meta","subtype":"setTempo","microsecondsPerBeat":515151}
+```
+
+Note, library won't read SMPTE-based times (i.e. throws exception).
+
+   "midi-file": "git+https://github.com/cgreenhalgh/midi-file.git",
+   "midi-file": "file:../midi-file",
+   

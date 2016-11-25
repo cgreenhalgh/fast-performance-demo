@@ -4,6 +4,8 @@
   "description": "process score files for FAST IMPACt performance demo",
   "dependencies": {
     "js-yaml": "^3.7.0",
+    "midi-file": "git+https://github.com/cgreenhalgh/midi-file.git",
+    "midi-file-parser": "^1.0.0",
     "mustache": "^2.3.0",
     "xlsx": "^0.8.0"
   },
