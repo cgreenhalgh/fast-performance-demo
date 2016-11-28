@@ -95,6 +95,9 @@ else
   else
     console.log 'using default projection "'+defaultprojection+'"'
 
+# allow only one cued piece?
+cuesingle = config.cuesingle ? false
+
 stages = {}
 
 prefixes = ['auto_', 'mc1_', 'mc2_', 'mc3_', 'default_']
@@ -112,7 +115,7 @@ for w,wi in weathers
 effects += ']'
 ex.parameters.initstate.effects = effects 
 
-add_actions = (control, prefix, data) ->
+add_actions = (control, prefix, data, meldload) ->
   # monitor
   control.actions.push 
     channel: ''
@@ -139,16 +142,17 @@ add_actions = (control, prefix, data) ->
   if data[prefix+'cue']?
     nextstage = data[prefix+'cue']
     # if it cues, can it only happen if not already cued?!
-    if (prefix!='auto_' && control.precondition.indexOf 'cued') < 0
+    if (cuesingle && prefix!='auto_' && control.precondition.indexOf 'cued') < 0
       control.precondition = '!cued'+(if control.precondition.length == 0 then '' else ' && (')+control.precondition+(if control.precondition.length == 0 then '' else ')')
     if not stages[nextstage] ?
       console.log 'ERROR: stage '+data.stage+' '+prefix+' cue to unknown stage: '+nextstage
     else
+      meldprefix = if meldload then 'params.' else ''
       control.actions.push 
-        url: '{{meldcollection}}'
+        url: '{{'+meldprefix+'meldcollection}}'
         post: true
         contentType: 'application/json'
-        body: '{"oa:hasTarget":["{{meldannostate}}"], "oa:hasBody":[{"@type":"meldterm:CreateNextCollection", "resourcesToQueue":["{{meldmeiuri}}'+encodeURIComponent(stages[nextstage].meifile)+'"], "annotationsToQueue":[]}] }'
+        body: '{"oa:hasTarget":["{{'+meldprefix+'meldannostate}}"], "oa:hasBody":[{"@type":"meldterm:CreateNextCollection", "resourcesToQueue":["{{meldmeiuri}}'+encodeURIComponent(stages[nextstage].meifile)+'"], "annotationsToQueue":[]}] }'
       control.poststate.meldnextmeifile = JSON.stringify stages[nextstage].meifile
       control.poststate.cued = "true"
 
@@ -232,7 +236,7 @@ for r in [1..1000]
   control.precondition = 'params.meldmei==(meldmeiuri+'+(JSON.stringify encodeURIComponent(data.meifile))+')'
   ex.controls.push control
   set_stage control, data
-  add_actions control, 'auto_', data
+  add_actions control, 'auto_', data, true
   control.poststate.meldmei = 'params.meldmei'
   control.poststate.meldannostate = 'params.meldannostate'
   control.poststate.meldcollection = 'params.meldcollection'
