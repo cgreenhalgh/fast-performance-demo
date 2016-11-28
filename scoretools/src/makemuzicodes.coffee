@@ -137,16 +137,20 @@ add_actions = (control, prefix, data) ->
   control.precondition ?= ''
   # cue next stage
   if data[prefix+'cue']?
+    nextstage = data[prefix+'cue']
     # if it cues, can it only happen if not already cued?!
     if (prefix!='auto_' && control.precondition.indexOf 'cued') < 0
       control.precondition = '!cued'+(if control.precondition.length == 0 then '' else ' && (')+control.precondition+(if control.precondition.length == 0 then '' else ')')
-    control.actions.push 
-      url: '{{meldcollection}}'
-      post: true
-      contentType: 'application/json'
-      body: '{"oa:hasTarget":["{{meldannostate}}"], "oa:hasBody":[{"@type":"meldterm:CreateNextCollection", "resourcesToQueue":["{{meldmeiuri}}'+encodeURIComponent(data.meifile)+'"], "annotationsToQueue":[]}] }'
-    control.poststate.meldnextmeifile = JSON.stringify data.meifile
-    control.poststate.cued = "true"
+    if not stages[nextstage] ?
+      console.log 'ERROR: stage '+data.stage+' '+prefix+' cue to unknown stage: '+nextstage
+    else
+      control.actions.push 
+        url: '{{meldcollection}}'
+        post: true
+        contentType: 'application/json'
+        body: '{"oa:hasTarget":["{{meldannostate}}"], "oa:hasBody":[{"@type":"meldterm:CreateNextCollection", "resourcesToQueue":["{{meldmeiuri}}'+encodeURIComponent(stages[nextstage].meifile)+'"], "annotationsToQueue":[]}] }'
+      control.poststate.meldnextmeifile = JSON.stringify stages[nextstage].meifile
+      control.poststate.cued = "true"
 
 set_stage = (control, data) ->
   control.poststate ?= {}
@@ -191,7 +195,19 @@ for r in [1..1000]
   stages[data.stage] = data
   # defaults for ...-monitor
   for prefix in prefixes
-    data[prefix+'monitor'] ?= 'data:text/plain,stage '+data.stage+' '+prefix+' triggered!' 
+    data[prefix+'monitor'] ?= 'data:text/plain,stage '+data.stage+' '+prefix+' triggered!'
+  if not data.meifile? 
+    console.log 'WARNING: no meifile specified for stage '+data.stage
+    data.meifile = data.stage+'.mei'
+
+for r in [1..1000]
+  cell = sheet[cellid(0,r)]
+  if cell == undefined
+    break
+  if not cell.v? 
+    continue
+  # restore
+  data = stages[cell.v]
 
   # TODO default-cue
   if r==1
@@ -202,18 +218,6 @@ for r in [1..1000]
     ex.controls.push control
     set_stage control, data
     add_actions control, 'auto_', data
-    # MELD input POST
-    control = 
-      inputUrl:'post:meld.load'
-      actions: []
-    control.precondition = 'params.meldmei==(meldmeiuri+'+(JSON.stringify data.meifile)+')'
-    ex.controls.push control
-    set_stage control, data
-    add_actions control, 'auto_', data
-    control.poststate.meldmei = 'params.meldmei'
-    control.poststate.meldannostate = 'params.meldannostate'
-    control.poststate.meldcollection = 'params.meldcollection'
-    control.poststate.meldnextmeifile = 'null';
   else
     # non-default stage
     # test button
@@ -221,18 +225,18 @@ for r in [1..1000]
     ex.controls.push control
     set_stage control, data
     add_actions control, 'auto_', data
-    # MELD input POST
-    control = 
-      inputUrl:'post:meld.load'
-      actions: []
-    control.precondition = 'params.meldmei==(meldmeiuri+'+(JSON.stringify data.meifile)+')'
-    ex.controls.push control
-    set_stage control, data
-    add_actions control, 'auto_', data
-    control.poststate.meldmei = 'params.meldmei'
-    control.poststate.meldannostate = 'params.meldannostate'
-    control.poststate.meldcollection = 'params.meldcollection'
-    control.poststate.meldnextmeifile = 'null';
+  # MELD input POST
+  control = 
+    inputUrl:'post:meld.load'
+    actions: []
+  control.precondition = 'params.meldmei==(meldmeiuri+'+(JSON.stringify encodeURIComponent(data.meifile))+')'
+  ex.controls.push control
+  set_stage control, data
+  add_actions control, 'auto_', data
+  control.poststate.meldmei = 'params.meldmei'
+  control.poststate.meldannostate = 'params.meldannostate'
+  control.poststate.meldcollection = 'params.meldcollection'
+  control.poststate.meldnextmeifile = 'null';
 
   # muzicodes
   for mc in mcs
