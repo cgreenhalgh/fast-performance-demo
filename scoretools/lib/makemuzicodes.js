@@ -123,9 +123,10 @@
     cued: false,
     meldmei: '""',
     meldcollection: '""',
-    meldnextstage: 'null',
-    meldserver: JSON.stringify((ref2 = config.meldserver) != null ? ref2 : 'http://localhost:5000/annotations/'),
-    mcserver: JSON.stringify((ref3 = config.mcserver) != null ? ref3 : 'http://localhost:3000/input')
+    meldannostate: '""',
+    meldnextmeifile: 'null',
+    mcserver: JSON.stringify((ref2 = config.mcserver) != null ? ref2 : 'http://localhost:3000/input'),
+    meldmeiuri: JSON.stringify((ref3 = config.meldmeiuri) != null ? ref3 : 'http://localhost:3000/content/')
   };
 
   defaultprojection = String((ref4 = config.defaultprojection) != null ? ref4 : '');
@@ -212,12 +213,12 @@
         control.precondition = '!cued' + (control.precondition.length === 0 ? '' : ' && (') + control.precondition + (control.precondition.length === 0 ? '' : ')');
       }
       control.actions.push({
-        url: '{{meldserver}}{{encodeURIComponent(meldcollection)}}',
+        url: '{{meldcollection}}',
         post: true,
         contentType: 'application/json',
-        body: '{"name":' + (JSON.stringify('meld.load:' + data[prefix + 'cue'])) + ',' + '"callback":"{{mcserver}}"}'
+        body: '{"oa:hasTarget":["{{meldannostate}}"], "oa:hasBody":[{"@type":"meldterm:CreateNextCollection", "resourcesToQueue":["{{meldmeiuri}}' + encodeURIComponent(data.meifile) + '"], "annotationsToQueue":[]}] }'
       });
-      control.poststate.meldnextstage = JSON.stringify(data[prefix + 'cue']);
+      control.poststate.meldnextmeifile = JSON.stringify(data.meifile);
       return control.poststate.cued = "true";
     }
   };
@@ -306,12 +307,14 @@
         inputUrl: 'post:meld.load',
         actions: []
       };
+      control.precondition = 'params.meldmei==(meldmeiuri+' + (JSON.stringify(data.meifile)) + ')';
       ex.controls.push(control);
       set_stage(control, data);
       add_actions(control, 'auto_', data);
       control.poststate.meldmei = 'params.meldmei';
+      control.poststate.meldannostate = 'params.meldannostate';
       control.poststate.meldcollection = 'params.meldcollection';
-      control.poststate.meldnextstage = 'null';
+      control.poststate.meldnextmeifile = 'null';
     } else {
       control = {
         inputUrl: 'button:' + data.stage,
@@ -321,15 +324,17 @@
       set_stage(control, data);
       add_actions(control, 'auto_', data);
       control = {
-        inputUrl: 'post:' + encodeURIComponent('meld.load:' + data.stage),
+        inputUrl: 'post:meld.load',
         actions: []
       };
+      control.precondition = 'params.meldmei==(meldmeiuri+' + (JSON.stringify(data.meifile)) + ')';
       ex.controls.push(control);
       set_stage(control, data);
       add_actions(control, 'auto_', data);
       control.poststate.meldmei = 'params.meldmei';
+      control.poststate.meldannostate = 'params.meldannostate';
       control.poststate.meldcollection = 'params.meldcollection';
-      control.poststate.meldnextstage = 'null';
+      control.poststate.meldnextmeifile = 'null';
     }
     for (m = 0, len3 = mcs.length; m < len3; m++) {
       mc = mcs[m];
@@ -376,7 +381,7 @@
   control = {
     inputUrl: 'button:Force Next',
     actions: [],
-    precondition: '!!meldnextstage'
+    precondition: '!!meldnextmeifile'
   };
 
   ex.controls.push(control);
@@ -385,7 +390,35 @@
     url: 'http://localhost:3000/input',
     post: true,
     contentType: 'application/x-www-form-urlencoded',
-    body: 'name={{encodeURIComponent("meld.load:"+meldnextstage)}}&meldmei=&meldcollection='
+    body: 'name=meld.load&meldmei={{meldmeiuri}}{{encodeURIComponent(meldnextmeifile)}}&meldcollection=&meldannostate='
+  });
+
+  control = {
+    inputUrl: 'button:pedal',
+    actions: []
+  };
+
+  ex.controls.push(control);
+
+  control.actions.push({
+    url: 'http://localhost:3000/input',
+    post: true,
+    contentType: 'application/x-www-form-urlencoded',
+    body: 'name=pedal'
+  });
+
+  control = {
+    inputUrl: 'post:pedal',
+    actions: []
+  };
+
+  ex.controls.push(control);
+
+  control.actions.push({
+    url: '{{meldcollection}}',
+    post: true,
+    contentType: 'application/json',
+    body: '{"oa:hasTarget":["{{meldannostate}}"], "oa:hasBody":[{"@type":"meldterm:NextPageOrPiece"}] }'
   });
 
   console.log('write experience ' + exoutfile);

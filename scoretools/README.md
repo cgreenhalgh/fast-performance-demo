@@ -18,6 +18,7 @@ experiencein: FILE.json
 experienceout: FILE.json
 mcserver: http://localhost:3000/input
 meldserver: http://localhost:5000/addannotation/
+meldmeirui: http://localhost:3000/content/
 defaultprojection: 1
 no_effect: data:text/x-midi-hex,903a7f
 rain_effect: data:text/x-midi-hex,903b7f

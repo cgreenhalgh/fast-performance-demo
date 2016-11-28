@@ -81,9 +81,10 @@ ex.parameters.initstate =
   cued: false
   meldmei: '""'
   meldcollection: '""'
-  meldnextstage: 'null'
-  meldserver: JSON.stringify (config.meldserver ? 'http://localhost:5000/annotations/')
+  meldannostate: '""'
+  meldnextmeifile: 'null'
   mcserver: JSON.stringify (config.mcserver ? 'http://localhost:3000/input')
+  meldmeiuri: JSON.stringify (config.meldmeiuri ? 'http://localhost:3000/content/')
 
 defaultprojection = String(config.defaultprojection ? '')
 if defaultprojection == ''
@@ -140,14 +141,12 @@ add_actions = (control, prefix, data) ->
     if (prefix!='auto_' && control.precondition.indexOf 'cued') < 0
       control.precondition = '!cued'+(if control.precondition.length == 0 then '' else ' && (')+control.precondition+(if control.precondition.length == 0 then '' else ')')
     control.actions.push 
-      url: '{{meldserver}}{{encodeURIComponent(meldcollection)}}'
+      url: '{{meldcollection}}'
       post: true
       contentType: 'application/json'
-      body: '{"name":'+(JSON.stringify 'meld.load:'+data[prefix+'cue'])+','+
-        '"callback":"{{mcserver}}"}'
-    control.poststate.meldnextstage = JSON.stringify data[prefix+'cue']
+      body: '{"oa:hasTarget":["{{meldannostate}}"], "oa:hasBody":[{"@type":"meldterm:CreateNextCollection", "resourcesToQueue":["{{meldmeiuri}}'+encodeURIComponent(data.meifile)+'"], "annotationsToQueue":[]}] }'
+    control.poststate.meldnextmeifile = JSON.stringify data.meifile
     control.poststate.cued = "true"
-    # TODO proper MELD request
 
 set_stage = (control, data) ->
   control.poststate ?= {}
@@ -207,12 +206,14 @@ for r in [1..1000]
     control = 
       inputUrl:'post:meld.load'
       actions: []
+    control.precondition = 'params.meldmei==(meldmeiuri+'+(JSON.stringify data.meifile)+')'
     ex.controls.push control
     set_stage control, data
     add_actions control, 'auto_', data
     control.poststate.meldmei = 'params.meldmei'
+    control.poststate.meldannostate = 'params.meldannostate'
     control.poststate.meldcollection = 'params.meldcollection'
-    control.poststate.meldnextstage = 'null';
+    control.poststate.meldnextmeifile = 'null';
   else
     # non-default stage
     # test button
@@ -222,14 +223,16 @@ for r in [1..1000]
     add_actions control, 'auto_', data
     # MELD input POST
     control = 
-      inputUrl:'post:'+encodeURIComponent('meld.load:'+data.stage)
+      inputUrl:'post:meld.load'
       actions: []
+    control.precondition = 'params.meldmei==(meldmeiuri+'+(JSON.stringify data.meifile)+')'
     ex.controls.push control
     set_stage control, data
     add_actions control, 'auto_', data
     control.poststate.meldmei = 'params.meldmei'
+    control.poststate.meldannostate = 'params.meldannostate'
     control.poststate.meldcollection = 'params.meldcollection'
-    control.poststate.meldnextstage = 'null';
+    control.poststate.meldnextmeifile = 'null';
 
   # muzicodes
   for mc in mcs
@@ -265,14 +268,32 @@ for stage,data of stages
       errors++
 
 # fake meld input
-control = {inputUrl:'button:Force Next',actions:[],precondition:'!!meldnextstage'}
+control = {inputUrl:'button:Force Next',actions:[],precondition:'!!meldnextmeifile'}
 ex.controls.push control
 control.actions.push 
   url: 'http://localhost:3000/input'
   post: true
   contentType: 'application/x-www-form-urlencoded'
-  body: 'name={{encodeURIComponent("meld.load:"+meldnextstage)}}&meldmei=&meldcollection='
+  body: 'name=meld.load&meldmei={{meldmeiuri}}{{encodeURIComponent(meldnextmeifile)}}&meldcollection=&meldannostate='
   # meldmei, meldcollection
+
+# fake pedal input
+control = {inputUrl:'button:pedal',actions:[]}
+ex.controls.push control
+control.actions.push 
+  url: 'http://localhost:3000/input'
+  post: true
+  contentType: 'application/x-www-form-urlencoded'
+  body: 'name=pedal'
+
+# pedal meld action
+control = {inputUrl:'post:pedal',actions:[]}
+ex.controls.push control
+control.actions.push 
+  url: '{{meldcollection}}'
+  post: true
+  contentType: 'application/json'
+  body: '{"oa:hasTarget":["{{meldannostate}}"], "oa:hasBody":[{"@type":"meldterm:NextPageOrPiece"}] }'
 
 console.log 'write experience '+exoutfile
 fs.writeFileSync exoutfile, (JSON.stringify ex, null, '  '), {encoding: 'utf8'}
