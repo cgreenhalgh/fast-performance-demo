@@ -12,6 +12,28 @@ The following four environment variables need to be set prior to running it:
 - `MELD_MUZICODES_URI` <- URI of the muzicodes server, e.g. `http://127.0.0.1:3000`
 - `MELD_BASECAMP_MEI_FILE` <- URI to the first MEI file of the performance, e.g. `http://127.0.0.1/mei/TheClimb/BaseCamp.mei`
 
+## Page Size
+
+Page width and height will want adjusting for the tablet. 
+
+This can be done in the options JSON object inside `app/static/meldrest.js` (line 556), using the keys `pageHeight` and `pageWidth` (currently not specified). Values are number of pixels. 
+
+Verovio will take these values into account when generating the notation layout. See e.g. [http://www.verovio.org/tutorial.xhtml?id=topic01](http://www.verovio.org/tutorial.xhtml?id=topic01)
+
+e.g.
+```
+var zoom = 40;
+$(document).ready(function() { 
+    var options = JSON.stringify({
+    	pageHeight: 1200*100/zoom,
+    	pageWidth: 750*100/zoom,
+    	ignoreLayout: 1,
+        adjustPageHeight: 1,
+        scale:zoom
+    });
+```
+
+
 ## Use
 
 Run the server using:
@@ -20,10 +42,14 @@ python manage.py runserver
 ```
 
 To start a new session of the game (from scratch, i.e. using a new collection of annotations): 
-- point your browser to $MELD_BASE_URI/startTheClimb (we should bookmark this on the tablet)
+- point your browser to `$MELD_BASE_URI/startTheClimb`, e.g. `http://127.0.0.1:5000/startTheClimb` (we should bookmark this on the tablet)
 - click the button there to begin
 
-MELD will now POST to $MELD_MUZICODES_URI/input whenever a new piece is loaded, supplying:
+## Implementation Details
+
+After browsing to `$MELD_BASE_URI/startTheClimb` and pressing start...
+
+MELD (client) will now POST to $MELD_MUZICODES_URI/input whenever a new piece is loaded, supplying:
 - name 
 - meldcollection
 - meldmei
@@ -43,12 +69,4 @@ curl -X POST -H "Content-Type: application/json" -d '{"oa:hasTarget":[$meldannos
 ```
 
 The JavaScript client currently polls for new state every 50 ms; that's running smoothly on my laptop, however if sluggish on the tablet, it can be adjusted.
-
-## Page Size
-
-Page width and height will want adjusting for the tablet. 
-
-This can be done in the options JSON object inside `app/static/meldrest.js` (line 454), using the keys `pageHeight` and `pageWidth` (currently not specified). Values are number of pixels. 
-
-Verovio will take these values into account when generating the notation layout. See e.g. [http://www.verovio.org/tutorial.xhtml?id=topic01](http://www.verovio.org/tutorial.xhtml?id=topic01)
 

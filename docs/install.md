@@ -27,7 +27,9 @@ Pre-reqs
 sudo pip install -r requirements.txt
 ```
 
-Note, to run Meld within vm use `--host==0.0.0.0` option
+See [meldnotes.md](meldmotes.md) for more on setting up MELD...
+
+Note, to run Meld within vm use `--host==0.0.0.0` option, e.g.
 ```
 python manage.py runserver --host=0.0.0.0
 ```
