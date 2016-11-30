@@ -3,7 +3,7 @@ experiencein: mkGameEngine-in.json
 experienceout: mkGameEngine-out.json
 mcserver: http://127.0.0.1:3000/input
 meldserver: http://127.0.0.1:5000/addannotation/
-meldmeiuri: http://127.0.0.1:3000/content/
+meldmeiuri: http://muzicodes/content/
 cuesingle: false
 defaultprojection: 1
 no_effect: data:text/x-midi-hex,903a7f
