@@ -36,8 +36,8 @@ microsecondsPerBeat = 500000
 
 # milliseconds...
 delete midi.header.ticksPerBeat
-midi.header.ticksPerFrame = 25
-midi.header.framesPerSecond = 40
+midi.header.ticksPerFrame = 40
+midi.header.framesPerSecond = 25
 #midi.header.ticksPerBeat = 500
 
 midiout = 
@@ -115,10 +115,10 @@ for track in midi.tracks
     if event.type=='setTempo'
       microsecondsPerBeat = event.microsecondsPerBeat
       console.log 'check: at '+(timeMicroseconds/1000000)+' tempo now '+microsecondsPerBeat+'us/beat = '+(60000000/microsecondsPerBeat)+' bpm'
-      if not writtenTempo
-        writtenTempo = true
-        event.microsecondsPerBeat = 500000
-        trackout.push event
+      #if not writtenTempo
+      #  writtenTempo = true
+      #  event.microsecondsPerBeat = 500000
+      #  trackout.push event
     else
       trackout.push event
     if event.type=='endOfTrack'

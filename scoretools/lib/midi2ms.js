@@ -34,9 +34,9 @@
 
   delete midi.header.ticksPerBeat;
 
-  midi.header.ticksPerFrame = 25;
+  midi.header.ticksPerFrame = 40;
 
-  midi.header.framesPerSecond = 40;
+  midi.header.framesPerSecond = 25;
 
   midiout = {
     header: midi.header,
@@ -118,11 +118,6 @@
       if (event.type === 'setTempo') {
         microsecondsPerBeat = event.microsecondsPerBeat;
         console.log('check: at ' + (timeMicroseconds / 1000000) + ' tempo now ' + microsecondsPerBeat + 'us/beat = ' + (60000000 / microsecondsPerBeat) + ' bpm');
-        if (!writtenTempo) {
-          writtenTempo = true;
-          event.microsecondsPerBeat = 500000;
-          trackout.push(event);
-        }
       } else {
         trackout.push(event);
       }
