@@ -4,10 +4,10 @@ if process.argv.length != 4
   console.error 'Usage: node readmidi.js MIDIFILEIN MIDIFILEOUT'
   process.exit -1
 
-midiFileParser = require 'midi-file-parser'
+#midiFileParser = require 'midi-file-parser'
 
 # threw an exception
-#var parseMidi = require('midi-file').parseMidi
+midiFileParser = require('midi-file').parseMidi
 writeMidi = require('midi-file').writeMidi
 
 fs = require 'fs'
@@ -17,13 +17,14 @@ midifileout = process.argv[3]
 
 console.log 'read '+midifilein
 
-file = fs.readFileSync midifilein, 'binary'
+file = fs.readFileSync midifilein
+#, 'binary'
 midi = midiFileParser file
 # midi-file-parser uses event.subtype cf event.type
-for track in midi.tracks
-  for event in track
-    event.type = event.subtype
-    delete event.subtype
+#for track in midi.tracks
+#  for event in track
+#    event.type = event.subtype
+#    delete event.subtype
 
 if !midi.header.ticksPerBeat
   console.error 'File is not beat-based: '+(JSON.stringify midi.header)
@@ -35,9 +36,9 @@ microsecondsPerBeat = 500000
 
 # milliseconds...
 delete midi.header.ticksPerBeat
-#midi.header.ticksPerFrame = 25
-#midi.header.framesPerSecond = 40
-midi.header.ticksPerBeat = 500
+midi.header.ticksPerFrame = 25
+midi.header.framesPerSecond = 40
+#midi.header.ticksPerBeat = 500
 
 midiout = 
   header: midi.header
@@ -106,6 +107,7 @@ for track in midi.tracks
       microseconds = Math.round( microseconds )
       # carried-forward microsecond remainder
       event.deltaTime = Math.floor(( microseconds + (timeMicroseconds % 1000) ) / 1000)
+      #console.log '  -> deltaTime '+event.deltaTime
       # microsecond accurate
       timeMicroseconds += microseconds
     else
