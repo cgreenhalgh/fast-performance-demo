@@ -14,6 +14,7 @@ if ! [ -d "musiccodes/server/public/content" ]; then
 fi
 
 cp mei-files/*.mei musiccodes/server/public/content/
+cp images/* musiccodes/server/public/content/
 
 cd scoretools
 npm install --no-bin-links

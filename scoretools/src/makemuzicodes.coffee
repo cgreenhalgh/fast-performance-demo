@@ -85,6 +85,7 @@ ex.parameters.initstate =
   meldnextmeifile: 'null'
   mcserver: JSON.stringify (config.mcserver ? 'http://localhost:3000/input')
   meldmeiuri: JSON.stringify (config.meldmeiuri ? 'http://localhost:3000/content/')
+  contenturi: JSON.stringify (config.contenturi ? 'http://localhost:3000/content/')
 
 defaultprojection = String(config.defaultprojection ? '')
 if defaultprojection == ''
@@ -115,16 +116,22 @@ for w,wi in weathers
 effects += ']'
 ex.parameters.initstate.effects = effects 
 
+content_url = (url) ->
+  if (url.indexOf ':') < 0 and (url.substring 0,1) != '/'
+    return '{{contenturi}}'+url
+  else
+     return url
+
 add_actions = (control, prefix, data, meldload) ->
   # monitor
   control.actions.push 
     channel: ''
-    url: data[prefix+'monitor']
+    url: content_url data[prefix+'monitor']
   # visual
   if data[prefix+'visual']?
     control.actions.push 
       channel: 'visual'
-      url: data[prefix+'visual']
+      url: content_url data[prefix+'visual']
   # midi
   if data[prefix+'midi']?
     # multiple 

@@ -18,7 +18,8 @@ experiencein: FILE.json
 experienceout: FILE.json
 mcserver: http://localhost:3000/input
 meldserver: http://localhost:5000/addannotation/
-meldmeirui: http://localhost:3000/content/
+meldmeiuri: http://localhost:3000/content/
+contenturi: http://localhost:3000/content/
 cuesingle:false
 defaultprojection: 1
 no_effect: data:text/x-midi-hex,903a7f
