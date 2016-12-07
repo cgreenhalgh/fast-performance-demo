@@ -993,10 +993,10 @@
                                 <rend xml:id="rend-000000072248967" fontfam="Times New Roman">Ending 3</rend>
                             </dir>
                             <dynam xml:id="dynam-000000021289035" place="below" staff="3" tstamp="1">f</dynam>
-                            <slur xml:id="slur-000000028975014" place="above" staff="3 tstamp="2" tstsamp2="2.75" />
+                            <slur xml:id="slur-000000028975014" place="above" staff="3" tstamp="2" tstsamp2="2.75" />
                             <pedal xml:id="pedal-000000018091835" staff="4" tstamp="1" dir="down" place="below" />
                             <pedal xml:id="pedal-000000104014960" staff="4" tstamp="3.8" dir="upn" place="below" />
-                            <slur xml:id="slur-000000051001619" staff="4 place="above" tstamp="2" tstsamp2="2.75" endid="#note-000000018702878" />
+                            <slur xml:id="slur-000000051001619" staff="4" place="above" tstamp="2" tstsamp2="2.75" endid="#note-000000018702878" />
                         </measure>
                     </section>
                 </score>

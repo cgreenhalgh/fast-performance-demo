@@ -6,6 +6,7 @@ if process.argv.length != 2 and process.argv.length!=3
 yaml = require 'js-yaml'
 fs   = require 'fs'
 path = require 'path'
+getCodeIds = (require './meiutils').getCodeIds
 
 # Get document, or throw exception on error 
 configfile = process.argv[2] ? 'config.yml'
@@ -194,6 +195,7 @@ get_marker = (ex, markertitle, optdescription) ->
     markers = [marker]
   return markers[0]
 
+# initialise defaults
 for r in [1..1000]
   cell = sheet[cellid(0,r)]
   if cell == undefined
@@ -211,6 +213,21 @@ for r in [1..1000]
     console.log 'WARNING: no meifile specified for stage '+data.stage
     data.meifile = data.stage+'.mei'
 
+# read mei file, extract IDs associated with possible codes
+readmeiids = (meifile) ->
+  meidir = configdir
+  if config.meidir
+    meidir = relpath config.meidir, configdir
+  meifile = relpath meifile, meidir
+  mei = null
+  try
+    mei = fs.readFileSync meifile, 'utf8'
+  catch e 
+    console.log 'ERROR: reading mei file '+meifile+': '+e.message
+    return {}
+  getCodeIds mei
+
+# process rows / stages
 for r in [1..1000]
   cell = sheet[cellid(0,r)]
   if cell == undefined
@@ -220,7 +237,8 @@ for r in [1..1000]
   # restore
   data = stages[cell.v]
 
-  # TODO default-cue
+  meiids = readmeiids data.meifile
+
   if r==1
     # default stage
     ex.parameters.initstate.stage = JSON.stringify data.stage
@@ -263,6 +281,14 @@ for r in [1..1000]
       marker.precondition += ' || '
     marker.precondition += 'stage=="'+data.stage+'"'+suffix
     add_actions marker, mc, data
+    # trigger -> mei
+    if data[mc]? and data[mc]!=''
+      ids = meiids[data[mc]]
+      if not ids?
+        console.log 'Warning: could not find code "'+data[mc]+'" in meifile '+data.meifile+' (stage '+data.stage+' mc '+mc+')'
+      else
+        console.log 'Code '+data[mc]+' -> '+ids
+        # TODO MELD action
     
   # default cue
   if defaultprojection!='' && data['default_cue']?

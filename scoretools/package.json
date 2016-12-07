@@ -6,7 +6,9 @@
     "js-yaml": "^3.7.0",
     "midi-file": "git+https://github.com/cgreenhalgh/midi-file.git",
     "mustache": "^2.3.0",
-    "xlsx": "^0.8.0"
+    "xlsx": "^0.8.0",
+    "xmldom": "^0.1.27",
+    "xpath": "0.0.23"
   },
   "devDependencies": {
     "coffee-script": "^1.11.1"

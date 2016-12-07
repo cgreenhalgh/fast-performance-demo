@@ -16,6 +16,7 @@ Config file in YAML, `config.yml`:
 spreadsheet: FILE.xlsx
 experiencein: FILE.json
 experienceout: FILE.json
+meidir: ../mei-files
 mcserver: http://localhost:3000/input
 meldserver: http://localhost:5000/addannotation/
 meldmeiuri: http://localhost:3000/content/

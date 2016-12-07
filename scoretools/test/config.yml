@@ -1,6 +1,7 @@
 spreadsheet: test1.xlsx
 experiencein: test1-in.json
 experienceout: test1-out.json
+meidir: ../../mei-files
 mcserver: http://localhost:3000/input
 meldserver: http://localhost:5000/addannotation/
 contenturi: http://localhost:3000/content/
