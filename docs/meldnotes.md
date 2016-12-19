@@ -70,3 +70,8 @@ curl -X POST -H "Content-Type: application/json" -d '{"oa:hasTarget":[$meldannos
 
 The JavaScript client currently polls for new state every 50 ms; that's running smoothly on my laptop, however if sluggish on the tablet, it can be adjusted.
 
+To highlight something within the score (e.g. a measure, a note)
+```
+curl -X POST -H "Content-Type: application/json" -d '{"oa:hasTarget":[{"@id":"$MEI_ELEMENT"}], "oa:hasBody":[{"@type":"meldterm:Emphasis"}] }' -v $COLLECTION_URI
+```
+$MEI_ELEMENT is the full URI of the MEI element to be highlighted (including '#' and fragment id). You should be able to supply multiple oa:hasTargets in the list, e.g. if you want to highlight the last few notes of a measure, plus the entire next measure (currently untested). 
