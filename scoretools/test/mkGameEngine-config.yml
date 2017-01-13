@@ -3,7 +3,8 @@ experiencein: mkGameEngine-in.json
 experienceout: mkGameEngine-out.json
 mcserver: http://127.0.0.1:3000/input
 meldserver: http://127.0.0.1:5000/addannotation/
-meldmeiuri: http://muzicodes/content/
+#meldmeiuri: http://muzicodes/content/
+meldmeiuri: http://127.0.0.1:3000/content/
 cuesingle: false
 defaultprojection: 1
 no_effect: data:text/x-midi-hex,903a7f
@@ -12,3 +13,4 @@ snow_effect: data:text/x-midi-hex,903c7f
 wind_effect: data:text/x-midi-hex,903d7f
 storm_effect: data:text/x-midi-hex,903e7f
 sun_effect: data:text/x-midi-hex,903f7f
+meidir: ../../mei-files
