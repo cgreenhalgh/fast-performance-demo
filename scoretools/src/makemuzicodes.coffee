@@ -214,6 +214,7 @@ for r in [1..1000]
     data.meifile = data.stage+'.mei'
 
 # read mei file, extract IDs associated with possible codes
+# map of label (code mei name) -> [ xml:ids ]
 readmeiids = (meifile) ->
   meidir = configdir
   if config.meidir
@@ -283,12 +284,27 @@ for r in [1..1000]
     add_actions marker, mc, data
     # trigger -> mei
     if data[mc]? and data[mc]!=''
-      ids = meiids[data[mc]]
-      if not ids?
-        console.log 'Warning: could not find code "'+data[mc]+'" in meifile '+data.meifile+' (stage '+data.stage+' mc '+mc+')'
-      else
-        console.log 'Code '+data[mc]+' -> '+ids
-        # TODO MELD action
+      labels = data[mc].split ','
+      fragments = []
+      for label in labels when label!=''
+        if (label.indexOf '#')==0
+          fragments.push label
+        else
+          ids = meiids[data[mc]]
+          if not ids?
+            console.log 'Warning: could not find code "'+data[mc]+'" in meifile '+data.meifile+' (stage '+data.stage+' mc '+mc+')'
+          else
+            console.log 'Code '+data[mc]+' -> '+ids
+            for id in ids
+              fragments.push '#'+id
+      for fragment in fragments
+        # MELD highlight action 
+        # curl -X POST -H "Content-Type: application/json" -d '{"oa:hasTarget":[{"@id":"$MEI_ELEMENT"}], "oa:hasBody":[{"@type":"meldterm:Emphasis"}] }' -v $COLLECTION_URI
+        marker.actions.push 
+          url: '{{meldcollection}}'
+          post: true
+          contentType: 'application/json'
+          body: '{"oa:hasTarget":[{"@id":"{{meldmei}}'+fragment+'"}], "oa:hasBody":[{"@type":"meldterm:Emphasis"}] }'
     
   # default cue
   if defaultprojection!='' && data['default_cue']?
