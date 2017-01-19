@@ -1,0 +1,15 @@
+spreadsheet: mkGameEngine2.xlsx
+experiencein: mkGameEngine2-in.json
+experienceout: mkGameEngine2-out.json
+mcserver: http://127.0.0.1:3000/input
+meldserver: http://127.0.0.1:5000/addannotation/
+meldmeiuri: http://127.0.0.1:3000/content/
+cuesingle: false
+defaultprojection: 1
+no_effect: data:text/x-midi-hex,910f7f
+rain_effect: data:text/x-midi-hex,910b7f
+snow_effect: data:text/x-midi-hex,910a7f
+wind_effect: data:text/x-midi-hex,91097f
+storm_effect: data:text/x-midi-hex,910c7f
+sun_effect: data:text/x-midi-hex,910d7f
+contenturi: content/
