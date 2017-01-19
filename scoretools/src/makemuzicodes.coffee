@@ -171,12 +171,19 @@ set_stage = (control, data) ->
   # weather
   ws = []
   for w,wi in weathers
-    if data[w+'_effect']? and data[w+'_effect'].length>0 and data[w+'_effect'].substring(0,1).toLowerCase()=='y'
-      ws.push wi
-  if ws.length == 0
-    ws.push 0
-  control.actions.push 
-    url: '{{effects[(['+(ws.join ',')+'])[Math.floor(Math.random()*'+ws.length+')]]}}'
+    if data[w+'_effect']? and data[w+'_effect'].length>0
+      if data[w+'_effect'].substring(0,1).toLowerCase()=='y'
+        ws.push wi
+      else if data[w+'_effect'].substring(0,1).toLowerCase()!='n'
+        n = parseInt data[w+'_effect']
+        if isNaN n 
+          console.log 'WARNING: error in weather '+w+' value '+ data[w+'_effect']+' (should be Y, N or count)'
+        if !(isNaN n) and n>0
+          for ni in [1..n]
+            ws.push wi
+  if ws.length > 0
+    control.actions.push 
+      url: '{{effects[(['+(ws.join ',')+'])[Math.floor(Math.random()*'+ws.length+')]]}}'
 
 # find/make named marker
 get_marker = (ex, markertitle, optdescription) ->
