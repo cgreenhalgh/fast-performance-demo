@@ -32,6 +32,10 @@ Vagrant.configure(2) do |config|
     # nginx reverse proxy - for presenting as remote servers
     #sudo apt-get install -y nginx
 
+    # for mei xslt
+    #sudo apt-get install -y xsltproc
+    sudo apt-get install -y openjdk-7-jre-headless
+    sudo apt-get install -y libsaxonb-java
   SHELL
 
   
