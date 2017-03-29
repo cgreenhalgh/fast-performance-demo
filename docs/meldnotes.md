@@ -49,11 +49,21 @@ To start a new session of the game (from scratch, i.e. using a new collection of
 
 After browsing to `$MELD_BASE_URI/startTheClimb` and pressing start...
 
-MELD (client) will now POST to $MELD_MUZICODES_URI/input whenever a new piece is loaded, supplying:
+the `startTheClimb` script POSTs to `/collection` with parameter `topLevelTargets` = base camp MEI URL. This returns something like:
+```
+<html><head><link rel="monitor" href="http://127.0.0.1:5000/collection/bdXw4LJ3DaxMmK8ECQp6nK/createAnnoState"></head></html>
+```
+from which it extracts the URL. It then POSTs to that URL, and extracts the Location field from the response, which is something like:
+```
+Location: http://127.0.0.1:5000/annostate/RctywXmrxKTXQw9BJ49pKe
+```
+It then loads the page `<baseuri>/viewer?annostate=<returnedURL>` (where <baseuri> is typically empty).
+
+MELD (client) will now POST to $MELD_MUZICODES_URI/input whenever a new piece is loaded (including this first load), supplying:
 - name 
 - meldcollection
 - meldmei
-- meldannostate ** Note, NEW parameter that needs to be implemented on the Muzicodes side
+- meldannostate 
 
 The following curl commands simulates the annotation MELD is expecting to receive from Muzicodes. The bolded variables need to be filled by Muzicodes; $meldannostate and $meldcollection as supplied by MELD on page load.
 
@@ -61,12 +71,13 @@ Queue the next piece (in response to a Muzicode triggering)
 ```
 curl -X POST -H "Content-Type: application/json" -d '{"oa:hasTarget":["$meldannostate"], "oa:hasBody":[{"@type":"meldterm:CreateNextCollection", "resourcesToQueue":["$uri_of_next_mei_file"], "annotationsToQueue":[]}] }' -v $meldcollection
 ```
+Note that this first creates a new collection and annostate for the next score and then sends itself a QueueAnnoState annotation, which causes the UI to change to show the next piece and to set up the internal state used by the NextPageOrPiece handler.
 
 When the foot pedal is pressed, go to next page, or if at last page, load the next queued piece:
-
 ```
 curl -X POST -H "Content-Type: application/json" -d '{"oa:hasTarget":[$meldannostate], "oa:hasBody":[{"@type":"meldterm:NextPageOrPiece"}] }' -v $meldcollection
 ```
+Note that handling of the viewer next/prev buttons also works by creating the same annotations; the actual transitions are performed in the annotation handlers. (The annotation for previous page is `meldterm:PreviousPageOrPiece`.)
 
 The JavaScript client currently polls for new state every 50 ms; that's running smoothly on my laptop, however if sluggish on the tablet, it can be adjusted.
 
