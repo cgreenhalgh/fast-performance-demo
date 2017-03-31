@@ -159,7 +159,7 @@
 
   stages = {};
 
-  prefixes = ['auto_', 'mc1_', 'mc2_', 'mc3_', 'default_'];
+  prefixes = ['auto_', 'mc1_', 'mc2_', 'mc3_', 'mc4_', 'mc5_', 'default_'];
 
   mcs = ['mc1_', 'mc2_', 'mc3_'];
 
@@ -338,6 +338,7 @@
     }
     meifile = relpath(meifile, meidir);
     mei = null;
+    console.log('Processing mei file ' + meifile);
     try {
       mei = fs.readFileSync(meifile, 'utf8');
     } catch (error) {
