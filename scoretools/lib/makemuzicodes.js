@@ -341,6 +341,13 @@
     console.log('Processing mei file ' + meifile);
     try {
       mei = fs.readFileSync(meifile, 'utf8');
+      if (mei.length > 0 && mei.charCodeAt(0) !== 60 && mei.charCodeAt(0) !== 65279) {
+        mei = fs.readFileSync(meifile, 'ucs2');
+        if (mei.length > 0 && mei.charCodeAt(0) !== 60 && mei.charCodeAt(0) !== 65279) {
+          console.log('ERROR: file does not seem to be utf16 or utf8 XML: ' + meifile);
+          return {};
+        }
+      }
     } catch (error) {
       e = error;
       console.log('ERROR: reading mei file ' + meifile + ': ' + e.message);

@@ -231,6 +231,16 @@ readmeiids = (meifile) ->
   console.log 'Processing mei file '+meifile
   try
     mei = fs.readFileSync meifile, 'utf8'
+    #console.log 'read '+mei.charCodeAt(0)+','+mei.charCodeAt(1)+','+mei.charCodeAt(2)
+    # could be utf8 BEM
+    if mei.length>0 && mei.charCodeAt(0)!=60 && mei.charCodeAt(0)!=65279
+      #console.log 'trying file as utf16 '+meifile
+      mei = fs.readFileSync meifile, 'ucs2'
+      #console.log 'read ucs2 '+mei.charCodeAt(0)+','+mei.charCodeAt(1)+','+mei.charCodeAt(2)
+      # could be utf16 BEM
+      if mei.length>0 && mei.charCodeAt(0)!=60 && mei.charCodeAt(0)!=65279
+        console.log 'ERROR: file does not seem to be utf16 or utf8 XML: '+meifile
+        return {}
   catch e 
     console.log 'ERROR: reading mei file '+meifile+': '+e.message
     return {}
