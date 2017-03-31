@@ -50,6 +50,15 @@ getlabelledids = (doc) ->
       labels[text] = [ atts['xml:id'] ]
     else
       console.log 'Warning: text with no parent measure: '+text
+      
+  measurenodes = select "//mei:measure", doc
+  for measure in measurenodes
+  	atts = getattributemap measure
+  	if atts['n']?  
+  	  if labels[atts['n']]?
+        labels[atts['n']].push atts['xml:id']
+      else
+        labels[atts['n']] = [ atts['xml:id'] ]
   labels
 
 getCodeIds = (meitext) ->

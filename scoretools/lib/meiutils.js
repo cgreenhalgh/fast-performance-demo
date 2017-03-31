@@ -54,7 +54,7 @@
   };
 
   getlabelledids = function(doc) {
-    var atts, i, labels, len, measure, n, text, textnodes;
+    var atts, i, j, labels, len, len1, measure, measurenodes, n, text, textnodes;
     labels = {};
     textnodes = select("//mei:dir/mei:rend", doc);
     for (i = 0, len = textnodes.length; i < len; i++) {
@@ -66,6 +66,18 @@
         labels[text] = [atts['xml:id']];
       } else {
         console.log('Warning: text with no parent measure: ' + text);
+      }
+    }
+    measurenodes = select("//mei:measure", doc);
+    for (j = 0, len1 = measurenodes.length; j < len1; j++) {
+      measure = measurenodes[j];
+      atts = getattributemap(measure);
+      if (atts['n'] != null) {
+        if (labels[atts['n']] != null) {
+          labels[atts['n']].push(atts['xml:id']);
+        } else {
+          labels[atts['n']] = [atts['xml:id']];
+        }
       }
     }
     return labels;

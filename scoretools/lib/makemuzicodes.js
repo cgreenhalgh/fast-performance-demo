@@ -406,7 +406,7 @@
       marker.precondition += 'stage=="' + data.stage + '"' + suffix;
       add_actions(marker, mc, data);
       if ((data[mc] != null) && data[mc] !== '') {
-        labels = data[mc].split(',');
+        labels = String(data[mc]).split(',');
         fragments = [];
         for (q = 0, len4 = labels.length; q < len4; q++) {
           label = labels[q];
@@ -414,7 +414,7 @@
             if ((label.indexOf('#')) === 0) {
               fragments.push(label);
             } else {
-              ids = meiids[data[mc]];
+              ids = meiids[label];
               if (ids == null) {
                 console.log('Warning: could not find code "' + data[mc] + '" in meifile ' + data.meifile + ' (stage ' + data.stage + ' mc ' + mc + ')');
               } else {
@@ -442,7 +442,7 @@
       control = {
         inputUrl: 'event:end:' + defaultprojection,
         actions: [],
-        precondition: 'stage==' + (JSON.stringify(data.stage)),
+        precondition: 'stage==' + (JSON.stringify(data.stage)) + ' && !cued',
         poststate: {}
       };
       ex.controls.push(control);

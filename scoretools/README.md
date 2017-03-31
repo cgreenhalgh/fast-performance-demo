@@ -60,6 +60,10 @@ Actions/etc. for `auto:` and `mcN:`, i.e. names of following columns can be:
 - `midi` - hex of midi message to send (can be list, comma-separated)
 (visual, midinote, midicc, midimsg, effect, mei ids...)
 
+The optional value in the `mcN:` column specifies a score element to highlight if the code triggered. The value is a comma-separated list of any of:
+- The (complete case-sensitive) text of a score direction at the measure of the code
+- A xml:id of a score element (starting with `#`)
+- a measure number
 
 ## MIDI files
 
