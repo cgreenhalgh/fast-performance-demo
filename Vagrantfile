@@ -12,6 +12,8 @@ Vagrant.configure(2) do |config|
 
   # node server for muzicodes
   config.vm.network "forwarded_port", guest: 3000, host: 3000
+  # node server for music-performance-manager
+  config.vm.network "forwarded_port", guest: 3003, host: 3003
   # meld server
   config.vm.network "forwarded_port", guest: 5000, host: 5000
   # requires root :-(
