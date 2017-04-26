@@ -18,6 +18,8 @@ wget http://www.musicxml.org/dtds/timewise.dtd
 
 edit to local file dtd path
 
+sed -ie 's/http:\/\/www.musicxml.org\/dtds\///g' basecamp.xml
+
 saxonb-xslt -s:basecamp.xml -xsl:parttime.xsl -o:basecamp-time.xml
 
 edit to local file dtd path
