@@ -8,6 +8,8 @@ fs   = require 'fs'
 path = require 'path'
 getCodeIds = (require './meiutils').getCodeIds
 
+climbview = require './climbview'
+
 # Get document, or throw exception on error 
 configfile = process.argv[2] ? 'config.yml'
 configfile = path.normalize configfile
@@ -28,6 +30,10 @@ relpath = (p, base) ->
 xlfile = relpath config.spreadsheet, configdir
 exinfile = relpath config.experiencein, configdir
 exoutfile = relpath config.experienceout, configdir
+viewoutfile = relpath config.climbviewout, configdir
+
+# climbview config generator
+viewgen = climbview.generator 'Climbview '+viewoutfile+' from '+configfile, config
 
 xlsx = require 'xlsx'
 fs = require 'fs'
@@ -108,14 +114,22 @@ weathers = ['no', 'wind', 'rain', 'snow', 'sun', 'storm']
 
 # effect urls
 effects = '['
+weather_urls = '['
 for w,wi in weathers
   if not config[w+'_effect']?
     console.log 'ERROR: '+w+'_effect not defined in '+configfile
   if wi>0
     effects += ','
   effects+= JSON.stringify config[w+'_effect'] 
+  if not config[w+'_url']?
+    console.log 'ERROR: '+w+'_url not defined in '+configfile
+  if wi>0
+    weather_urls += ','
+  weather_urls += JSON.stringify config[w+'_url'] 
 effects += ']'
+weather_urls += ']'
 ex.parameters.initstate.effects = effects 
+ex.parameters.initstate.weather_urls = weather_urls
 
 content_url = (url) ->
   if (url.indexOf ':') < 0 and (url.substring 0,1) != '/'
@@ -129,10 +143,20 @@ add_actions = (control, prefix, data, meldload) ->
     channel: ''
     url: content_url data[prefix+'monitor']
   # visual
-  if data[prefix+'visual']?
-    control.actions.push 
-      channel: 'visual'
-      url: content_url data[prefix+'visual']
+  for channel in ['v.background', 'v.animate', 'v.mc']
+    if data[prefix+channel]?
+      if channel=='v.mc' && String(data[prefix+channel])=='1'
+        if config.defaultmuzicodeurl?
+          control.actions.push 
+            channel: channel
+            url: content_url config.defaultmuzicodeurl
+        else
+          console.log 'ERROR: use of undefined defaultmuzicodeurl in '+prefix+channel
+      else
+        viewgen.add data[prefix+channel]
+        control.actions.push 
+          channel: channel
+          url: content_url data[prefix+channel]
   # midi
   if data[prefix+'midi']?
     # multiple 
@@ -372,5 +396,10 @@ control.actions.push
 
 console.log 'write experience '+exoutfile
 fs.writeFileSync exoutfile, (JSON.stringify ex, null, '  '), {encoding: 'utf8'}
+
+viewconfig = viewgen.get()
+console.log 'write climbview file '+viewoutfile
+fs.writeFileSync viewoutfile, (JSON.stringify viewconfig, null, '  '), {encoding: 'utf8'}
+
 console.log 'done'
 return errors

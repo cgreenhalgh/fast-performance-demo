@@ -23,12 +23,31 @@ meldmeiuri: http://localhost:3000/content/
 contenturi: http://localhost:3000/content/
 cuesingle:false
 defaultprojection: 1
+weatherdelaymin: 
+weatherdelaymax: 
 no_effect: data:text/x-midi-hex,903a7f
 rain_effect: data:text/x-midi-hex,903b7f
 snow_effect: data:text/x-midi-hex,903c7f
 wind_effect: data:text/x-midi-hex,903d7f
 storm_effect: data:text/x-midi-hex,903e7f
 sun_effect: data:text/x-midi-hex,903f7f
+
+climbviewout: climbview-config.json
+noweather_url:
+rain_url:
+snow_url:
+wind_url:
+storm_url:
+sun_url:
+weatherfadein: 2
+weatherfadeout: 3
+noanimationurl: 
+defaultmuzicodeurl:
+muzicodefadein: 0.5
+muzicodefadeout: 1
+muzicodeholdtime: 0.2
+backgroundfadein: 2
+backgroundfadeout: 2
 ```
 Note:
 
@@ -56,7 +75,9 @@ Actions/etc. for `auto:` and `mcN:`, i.e. names of following columns can be:
 - `name` - esp. muzicode name (title)
 - `cue` - name of next stage to cue
 - `monitor` - URL to show on monitor (default) channel
-- `visual` - URL to show on "visual" channel 
+- `v.background` - URL to show on background "visual" channel 
+- `v.animation` - URL to show on animation "visual" channel (i.e. disklavier part visualisation)
+- `v.mc` - "1" (use config defaultmuzicodeurl) or URL to show on muzicode visual channel
 - `midi` - hex of midi message to send (can be list, comma-separated)
 (visual, midinote, midicc, midimsg, effect, mei ids...)
 
