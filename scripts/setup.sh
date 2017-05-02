@@ -9,6 +9,12 @@ if ! [ -d "meld" ]; then
 	exit -1
 fi
 
+if ! [ -d "music-performance-manager" ]; then
+echo 'Please install music-performance-manager'
+exit -1
+fi
+
+
 if ! [ -d "musiccodes/server/public/content" ]; then
 	mkdir musiccodes/server/public/content
 fi
