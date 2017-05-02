@@ -13,7 +13,7 @@
           channel: 'v.background',
           loop: true,
           fadeIn: (ref = config.backgroundfadein) != null ? ref : 0,
-          faceOut: (ref1 = config.backgroundfadeout) != null ? ref1 : 0,
+          fadeOut: (ref1 = config.backgroundfadeout) != null ? ref1 : 0,
           crossfade: false
         }, {
           title: 'animation',
@@ -28,22 +28,21 @@
           channel: 'v.weather',
           loop: true,
           fadeIn: (ref2 = config.weatherfadein) != null ? ref2 : 0,
-          faceOut: (ref3 = config.weatherfadeout) != null ? ref3 : 0,
+          fadeOut: (ref3 = config.weatherfadeout) != null ? ref3 : 0,
           crossfade: true
         }, {
           title: 'muzicode',
           channel: 'v.muzicode',
           loop: false,
           fadeIn: (ref4 = config.muzicodefadein) != null ? ref4 : 0,
-          faceOut: (ref5 = config.muzicodefadeout) != null ? ref5 : 0,
+          fadeOut: (ref5 = config.muzicodefadeout) != null ? ref5 : 0,
           holdTime: (ref6 = config.muzicodeholdtime) != null ? ref6 : null,
           crossfade: true
         }
       ];
       this.add(config.noanimationurl);
-      this.add(config.noweather_url);
+      this.add(config.no_url);
       this.add(config.defaultmuzicodeurl);
-      this.add(config.noweather_url);
       this.add(config.rain_url);
       this.add(config.snow_url);
       this.add(config.sun_url);

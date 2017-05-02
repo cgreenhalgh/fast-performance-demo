@@ -36,9 +36,8 @@ class Generator
 				crossfade: true				
 		]
 		@add config.noanimationurl
-		@add config.noweather_url
+		@add config.no_url
 		@add config.defaultmuzicodeurl
-		@add config.noweather_url
 		@add config.rain_url
 		@add config.snow_url
 		@add config.sun_url

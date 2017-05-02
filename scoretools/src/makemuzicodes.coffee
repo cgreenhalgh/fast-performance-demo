@@ -115,7 +115,12 @@ weathers = ['no', 'wind', 'rain', 'snow', 'sun', 'storm']
 # effect urls
 effects = '['
 weather_urls = '['
+sweathers = '['
 for w,wi in weathers
+
+  if wi>0
+    sweathers += ','
+  sweathers +=  JSON.stringify w
   if not config[w+'_effect']?
     console.log 'ERROR: '+w+'_effect not defined in '+configfile
   if wi>0
@@ -126,10 +131,29 @@ for w,wi in weathers
   if wi>0
     weather_urls += ','
   weather_urls += JSON.stringify config[w+'_url'] 
+
+  control = {inputUrl:'delay:'+w, actions:[]};
+  control.actions.push
+    channel: ''
+    url: config[w+'_effect']
+  control.actions.push
+    channel: 'v.weather'
+    url: config[w+'_url']
+  ex.controls.push control
+
 effects += ']'
 weather_urls += ']'
+sweathers += ']'
 ex.parameters.initstate.effects = effects 
 ex.parameters.initstate.weather_urls = weather_urls
+ex.parameters.initstate.weathers = sweathers
+
+# effect/weather delay controls
+mindelay = Number( config.weatherdelaymin ? 0 )
+maxdelay = Number( config.weatherdelaymax ? 0 )
+weatherdelay = ''+mindelay+'+Math.random()*'+(maxdelay-mindelay)
+if (maxdelay<mindelay)
+	maxdelay = mindelay;
 
 content_url = (url) ->
   if (url.indexOf ':') < 0 and (url.substring 0,1) != '/'
@@ -207,7 +231,8 @@ set_stage = (control, data) ->
             ws.push wi
   if ws.length > 0
     control.actions.push 
-      url: '{{effects[(['+(ws.join ',')+'])[Math.floor(Math.random()*'+ws.length+')]]}}'
+      url: 'delay:{{weathers[(['+(ws.join ',')+'])[Math.floor(Math.random()*'+ws.length+')]]}}'
+      delay: weatherdelay
 
 # find/make named marker
 get_marker = (ex, markertitle, optdescription) ->

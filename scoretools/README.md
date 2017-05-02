@@ -33,7 +33,7 @@ storm_effect: data:text/x-midi-hex,903e7f
 sun_effect: data:text/x-midi-hex,903f7f
 
 climbviewout: climbview-config.json
-noweather_url:
+no_url:
 rain_url:
 snow_url:
 wind_url:

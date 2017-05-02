@@ -6,6 +6,8 @@ meldserver: http://127.0.0.1:5000/addannotation/
 meldmeiuri: http://127.0.0.1:3000/content/
 cuesingle: false
 defaultprojection: 1
+weatherdelaymin: 3
+weatherdelaymax: 10
 no_effect: data:text/x-midi-hex,910f7f
 rain_effect: data:text/x-midi-hex,910b7f
 snow_effect: data:text/x-midi-hex,910a7f
@@ -14,7 +16,7 @@ storm_effect: data:text/x-midi-hex,910c7f
 sun_effect: data:text/x-midi-hex,910d7f
 contenturi: content/
 climbviewout: mkGameEngine2-view.json
-noweather_url: noweather_url
+no_url: noweather_url
 rain_url: rain_url
 snow_url: snow_url
 wind_url: wind_url
