@@ -318,10 +318,22 @@ for r in [1..1000]
   else
     # non-default stage
     # test button
-    control = {inputUrl:'button:'+data.stage, actions:[]}
-    ex.controls.push control
-    set_stage control, data
-    add_actions control, 'auto_', data
+    #control = {inputUrl:'button:'+data.stage, actions:[]}
+    #ex.controls.push control
+    #set_stage control, data
+    #add_actions control, 'auto_', data
+  # cue (test/rehearse) button
+  control = {inputUrl:'button:cue '+data.stage, actions:[],poststate:{}}
+  ex.controls.push control
+  #meldprefix = if meldload then 'params.' else ''
+  control.actions.push 
+        url: '{{meldcollection}}'
+        post: true
+        contentType: 'application/json'
+        body: '{"oa:hasTarget":["{{meldannostate}}"], "oa:hasBody":[{"@type":"meldterm:CreateNextCollection", "resourcesToQueue":["{{meldmeiuri}}'+encodeURIComponent(data.meifile)+'"], "annotationsToQueue":[]}] }'
+  control.poststate.meldnextmeifile = JSON.stringify data.meifile
+  control.poststate.cued = "true"
+
   # MELD input POST
   control = 
     inputUrl:'post:meld.load'
@@ -391,15 +403,14 @@ for stage,data of stages
       console.log 'ERROR: stage '+stage+' '+prefix+'cue refers to unknown stage "'+data[prefix+'cue']+'"'
       errors++
 
-# fake meld input
-control = {inputUrl:'button:Force Next',actions:[],precondition:'!!meldnextmeifile'}
+# fake pedal input
+control = {inputUrl:'button:next piece',actions:[]}
 ex.controls.push control
 control.actions.push 
-  url: 'http://localhost:3000/input'
+  url: '{{meldcollection}}'
   post: true
-  contentType: 'application/x-www-form-urlencoded'
-  body: 'name=meld.load&meldmei={{meldmeiuri}}{{encodeURIComponent(meldnextmeifile)}}&meldcollection=&meldannostate='
-  # meldmei, meldcollection
+  contentType: 'application/json'
+  body: '{"oa:hasTarget":["{{meldannostate}}"], "oa:hasBody":[{"@type":"meldterm:NextPageOrPiece","forceNextPiece":true}] }'
 
 # fake pedal input
 control = {inputUrl:'button:pedal',actions:[]}
@@ -409,6 +420,17 @@ control.actions.push
   post: true
   contentType: 'application/x-www-form-urlencoded'
   body: 'name=pedal'
+
+# fake meld input
+control = {inputUrl:'button:Fake meld',actions:[],precondition:'!!meldnextmeifile'}
+ex.controls.push control
+control.actions.push 
+  url: 'http://localhost:3000/input'
+  post: true
+  contentType: 'application/x-www-form-urlencoded'
+  body: 'name=meld.load&meldmei={{meldmeiuri}}{{encodeURIComponent(meldnextmeifile)}}&meldcollection=&meldannostate='
+  # meldmei, meldcollection
+
 
 # pedal meld action
 control = {inputUrl:'post:pedal',actions:[]}

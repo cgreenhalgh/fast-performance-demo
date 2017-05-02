@@ -79,6 +79,8 @@ curl -X POST -H "Content-Type: application/json" -d '{"oa:hasTarget":[$meldannos
 ```
 Note that handling of the viewer next/prev buttons also works by creating the same annotations; the actual transitions are performed in the annotation handlers. (The annotation for previous page is `meldterm:PreviousPageOrPiece`.)
 
+Note: intending to add additional parameter `forceNextPiece`, boolean, which will load next piece even if not on last page.
+
 The JavaScript client currently polls for new state every 50 ms; that's running smoothly on my laptop, however if sluggish on the tablet, it can be adjusted.
 
 To highlight something within the score (e.g. a measure, a note)

@@ -445,14 +445,22 @@
       set_stage(control, data);
       add_actions(control, 'auto_', data);
     } else {
-      control = {
-        inputUrl: 'button:' + data.stage,
-        actions: []
-      };
-      ex.controls.push(control);
-      set_stage(control, data);
-      add_actions(control, 'auto_', data);
+
     }
+    control = {
+      inputUrl: 'button:cue ' + data.stage,
+      actions: [],
+      poststate: {}
+    };
+    ex.controls.push(control);
+    control.actions.push({
+      url: '{{meldcollection}}',
+      post: true,
+      contentType: 'application/json',
+      body: '{"oa:hasTarget":["{{meldannostate}}"], "oa:hasBody":[{"@type":"meldterm:CreateNextCollection", "resourcesToQueue":["{{meldmeiuri}}' + encodeURIComponent(data.meifile) + '"], "annotationsToQueue":[]}] }'
+    });
+    control.poststate.meldnextmeifile = JSON.stringify(data.meifile);
+    control.poststate.cued = "true";
     control = {
       inputUrl: 'post:meld.load',
       actions: []
@@ -540,18 +548,17 @@
   }
 
   control = {
-    inputUrl: 'button:Force Next',
-    actions: [],
-    precondition: '!!meldnextmeifile'
+    inputUrl: 'button:next piece',
+    actions: []
   };
 
   ex.controls.push(control);
 
   control.actions.push({
-    url: 'http://localhost:3000/input',
+    url: '{{meldcollection}}',
     post: true,
-    contentType: 'application/x-www-form-urlencoded',
-    body: 'name=meld.load&meldmei={{meldmeiuri}}{{encodeURIComponent(meldnextmeifile)}}&meldcollection=&meldannostate='
+    contentType: 'application/json',
+    body: '{"oa:hasTarget":["{{meldannostate}}"], "oa:hasBody":[{"@type":"meldterm:NextPageOrPiece","forceNextPiece":true}] }'
   });
 
   control = {
@@ -566,6 +573,21 @@
     post: true,
     contentType: 'application/x-www-form-urlencoded',
     body: 'name=pedal'
+  });
+
+  control = {
+    inputUrl: 'button:Fake meld',
+    actions: [],
+    precondition: '!!meldnextmeifile'
+  };
+
+  ex.controls.push(control);
+
+  control.actions.push({
+    url: 'http://localhost:3000/input',
+    post: true,
+    contentType: 'application/x-www-form-urlencoded',
+    body: 'name=meld.load&meldmei={{meldmeiuri}}{{encodeURIComponent(meldnextmeifile)}}&meldcollection=&meldannostate='
   });
 
   control = {
