@@ -14,3 +14,21 @@ wind_effect: data:text/x-midi-hex,903d7f
 storm_effect: data:text/x-midi-hex,903e7f
 sun_effect: data:text/x-midi-hex,903f7f
 meidir: ../../mei-files
+weatherdelaymin: 5
+weatherdelaymax: 10
+climbviewout: mkGameEngine-view.json
+no_url:
+rain_url:
+snow_url:
+wind_url:
+storm_url:
+sun_url:
+weatherfadein: 2
+weatherfadeout: 3
+noanimationurl:
+defaultmuzicodeurl: http://127.0.0.1:3000/content/baseCamp.jpg
+muzicodefadein: 0.5
+muzicodefadeout: 1
+muzicodeholdtime: 0.2
+backgroundfadein: 2
+backgroundfadeout: 2

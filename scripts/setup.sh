@@ -27,5 +27,4 @@ npm install --no-bin-links
 
 node lib/makemuzicodes.js test/mkGameEngine-config.yml
 cp test/mkGameEngine-out.json ../musiccodes/server/experiences/
-
-
+cp test/mkGameEngine-view.json ../musiccodes/server/public/content/
