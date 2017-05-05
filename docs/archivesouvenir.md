@@ -81,12 +81,13 @@ rdfs: http://www.w3.org/2000/01/rdf-schema#
 `mo:Performance` (parent class `http://purl.org/NET/c4dm/event.owl#Event`)
 - `mo:performance_of` `mo:MusicalWork`
 - `mo:performer` `foaf:Agent`
-- `rdfs:label` (why? - from MO example)
+- `rdfs:label` (why not `dc:title`? - from MO example)
 - `dc:date` (xsd:date)
 - `event:place` (geo:SpatialThing)
 - `event:sub_event`
 - `event:time` (time:TemporalEntity)
 - `mo:recorded_as` (mo:Signal)
+- `mo:musicbrainz_guid` (id - Event)
 - ? `
 
 `mo:MusicalWork` (parent class `http://purl.org/vocab/frbr/core#Work`)
@@ -96,12 +97,14 @@ rdfs: http://www.w3.org/2000/01/rdf-schema#
 - `mo:homepage`
 - `mo:image`
 - `mo:performed_in` (opp. `mo:performance_of` -> `mo:Performance`)
+- `mo:musicbrainz_guid` (id - Work)
 
 `mo:Movement` (parent class `mo:MusicalWork) ?!
 
 `mo:MusicalExpression` (parent class `frbr:Expression`)
 (childrem `mo:Signal` (roughly musicbrainz Recording?), `mo:Sound`)
 - `mo:published_as` (`mo:MusicalManifestation`)
+- `mo:musicbrainz_guid` (id?! - Recording?!)
 
 `mo:MusicalManifestation` (parent class `frbr:Manifestation`)
 (children: `mo:Record` (musicbrainz Release?), `mo:Track` (usually on a particular `mo:Record`), `mo:PublishedScore`, `mo:Release`, ...)
@@ -111,12 +114,18 @@ rdfs: http://www.w3.org/2000/01/rdf-schema#
 
 `mo:MusicalItem`
 (children `mo:Medium` (children `mo:AudioFile`, `mo:Stream`))
-- `mo:encodes` (`mo:Signal`)
+- `mo:encodes` (`mo:Signal` - not necessarily the one associated via manifestation->expression??)
 
-`foaf:Agent`:
+`foaf:Agent`: (extended by `mo:MusicArtist`) (see musicbrainz Artist)
 - `foaf:name` name
+- `foaf:homepage`
+- `mo:musicbrainz` (URL)
+- `mo:musicbrainz_guid` (id)
 
-`foaf:Person` (= `frbr:Person`) (parent class `foaf:Agent`)
+`foaf:Person` (= `frbr:Person`) (parent class `foaf:Agent`) (extended by `mo:SoloMusicArtist`)
+- `foaf:img` (Image)
+
+(or foaf:Group (extended by `mo:MusicGroup`) or foaf:Organisation)
 
 `tl:UTInstant`:
 - `tl:atDateTime` (xsd:dateTime)
@@ -125,5 +134,5 @@ rdfs: http://www.w3.org/2000/01/rdf-schema#
 - `tl:at` (xsd:dateTime)
 - `tl:duration` (xsd:duration)
 
-`geo:SpatialThing`
-- ??
+`geo:SpatialThing` (cf. musicbrainz Place)
+- ?? doesn't seem to have names, just lat/longs
