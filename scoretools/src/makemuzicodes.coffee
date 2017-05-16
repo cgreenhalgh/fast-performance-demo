@@ -93,6 +93,19 @@ ex.parameters.initstate =
   mcserver: JSON.stringify (config.mcserver ? 'http://localhost:3000/input')
   meldmeiuri: JSON.stringify (config.meldmeiuri ? 'http://localhost:3000/content/')
   contenturi: JSON.stringify (config.contenturi ? 'http://localhost:3000/content/')
+  performanceid: '""'
+
+# performances
+if config.performances
+  for title, guid of config.performances
+    ex.controls.push
+      inputUrl: 'button:'+title
+      poststate:
+        performanceid: JSON.stringify guid
+    ex.controls.push
+      inputUrl: 'post:performanceid'
+      poststate:
+        performanceid: 'params.performanceid'
 
 defaultprojection = String(config.defaultprojection ? '')
 if defaultprojection == ''
@@ -252,6 +265,7 @@ get_marker = (ex, markertitle, optdescription) ->
   return markers[0]
 
 # initialise defaults
+maxrow = 1
 for r in [1..1000]
   cell = sheet[cellid(0,r)]
   if cell == undefined
@@ -261,6 +275,7 @@ for r in [1..1000]
     console.log 'ignore row without stage name: '+(JSON.stringify data)
     continue
   console.log 'stage '+data.stage
+  maxrow = r
   stages[data.stage] = data
   # defaults for ...-monitor
   for prefix in prefixes
@@ -345,7 +360,17 @@ for r in [1..1000]
   control.poststate.meldmei = 'params.meldmei'
   control.poststate.meldannostate = 'params.meldannostate'
   control.poststate.meldcollection = 'params.meldcollection'
-  control.poststate.meldnextmeifile = 'null';
+  control.poststate.meldnextmeifile = 'null'
+  # app view events
+  if r==1
+    control.actions.push
+      url: 'emit:vStart:mobileapp:{{performanceid}}:'+data.stage
+  else if r==maxrow
+    control.actions.push
+      url: 'emit:vStop:mobileapp:{{performanceid}}'
+  else
+    control.actions.push
+      url: 'emit:vStageChange:mobileapp:{{performanceid}}:{{stage}}->'+data.stage
 
   # muzicodes
   for mc in mcs

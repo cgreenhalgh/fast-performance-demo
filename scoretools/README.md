@@ -48,6 +48,11 @@ muzicodefadeout: 1
 muzicodeholdtime: 0.2
 backgroundfadein: 2
 backgroundfadeout: 2
+
+performances:
+  test: 9333e7a2-16a9-4352-a45a-f6f42d848cde
+  first: be418821-436d-41c2-880c-058dffb57d91
+  second: 13a7fa70-ae91-4541-9526-fd3b332b585d
 ```
 Note:
 
@@ -69,6 +74,8 @@ Spreadsheet columns:
 - `auto:` - followed by initial (automatic) actions - see below
 - `mcN:` - followed by muzicode N actions - see below
 - `default_cue` - name of next stage to cue if reach end and nothing else cued
+
+It is assumed that the first row is the start and the last row is the end.
 
 Actions/etc. for `auto:` and `mcN:`, i.e. names of following columns can be:
 
