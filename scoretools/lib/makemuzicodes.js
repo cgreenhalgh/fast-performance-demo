@@ -136,7 +136,8 @@
     mcserver: JSON.stringify((ref2 = config.mcserver) != null ? ref2 : 'http://localhost:3000/input'),
     meldmeiuri: JSON.stringify((ref3 = config.meldmeiuri) != null ? ref3 : 'http://localhost:3000/content/'),
     contenturi: JSON.stringify((ref4 = config.contenturi) != null ? ref4 : 'http://localhost:3000/content/'),
-    performanceid: '""'
+    performanceid: '""',
+    performancename: '""'
   };
 
   if (config.performances) {
@@ -144,19 +145,32 @@
     for (title in ref5) {
       guid = ref5[title];
       ex.controls.push({
-        inputUrl: 'button:' + title,
+        inputUrl: 'button:Perform ' + title,
+        actions: [],
         poststate: {
-          performanceid: JSON.stringify(guid)
+          performanceid: JSON.stringify(guid),
+          performancename: JSON.stringify(title)
         }
       });
       ex.controls.push({
         inputUrl: 'post:performanceid',
+        actions: [],
         poststate: {
-          performanceid: 'params.performanceid'
+          performanceid: 'params.performanceid',
+          performancename: 'params.performancename'
         }
       });
     }
   }
+
+  ex.controls.push({
+    inputUrl: 'button:Stop app',
+    actions: [
+      {
+        url: 'emit:vStop:mobileapp:{{performanceid}}'
+      }
+    ]
+  });
 
   defaultprojection = String((ref6 = config.defaultprojection) != null ? ref6 : '');
 

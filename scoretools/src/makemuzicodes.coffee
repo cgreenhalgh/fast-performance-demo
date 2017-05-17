@@ -94,18 +94,29 @@ ex.parameters.initstate =
   meldmeiuri: JSON.stringify (config.meldmeiuri ? 'http://localhost:3000/content/')
   contenturi: JSON.stringify (config.contenturi ? 'http://localhost:3000/content/')
   performanceid: '""'
+  performancename: '""'
 
 # performances
 if config.performances
   for title, guid of config.performances
     ex.controls.push
-      inputUrl: 'button:'+title
+      inputUrl: 'button:Perform '+title
+      actions: []
       poststate:
         performanceid: JSON.stringify guid
+        performancename: JSON.stringify title
     ex.controls.push
       inputUrl: 'post:performanceid'
+      actions: []
       poststate:
         performanceid: 'params.performanceid'
+        performancename: 'params.performancename'
+# app end
+ex.controls.push
+  inputUrl: 'button:Stop app'
+  actions: [
+    url: 'emit:vStop:mobileapp:{{performanceid}}'
+  ]
 
 defaultprojection = String(config.defaultprojection ? '')
 if defaultprojection == ''

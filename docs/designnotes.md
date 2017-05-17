@@ -22,7 +22,23 @@ There may be a separate process to interface to a physical pedal for page turn/n
 
 ## Interactions
 
+### Performance management
+
+To set next performance (id, title), do POST to musicodes server (standard path, '/input') with:
+- `name` - `performanceid`
+- `performanceid` - GUID of performance
+- `performancename` - title/name of performance (for UI)
+
+E.g.
+```
+curl -X POST --data 'name=performanceid&performanceid=PERFID&performancename=PERFNAME' 'http://localhost:3000/input'
+```
+
+Alternatively use buttons in the player view.
+
 ### Muzicodes -> MELD interactions
+
+See [meldnotes.md](meldnotes.md)
 
 Muzicodes can cue the next piece/section to play (by adding a MELD annotation). It will identify the piece/section by URI specifically including its filename.
 
@@ -33,6 +49,8 @@ Muzicodes can highlight a muzicode as successfully played (by adding a MELD anno
 (Details...)
 
 ### MELD -> Muzicodes interactions
+
+See [meldnotes.md](meldnotes.md)
 
 MELD will signal Muzicodes (via HTTP) when its loads a (new) section of the music, e.g. on initial load on when the pianist pages to the next cued piece. This will be caused by a hand-authored annotation in the initial metadata for the section, whose action specifies the corresponding HTTP operation.
 
