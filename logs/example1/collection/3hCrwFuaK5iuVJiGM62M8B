@@ -1,0 +1,156 @@
+{
+  "@context": {
+    "cnt": "http://www.w3.org/2011/content#", 
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#", 
+    "fabio": "http://purl.org/spar/fabio/", 
+    "leitmotif": "http://meld.linkedmusic.org/leitmotif/", 
+    "manifest": "http://meld.linkedmusic.org/manifestations/", 
+    "frbr": "http://purl.org/vocab/frbr/core#", 
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#", 
+    "oa": "http://www.w3.org/ns/oa#", 
+    "dct": "http://purl.org/dc/terms/", 
+    "meldterm": "http://meld.linkedmusic.org/terms/"
+  }, 
+  "@graph": [
+    {
+      "meldterm:subscription": [
+        "http://127.0.0.1:5000/subscription/FeiD3k4vBLYpcAP3FkF4Ve"
+      ], 
+      "oa:hasTarget": [
+        {
+          "@id": "http://127.0.0.1:3000/content/BaseCamp.mei"
+        }
+      ], 
+      "@type": [
+        "meldterm:topLevel", 
+        "oa:Annotation"
+      ], 
+      "meldterm:createAnnoState": "http://127.0.0.1:5000/collection/3hCrwFuaK5iuVJiGM62M8B/createAnnoState", 
+      "@id": "http://127.0.0.1:5000/collection/3hCrwFuaK5iuVJiGM62M8B", 
+      "oa:hasBody": [
+        {
+          "oa:hasBody": [
+            {
+              "annotationsToQueue": [], 
+              "resourcesToQueue": [
+                "http://127.0.0.1:3000/content/1bTheStones.mei"
+              ], 
+              "@type": "meldterm:CreateNextCollection"
+            }
+          ], 
+          "oa:hasTarget": [
+            "http://127.0.0.1:5000/annostate/4wUUoZMBL7rASSPHr8GcjN"
+          ], 
+          "@id": "http://127.0.0.1:5000/annotation/9CFMyG6wPaqV3Fy7KeNzS8", 
+          "@type": [
+            "oa:Annotation"
+          ], 
+          "oa:annotatedAt": "2017-05-17T13:52:53.708659"
+        }, 
+        {
+          "oa:hasBody": [
+            {
+              "@type": "meldterm:QueueAnnoState", 
+              "annoStateToQueue": [
+                "http://127.0.0.1:5000/annostate/XAZNrufqAjuTGrt7J2Nqg5"
+              ]
+            }
+          ], 
+          "oa:annotatedAt": "2017-05-17T13:52:54.474205", 
+          "@id": "http://127.0.0.1:5000/annotation/qstKTJ8CGZiZBkGeP38H8o", 
+          "@type": [
+            "oa:Annotation"
+          ], 
+          "oa:hasTarget": [
+            "http://127.0.0.1:5000/annostate/4wUUoZMBL7rASSPHr8GcjN"
+          ]
+        }, 
+        {
+          "oa:hasBody": [
+            {
+              "@type": "meldterm:NextPageOrPiece"
+            }
+          ], 
+          "@type": [
+            "oa:Annotation"
+          ], 
+          "@id": "http://127.0.0.1:5000/annotation/57JkoAFbBP8jK6y8QtavxJ", 
+          "oa:hasTarget": [
+            "http://127.0.0.1:5000/annostate/4wUUoZMBL7rASSPHr8GcjN"
+          ], 
+          "oa:annotatedAt": "2017-05-17T13:53:04.436529"
+        }, 
+        {
+          "oa:hasBody": [
+            {
+              "@type": "meldterm:NextPageOrPiece"
+            }
+          ], 
+          "oa:annotatedAt": "2017-05-17T13:53:05.837665", 
+          "@id": "http://127.0.0.1:5000/annotation/ioCHApNYPnG3vJ23D9cRxd", 
+          "oa:hasTarget": [
+            "http://127.0.0.1:5000/annostate/4wUUoZMBL7rASSPHr8GcjN"
+          ], 
+          "@type": [
+            "oa:Annotation"
+          ]
+        }, 
+        {
+          "oa:hasBody": [
+            {
+              "annotationsToQueue": [], 
+              "resourcesToQueue": [
+                "http://127.0.0.1:3000/content/1bTheStones.mei"
+              ], 
+              "@type": "meldterm:CreateNextCollection"
+            }
+          ], 
+          "oa:hasTarget": [
+            "http://127.0.0.1:5000/annostate/4wUUoZMBL7rASSPHr8GcjN"
+          ], 
+          "@id": "http://127.0.0.1:5000/annotation/pxLCRKBh9pqNxL9TNnyGeC", 
+          "@type": [
+            "oa:Annotation"
+          ], 
+          "oa:annotatedAt": "2017-05-17T13:53:11.812303"
+        }, 
+        {
+          "oa:hasBody": [
+            {
+              "@type": "meldterm:QueueAnnoState", 
+              "annoStateToQueue": [
+                "http://127.0.0.1:5000/annostate/4HY7CEHcs2tokUCVu4F8Xg"
+              ]
+            }
+          ], 
+          "oa:annotatedAt": "2017-05-17T13:53:12.017608", 
+          "@id": "http://127.0.0.1:5000/annotation/tRyPCRvUjid6p2sW4BxHB8", 
+          "@type": [
+            "oa:Annotation"
+          ], 
+          "oa:hasTarget": [
+            "http://127.0.0.1:5000/annostate/4wUUoZMBL7rASSPHr8GcjN"
+          ]
+        }, 
+        {
+          "oa:hasBody": [
+            {
+              "@type": "meldterm:NextPageOrPiece"
+            }
+          ], 
+          "@type": [
+            "oa:Annotation"
+          ], 
+          "@id": "http://127.0.0.1:5000/annotation/sm8gGUitFRn5pFcKEti8Ad", 
+          "oa:hasTarget": [
+            "http://127.0.0.1:5000/annostate/4wUUoZMBL7rASSPHr8GcjN"
+          ], 
+          "oa:annotatedAt": "2017-05-17T13:53:15.660539"
+        }
+      ], 
+      "oa:annotatedAt": [
+        "2017-05-17T13:52:53.129448"
+      ]
+    }
+  ]
+}

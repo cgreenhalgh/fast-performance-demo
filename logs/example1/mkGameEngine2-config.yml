@@ -1,0 +1,38 @@
+spreadsheet: mkGameEngine2.xlsx
+experiencein: mkGameEngine2-in.json
+experienceout: mkGameEngine2-out.json
+mcserver: http://127.0.0.1:3000/input
+meldserver: http://127.0.0.1:5000/addannotation/
+meldmeiuri: http://127.0.0.1:3000/content/
+cuesingle: false
+defaultprojection: 1
+weatherdelaymin: 3
+weatherdelaymax: 10
+no_effect: data:text/x-midi-hex,910f7f
+rain_effect: data:text/x-midi-hex,910b7f
+snow_effect: data:text/x-midi-hex,910a7f
+wind_effect: data:text/x-midi-hex,91097f
+storm_effect: data:text/x-midi-hex,910c7f
+sun_effect: data:text/x-midi-hex,910d7f
+contenturi: content/
+climbviewout: mkGameEngine2-view.json
+no_url: noweather_url
+rain_url: rain_url
+snow_url: snow_url
+wind_url: wind_url
+storm_url: storm_url
+sun_url: sun_url
+weatherfadein: 2
+weatherfadeout: 3
+noanimationurl: noanimationurl
+defaultmuzicodeurl: defaultmuzicodeurl
+muzicodefadein: 0.5
+muzicodefadeout: 1
+muzicodeholdtime: 0.2
+backgroundfadein: 2
+backgroundfadeout: 2
+performances:
+  test: 9333e7a2-16a9-4352-a45a-f6f42d848cde
+  first: be418821-436d-41c2-880c-058dffb57d91
+  second: 13a7fa70-ae91-4541-9526-fd3b332b585d
+

@@ -1,0 +1,108 @@
+{
+  "@context": {
+    "cnt": "http://www.w3.org/2011/content#", 
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#", 
+    "fabio": "http://purl.org/spar/fabio/", 
+    "leitmotif": "http://meld.linkedmusic.org/leitmotif/", 
+    "manifest": "http://meld.linkedmusic.org/manifestations/", 
+    "frbr": "http://purl.org/vocab/frbr/core#", 
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#", 
+    "oa": "http://www.w3.org/ns/oa#", 
+    "dct": "http://purl.org/dc/terms/", 
+    "meldterm": "http://meld.linkedmusic.org/terms/"
+  }, 
+  "@graph": [
+    {
+      "meldterm:subscription": [
+        "http://127.0.0.1:5000/subscription/AjRettRkSAweF4RB5nCVoB"
+      ], 
+      "oa:hasTarget": [
+        {
+          "@id": "http://127.0.0.1:3000/content/Path2a.mei"
+        }
+      ], 
+      "@type": [
+        "meldterm:topLevel", 
+        "oa:Annotation"
+      ], 
+      "meldterm:createAnnoState": "http://127.0.0.1:5000/collection/c6N6MyuvQEP5TqAHgydUzR/createAnnoState", 
+      "@id": "http://127.0.0.1:5000/collection/c6N6MyuvQEP5TqAHgydUzR", 
+      "oa:hasBody": [
+        {
+          "oa:hasBody": [
+            {
+              "annotationsToQueue": [], 
+              "resourcesToQueue": [
+                "http://127.0.0.1:3000/content/6Summit"
+              ], 
+              "@type": "meldterm:CreateNextCollection"
+            }
+          ], 
+          "oa:hasTarget": [
+            "http://127.0.0.1:5000/annostate/HBeeNTg6V2HGWLtKwtsip8"
+          ], 
+          "meldterm:actionRequired": "false", 
+          "@id": "http://127.0.0.1:5000/annotation/9E7NaZm5f7PUaKyuUnMx7e", 
+          "@type": [
+            "oa:Annotation"
+          ], 
+          "oa:annotatedAt": "2017-05-17T13:54:23.284937"
+        }, 
+        {
+          "oa:hasBody": [
+            {
+              "@type": "meldterm:QueueAnnoState", 
+              "annoStateToQueue": [
+                "http://127.0.0.1:5000/annostate/xgPVLM3Y5uqu2Dad5SycYf"
+              ]
+            }
+          ], 
+          "oa:hasTarget": [
+            "http://127.0.0.1:5000/annostate/HBeeNTg6V2HGWLtKwtsip8"
+          ], 
+          "meldterm:actionRequired": "false", 
+          "@id": "http://127.0.0.1:5000/annotation/prBEbqYmwLvmE76MgJL39f", 
+          "@type": [
+            "oa:Annotation"
+          ], 
+          "oa:annotatedAt": "2017-05-17T13:54:23.786987"
+        }, 
+        {
+          "oa:hasBody": [
+            {
+              "@type": "meldterm:NextPageOrPiece"
+            }
+          ], 
+          "oa:hasTarget": [
+            "http://127.0.0.1:5000/annostate/HBeeNTg6V2HGWLtKwtsip8"
+          ], 
+          "meldterm:actionRequired": "false", 
+          "@id": "http://127.0.0.1:5000/annotation/5NivNpUZcbwkgSkeL2UC8M", 
+          "@type": [
+            "oa:Annotation"
+          ], 
+          "oa:annotatedAt": "2017-05-17T13:54:25.167570"
+        }, 
+        {
+          "oa:hasBody": [
+            {
+              "@type": "meldterm:NextPageOrPiece"
+            }
+          ], 
+          "oa:hasTarget": [
+            "http://127.0.0.1:5000/annostate/HBeeNTg6V2HGWLtKwtsip8"
+          ], 
+          "meldterm:actionRequired": "false", 
+          "@id": "http://127.0.0.1:5000/annotation/iD5Kt3QnvUi75vqLy7ZouB", 
+          "@type": [
+            "oa:Annotation"
+          ], 
+          "oa:annotatedAt": "2017-05-17T13:54:27.147427"
+        }
+      ], 
+      "oa:annotatedAt": [
+        "2017-05-17T13:53:39.644465"
+      ]
+    }
+  ]
+}
