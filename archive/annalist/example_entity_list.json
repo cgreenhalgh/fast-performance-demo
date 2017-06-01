@@ -1,0 +1,268 @@
+{
+  "@context": [
+    {
+      "@base": "/annalist/c/annalist_performance_archive/d/"
+    },
+    "/annalist/c/annalist_performance_archive/d/coll_context.jsonld"
+  ],
+  "@id": "/annalist/c/annalist_performance_archive/l/Default_list_all/",
+  "annal:entity_list": [
+    {
+      "@id": "/annalist/c/annalist_performance_archive/d/_type/TimedPerformance/",
+      "@type": [
+        "annal:Type"
+      ],
+      "annal:field_aliases": [],
+      "annal:id": "TimedPerformance",
+      "annal:member": [],
+      "annal:supertype_uri": [
+        {
+          "@id": ""
+        }
+      ],
+      "annal:type": "annal:Type",
+      "annal:type_id": "_type",
+      "annal:type_list": "_list/Default_list",
+      "annal:type_view": "_view/Performance",
+      "annal:uri": "",
+      "annal:url": "/annalist/c/annalist_performance_archive/d/_type/TimedPerformance/",
+      "entity:seeAlso_r": [],
+      "rdfs:comment": "TimedPerformance",
+      "rdfs:label": "TimedPerformance"
+    },
+    {
+      "@id": "/annalist/c/annalist_performance_archive/d/_type/date/",
+      "@type": [
+        "annal:Type"
+      ],
+      "annal:default_value": "",
+      "annal:field_aliases": [],
+      "annal:field_entity_type": "",
+      "annal:field_fields": [],
+      "annal:field_placement": "small:0,12;medium:0,6",
+      "annal:field_ref_field": "",
+      "annal:field_ref_restriction": "",
+      "annal:field_ref_type": "",
+      "annal:field_render_type": "_enum_render_type/Text",
+      "annal:field_value_mode": "_enum_value_mode/Value_direct",
+      "annal:field_value_type": "annal:Text",
+      "annal:id": "date",
+      "annal:placeholder": "YYYY-MM-DD",
+      "annal:property_uri": "dc:date",
+      "annal:repeat_label_add": "Add",
+      "annal:repeat_label_delete": "Remove",
+      "annal:supertype_uri": [],
+      "annal:tooltip": "",
+      "annal:type": "annal:Type",
+      "annal:type_id": "_type",
+      "annal:type_list": "_list/Default_list",
+      "annal:type_view": "_view/Default_view",
+      "annal:uri": "dc:date",
+      "annal:url": "/annalist/c/annalist_performance_archive/d/_type/date/",
+      "rdfs:comment": "date",
+      "rdfs:label": "date"
+    },
+    {
+      "@id": "/annalist/c/annalist_performance_archive/d/_user/admin/",
+      "@type": [
+        "annal:User"
+      ],
+      "annal:id": "admin",
+      "annal:type": "annal:User",
+      "annal:type_id": "_user",
+      "annal:url": "/annalist/c/annalist_performance_archive/d/_user/admin/",
+      "annal:user_permission": [
+        "VIEW",
+        "CREATE",
+        "UPDATE",
+        "DELETE",
+        "CONFIG",
+        "ADMIN"
+      ],
+      "annal:user_uri": "mailto:admin@localhost",
+      "rdfs:comment": "User admin: permissions for Admin User in collection annalist_performance_archive",
+      "rdfs:label": "Admin User"
+    },
+    {
+      "@id": "/annalist/c/annalist_performance_archive/d/Event/00000011/",
+      "@type": [
+        "prov:Activity",
+        "crm:E5_Event",
+        "annal:EntityData"
+      ],
+      "annal:id": "00000011",
+      "annal:missing_field": "",
+      "annal:type": "prov:Activity",
+      "annal:type_id": "Event",
+      "annal:url": "/annalist/c/annalist_performance_archive/d/Event/00000011/",
+      "crm:P126_employed_r": [],
+      "crm:P7_took_place_at": "Place/00000013",
+      "entity:seeAlso_r": [],
+      "prov:qualifiedAssociation": [],
+      "prov:used_r": [],
+      "rdfs:comment": "NottFAR concert 8th June 2017",
+      "rdfs:label": "NottFAR concert 8th June 2017"
+    },
+    {
+      "@id": "/annalist/c/annalist_performance_archive/d/Performance/00000005/",
+      "@type": [
+        "frbroo:F31_Performance",
+        "prov:Activity",
+        "crm:E5_Event",
+        "crm:E7_Activity",
+        "mo:Performance",
+        "annal:EntityData"
+      ],
+      "annal:id": "00000005",
+      "annal:missing_field": "",
+      "annal:type": "frbroo:F31_Performance",
+      "annal:type_id": "Performance",
+      "annal:url": "/annalist/c/annalist_performance_archive/d/Performance/00000005/",
+      "coll:uploaded_image_r": [],
+      "crm:P126_employed_r": [],
+      "crm:P7_took_place_at": "",
+      "entity:seeAlso_r": [],
+      "frbroo:R25F_performed_r": [
+        {
+          "frbroo:R25F_performed": "Performed_work/00000001"
+        }
+      ],
+      "prov:qualifiedAssociation": [],
+      "prov:startedAtTime": "",
+      "prov:used_r": [],
+      "rdfs:comment": "Premiere performance of Climb!",
+      "rdfs:label": "Premiere performance of Climb!"
+    },
+    {
+      "@id": "/annalist/c/annalist_performance_archive/d/Performance/00000009/",
+      "@type": [
+        "frbroo:F31_Performance",
+        "prov:Activity",
+        "crm:E5_Event",
+        "crm:E7_Activity",
+        "mo:Performance",
+        "annal:EntityData"
+      ],
+      "annal:id": "00000009",
+      "annal:type": "frbroo:F31_Performance",
+      "annal:type_id": "Performance",
+      "annal:url": "/annalist/c/annalist_performance_archive/d/Performance/00000009/",
+      "coll:uploaded_image_r": [],
+      "crm:P7_took_place_at": "",
+      "entity:seeAlso_r": [
+        {
+          "rdfs:seeAlso": "urn:guid:13a7fa70-ae91-4541-9526-fd3b332b585d"
+        },
+        {
+          "rdfs:seeAlso": "http://musicbrainz.org/...climbperf2..."
+        }
+      ],
+      "frbroo:R25F_performed_r": [
+        {
+          "frbroo:R25F_performed": "Performed_work/00000001"
+        }
+      ],
+      "prov:qualifiedAssociation": [
+        {
+          "crm:P12i_was_present_at": "Person/00000003",
+          "prov:hadRole": ""
+        }
+      ],
+      "prov:startedAtTime": "2017-06-08T17:30:00Z",
+      "prov:used_r": [],
+      "rdfs:comment": "Second performance of Climb!",
+      "rdfs:label": "Second performance of Climb!"
+    },
+    {
+      "@id": "/annalist/c/annalist_performance_archive/d/Performed_work/00000001/",
+      "@type": [
+        "frbroo:F20_Performance_Work",
+        "prov:Entity",
+        "crm:E77_Persistent_Item",
+        "crm:E70_Thing",
+        "crm:E71_Man-Made_Thing",
+        "crm:E29_Design_or_Procedure",
+        "crm:E73_Information_Object",
+        "crm:E28_Conceptual_Object",
+        "frbroo:frbroo:F1_Work",
+        "annal:EntityData"
+      ],
+      "annal:id": "00000001",
+      "annal:member": [
+        {
+          "prov:wasAttributedTo": "Person/00000003"
+        }
+      ],
+      "annal:member__2": [
+        {
+          "crm:P12i_was_present_at": "Performance/00000005"
+        }
+      ],
+      "annal:type": "frbroo:F20_Performance_Work",
+      "annal:type_id": "Performed_work",
+      "annal:url": "/annalist/c/annalist_performance_archive/d/Performed_work/00000001/",
+      "entity:seeAlso_r": [],
+      "rdfs:comment": "The Climb! composition",
+      "rdfs:label": "Climb!"
+    },
+    {
+      "@id": "/annalist/c/annalist_performance_archive/d/Person/00000003/",
+      "@type": [
+        "crm:E21_Person",
+        "prov:Entity",
+        "prov:Agent",
+        "crm:E39_Actor",
+        "crm:E77_Persistent_Item",
+        "annal:EntityData"
+      ],
+      "annal:id": "00000003",
+      "annal:type": "crm:E21_Person",
+      "annal:type_id": "Person",
+      "annal:url": "/annalist/c/annalist_performance_archive/d/Person/00000003/",
+      "entity:seeAlso_r": [],
+      "foaf:name": "Maria Kallionp\u00e4\u00e4",
+      "rdfs:comment": "Maria Kallionp\u00e4\u00e4",
+      "rdfs:label": "Maria Kallionp\u00e4\u00e4"
+    },
+    {
+      "@id": "/annalist/c/annalist_performance_archive/d/Place/00000013/",
+      "@type": [
+        "crm:E53_Place",
+        "annal:EntityData"
+      ],
+      "annal:id": "00000013",
+      "annal:type": "crm:E53_Place",
+      "annal:type_id": "Place",
+      "annal:url": "/annalist/c/annalist_performance_archive/d/Place/00000013/",
+      "crm:P89_falls_within": "",
+      "crm:P89i_contains_repeat": [],
+      "entity:seeAlso_r": [],
+      "rdfs:comment": "Djanogly Recital Hall, Nottingham",
+      "rdfs:label": "Djanogly Recital Hall, Nottingham"
+    },
+    {
+      "@id": "/annalist/c/annalist_performance_archive/d/Recording/00000007/",
+      "@type": [
+        "frbroo:F26_Recording",
+        "prov:Entity",
+        "crm:E70_Thing",
+        "crm:E71_Man-Made_Thing",
+        "crm:E28_Conceptual_Object",
+        "frbroo:F2_Expression",
+        "mo:MusicalExpression",
+        "annal:EntityData"
+      ],
+      "annal:id": "00000007",
+      "annal:type": "frbroo:F26_Recording",
+      "annal:type_id": "Recording",
+      "annal:url": "/annalist/c/annalist_performance_archive/d/Recording/00000007/",
+      "coll:linked_audio_clips": [],
+      "coll:linked_images": [],
+      "entity:seeAlso_r": [],
+      "mo:records": "Performance/00000005",
+      "prov:hadMember_repeat": [],
+      "rdfs:comment": "Recording of Premiere of Climb!",
+      "rdfs:label": "Recording of Premiere of Climb!"
+    }
+  ]
+}
