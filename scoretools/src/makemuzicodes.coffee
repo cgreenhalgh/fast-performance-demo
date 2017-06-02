@@ -75,7 +75,10 @@ readrow = (r) ->
 ex.markers ?= []
 ex.controls = []
 ex.parameters ?= {}
+markernames = []
 for marker in ex.markers
+  if marker.title && (markernames.indexOf marker.title)>=0
+    console.log 'WARNING: marker "'+marker.title+'" defined multiple times'
   marker.actions = []
   delete marker.action
   delete marker.precondition
@@ -95,6 +98,8 @@ ex.parameters.initstate =
   contenturi: JSON.stringify (config.contenturi ? 'http://localhost:3000/content/')
   performanceid: '""'
   performancename: '""'
+  stagecodeflags: 0
+  stageflags0: 0
 
 # performances
 if config.performances
@@ -185,13 +190,36 @@ content_url = (url) ->
   else
      return url
 
+delayid = 0
+
 add_actions = (control, prefix, data, meldload) ->
+  add_immediate_actions control, prefix, data, meldload
+  # todo delay
+  # control has inputUrl or title (if marker)
+  # data has stage
+  if data[prefix+'delay']?
+    try
+      delay = Number(data[prefix+'delay'])
+      delaycontrol = 
+        inputUrl: 'delay:'+(delayid++)+':'+data.stage+':'+prefix
+        actions: []
+      ex.controls.push delaycontrol
+      add_delayed_actions delaycontrol, prefix, data, meldload
+      control.actions.push
+        url: delaycontrol.inputUrl
+        delay: delay
+    catch err
+      console.log 'ERROR: adding delay of '+data[prefix+'delay']+' for '+data.stage+' '+prefix
+  else
+    add_delayed_actions control, prefix, data, meldload
+  
+add_immediate_actions = (control, prefix, data, meldload) ->
   # monitor
   control.actions.push 
     channel: ''
     url: content_url data[prefix+'monitor']
-  # visual
-  for channel in ['v.background', 'v.animate', 'v.mc']
+  # immediate visual
+  for channel in ['v.background', 'v.mc']
     if data[prefix+channel]?
       if channel=='v.mc' && String(data[prefix+channel])=='1'
         if config.defaultmuzicodeurl?
@@ -205,7 +233,7 @@ add_actions = (control, prefix, data, meldload) ->
         control.actions.push 
           channel: channel
           url: content_url data[prefix+channel]
-  # midi
+  # immediate midi
   if data[prefix+'midi']?
     # multiple 
     msgs = data[prefix+'midi'].split ','
@@ -236,10 +264,38 @@ add_actions = (control, prefix, data, meldload) ->
       control.poststate.meldnextmeifile = JSON.stringify stages[nextstage].meifile
       control.poststate.cued = "true"
 
+add_delayed_actions = (control, prefix, data, meldload) ->
+  # delayed visual
+  for channel in ['v.animate']
+    if data[prefix+channel]?
+      if channel=='v.mc' && String(data[prefix+channel])=='1'
+        if config.defaultmuzicodeurl?
+          control.actions.push 
+            channel: channel
+            url: content_url config.defaultmuzicodeurl
+        else
+          console.log 'ERROR: use of undefined defaultmuzicodeurl in '+prefix+channel
+      else
+        viewgen.add data[prefix+channel]
+        control.actions.push 
+          channel: channel
+          url: content_url data[prefix+channel]
+  # delayed midi
+  if data[prefix+'midi2']?
+    # multiple 
+    msgs = data[prefix+'midi2'].split ','
+    for msg in msgs
+      msg = msg.trim()
+      if msg.length > 0
+        control.actions.push
+          channel: ''
+          url: 'data:text/x-midi-hex,'+msg
+
 set_stage = (control, data) ->
   control.poststate ?= {}
   control.poststate.cued = "false"
-  control.poststate.stage = JSON.stringify data.stage;
+  control.poststate.stage = JSON.stringify data.stage
+  control.poststate.stagecodeflags = '0'
   # weather
   ws = []
   for w,wi in weathers
@@ -261,9 +317,10 @@ set_stage = (control, data) ->
 # find/make named marker
 get_marker = (ex, markertitle, optdescription) ->
   markers = (marker for marker in ex.markers when marker.title == markertitle) ? []
-  if markers.length > 1
-    console.log 'WARNING: marker "'+markertitle+'" defined '+markers.length+' times; using first'
-  else if markers.length == 0
+  for marker in markers
+    if marker.actions.length==0 && marker.precondition.length==0
+      return marker
+  if markers.length == 0
     console.log 'WARNING: marker  "'+markertitle+'" undefined - adding to output'
     marker = 
       title: markertitle
@@ -272,8 +329,15 @@ get_marker = (ex, markertitle, optdescription) ->
       actions: []
       precondition: ''
     ex.markers.push marker
-    markers = [marker]
-  return markers[0]
+    return marker
+  console.log 'NOTE: marker "'+markertitle+'" used more than once; cloning'
+  marker = JSON.parse JSON.stringify markers[0]
+  marker.poststate = {}
+  marker.actions = []
+  marker.precondition = ''
+  ex.markers.push marker
+  return marker
+  
 
 # initialise defaults
 maxrow = 1
@@ -384,18 +448,29 @@ for r in [1..1000]
       url: 'emit:vStageChange:mobileapp:{{performanceid}}:{{stage}}->'+data.stage
 
   # muzicodes
-  for mc in mcs
+  codetitles = {}
+  for mc, mi in mcs
     if not data[mc+'name']
       continue
     marker = get_marker ex, data[mc+'name'], ('stage '+data.stage+' '+mc+'name')
     # in stage precondition
-    suffix = ''
-    if marker.precondition.length > 0
-      if marker.precondition.substring(marker.precondition.length-1) == ')'
-        suffix = ')'
-        marker.precondition = marker.precondition.substring(0, marker.precondition.length-1)
-      marker.precondition += ' || '
-    marker.precondition += 'stage=="'+data.stage+'"'+suffix
+    # marker should only be used once now!
+    if marker.precondition.length>0
+      console.log 'ERROR: coding error: marker found with non-empty precondition: '+marker.precondition
+    marker.precondition = 'stage=="'+data.stage+'"'
+    # once/stage
+    marker.precondition += ' && (stagecodeflags & '+(1 << mi)+')==0'
+    # once/stage post-update
+    marker.poststate.stagecodeflags = 'stagecodeflags | '+(1 << mi)
+    # multiple use in stage?
+    if codetitles[marker.title] == undefined
+      codetitles[marker.title] = []
+    else
+      # previous code ixs 
+      for ct in codetitles[marker.title]
+        marker.precondition += ' && (stagecodeflags & '+(1 << ct)+')!=0'
+    codetitles[marker.title].push mi
+
     add_actions marker, mc, data
     # trigger -> mei
     if data[mc]? and data[mc]!=''

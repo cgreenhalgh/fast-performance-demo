@@ -68,24 +68,27 @@ Whole experience is divided into stages. Each stage is defined by a line in a sp
 Spreadsheet columns:
 
 - `stage` - name
+- `next` - "safe" next stage (always an option)
 - `meifile` - MEI file name for score for stage
 - `rain_effect` - if rain effect allowed (`Y`/`N`)
 - `snow_effect`, `wind_effect`, `storm_effect`, `sun_effect`, `no_effect` - similar
 - `auto:` - followed by initial (automatic) actions - see below
-- `mcN:` - followed by muzicode N actions - see below
+- `mcN:` - followed by muzicode N actions - see below (only triggered once per stage)
 - `default_cue` - name of next stage to cue if reach end and nothing else cued
 
 It is assumed that the first row is the start and the last row is the end.
 
 Actions/etc. for `auto:` and `mcN:`, i.e. names of following columns can be:
 
-- `name` - esp. muzicode name (title)
+- `name` - esp. muzicode name (title) (two mcNs with same muzicode => trigger on consecutive triggerings)
 - `cue` - name of next stage to cue
 - `monitor` - URL to show on monitor (default) channel
-- `v.background` - URL to show on background "visual" channel 
-- `v.animation` - URL to show on animation "visual" channel (i.e. disklavier part visualisation)
 - `v.mc` - "1" (use config defaultmuzicodeurl) or URL to show on muzicode visual channel
+- `v.background` - URL to show on background "visual" channel 
 - `midi` - hex of midi message to send (can be list, comma-separated)
+- `delay` - optional delay in seconds before remaining actions are performed
+- `v.animation` - URL to show on animation "visual" channel (i.e. disklavier part visualisation)
+- `midi2` - hex of midi message to send after delay (if any) (can be list, comma-separated)
 (visual, midinote, midicc, midimsg, effect, mei ids...)
 
 The optional value in the `mcN:` column specifies a score element to highlight if the code triggered. The value is a comma-separated list of any of:
