@@ -99,7 +99,6 @@ ex.parameters.initstate =
   performanceid: '""'
   performancename: '""'
   stagecodeflags: 0
-  stageflags0: 0
 
 # performances
 if config.performances
@@ -191,6 +190,9 @@ content_url = (url) ->
      return url
 
 delayid = 0
+numstages = 0
+BITS_PER_FLAGVAR = 31
+numflagvars = 0
 
 add_actions = (control, prefix, data, meldload) ->
   add_immediate_actions control, prefix, data, meldload
@@ -249,19 +251,52 @@ add_immediate_actions = (control, prefix, data, meldload) ->
   # cue next stage
   if data[prefix+'cue']?
     nextstage = data[prefix+'cue']
+    altstage = null
+    stagetest = 'true'
+    if not stages[nextstage]?
+      console.log 'ERROR: stage '+data.stage+' '+prefix+' cue to unknown stage: '+nextstage
+    
+    if data.next? and not stages[data.next]?
+      console.log 'ERROR: stage '+data.stage+' has unknown safe next stage '+data.next
+    
+    # is it OK to go to this stage, or will it cause us to repeat something? if so use next (safe route) instead
+    # so have we already played nextstage, or any of the stages on ITS safe route?
+    if nextstage? and data.next? and stages[nextstage]? and stages[data.next]? and nextstage!=data.next
+      stageflags = []
+      for sfi in [1..numflagvars]
+        stageflags[sfi-1] = 0
+      ns = nextstage
+      while ns? && stages[ns]?
+        sfi = Math.floor(stages[ns]._index / BITS_PER_FLAGVAR)
+        sfbi = stages[ns]._index % BITS_PER_FLAGVAR
+        if (stageflags[sfi] & (1<<sfbi))!=0
+          console.log 'ERROR: safe route from '+nextstage+' has a loop at '+ns
+          break
+        stageflags[sfi] = stageflags[sfi] | (1<<sfbi)
+        ns = stages[ns].next
+      altstage = data.next
+      stagetest = ''
+      for sfi in [1..numflagvars]
+        if stagetest.length>0
+          stagetest += ' && '
+        stagetest += '(stageflags'+(sfi-1)+' & '+stageflags[sfi-1]+')==0'
     # if it cues, can it only happen if not already cued?!
     if (cuesingle && prefix!='auto_' && control.precondition.indexOf 'cued') < 0
       control.precondition = '!cued'+(if control.precondition.length == 0 then '' else ' && (')+control.precondition+(if control.precondition.length == 0 then '' else ')')
-    if not stages[nextstage] ?
-      console.log 'ERROR: stage '+data.stage+' '+prefix+' cue to unknown stage: '+nextstage
-    else
+    if stages[nextstage]? 
+      nexturi = encodeURIComponent(stages[nextstage].meifile)
+      nextexp = JSON.stringify stages[nextstage].meifile
+      if altstage!=null and stages[altstage]?
+        # run-time choice...
+        nexturi = '{{ '+stagetest+' ? '+(JSON.stringify nexturi)+' : '+(JSON.stringify encodeURIComponent(stages[data.next].meifile))+' }}'
+        nextexp = stagetest+' ? '+nextexp+' : '+(JSON.stringify stages[data.next].meifile)
       meldprefix = if meldload then 'params.' else ''
       control.actions.push 
         url: '{{'+meldprefix+'meldcollection}}'
         post: true
         contentType: 'application/json'
-        body: '{"oa:hasTarget":["{{'+meldprefix+'meldannostate}}"], "oa:hasBody":[{"@type":"meldterm:CreateNextCollection", "resourcesToQueue":["{{meldmeiuri}}'+encodeURIComponent(stages[nextstage].meifile)+'"], "annotationsToQueue":[]}] }'
-      control.poststate.meldnextmeifile = JSON.stringify stages[nextstage].meifile
+        body: '{"oa:hasTarget":["{{'+meldprefix+'meldannostate}}"], "oa:hasBody":[{"@type":"meldterm:CreateNextCollection", "resourcesToQueue":["{{meldmeiuri}}'+nexturi+'"], "annotationsToQueue":[]}] }'
+      control.poststate.meldnextmeifile = nextexp
       control.poststate.cued = "true"
 
 add_delayed_actions = (control, prefix, data, meldload) ->
@@ -296,6 +331,10 @@ set_stage = (control, data) ->
   control.poststate.cued = "false"
   control.poststate.stage = JSON.stringify data.stage
   control.poststate.stagecodeflags = '0'
+  # visited stage
+  sfi = Math.floor(data._index / BITS_PER_FLAGVAR)
+  sfbi = data._index % BITS_PER_FLAGVAR
+  control.poststate['stageflags'+sfi] = 'stageflags'+sfi+' | '+(1<<sfbi)
   # weather
   ws = []
   for w,wi in weathers
@@ -351,6 +390,10 @@ for r in [1..1000]
     continue
   console.log 'stage '+data.stage
   maxrow = r
+  if stages[data.stage]!=undefined
+    console.log 'ERROR: more than one entry found for stage '+data.stage
+  data._index = numstages
+  numstages++
   stages[data.stage] = data
   # defaults for ...-monitor
   for prefix in prefixes
@@ -358,6 +401,10 @@ for r in [1..1000]
   if not data.meifile? 
     console.log 'WARNING: no meifile specified for stage '+data.stage
     data.meifile = data.stage+'.mei'
+
+numflagvars = Math.ceil numstages/BITS_PER_FLAGVAR
+for sfi in [1..numflagvars]
+  ex.parameters.initstate['stageflags'+(sfi-1)] = 0
 
 # read mei file, extract IDs associated with possible codes
 # map of label (code mei name) -> [ xml:ids ]
@@ -397,7 +444,7 @@ for r in [1..1000]
 
   meiids = readmeiids data.meifile
 
-  if r==1
+  if data._index == 0
     # default stage
     ex.parameters.initstate.stage = JSON.stringify data.stage
     # auto on event:load
@@ -428,19 +475,24 @@ for r in [1..1000]
   control = 
     inputUrl:'post:meld.load'
     actions: []
+    poststate: {}
   control.precondition = 'params.meldmei==(meldmeiuri+'+(JSON.stringify encodeURIComponent(data.meifile))+')'
+  # may be overriden by auto-cue
+  control.poststate.meldnextmeifile = 'null'
   ex.controls.push control
   set_stage control, data
   add_actions control, 'auto_', data, true
   control.poststate.meldmei = 'params.meldmei'
   control.poststate.meldannostate = 'params.meldannostate'
   control.poststate.meldcollection = 'params.meldcollection'
-  control.poststate.meldnextmeifile = 'null'
   # app view events
-  if r==1
+  if data._index==0
     control.actions.push
       url: 'emit:vStart:mobileapp:{{performanceid}}:'+data.stage
-  else if r==maxrow
+    # and clear stage flags (like reload)
+    for sfi in [1..numflagvars]
+      control.poststate['stageflags'+(sfi-1)] = if sfi==0 then 1 else 0
+  else if data._index==numstages
     control.actions.push
       url: 'emit:vStop:mobileapp:{{performanceid}}'
   else
@@ -513,6 +565,13 @@ for stage,data of stages
     if data[prefix+'cue']? and not stages[data[prefix+'cue']]?
       console.log 'ERROR: stage '+stage+' '+prefix+'cue refers to unknown stage "'+data[prefix+'cue']+'"'
       errors++
+
+# clear stage flags
+control = {inputUrl:'button:clear flags',actions:[], poststate:{}}
+for sfi in [1..numflagvars]
+  control.poststate['stageflags'+(sfi-1)] = 0
+control.poststate.stagecodeflags = 0
+
 
 # fake pedal input
 control = {inputUrl:'button:next piece',actions:[]}
