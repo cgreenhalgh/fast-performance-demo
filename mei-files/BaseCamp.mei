@@ -811,7 +811,7 @@
                                 <rend xml:id="rend-000000181974259" fontfam="Times New Roman">Ending 1</rend>
                             </dir>
                             <dir xml:id="dir-000000120333237" place="above" staff="3" tstamp="0" startid="#note-000000082682288">
-                                <rend xml:id="rend-000000057661723" fontfam="Times New Roman">The player should choose one of the three endings. This determines the continuation of the game.</rend>
+                                <rend xml:id="rend-000000057661723" fontfam="Times New Roman">Choose one of the three endings.</rend>
                             </dir>
                             <line staff="3" dis="8" dis.place="above" startid="#note-000000082682288" endid="#rest-000000060660854"/>
                             <pedal xml:id="pedal-000000147526020" staff="3" dir="down" place="below" tstamp="1"/>
@@ -995,7 +995,7 @@
                             <dynam xml:id="dynam-000000021289035" place="below" staff="3" tstamp="1">f</dynam>
                             <slur xml:id="slur-000000028975014" place="above" staff="3" tstamp="2" tstsamp2="2.75" />
                             <pedal xml:id="pedal-000000018091835" staff="4" tstamp="1" dir="down" place="below" />
-                            <pedal xml:id="pedal-000000104014960" staff="4" tstamp="3.8" dir="upn" place="below" />
+                            <pedal xml:id="pedal-000000104014960" staff="4" tstamp="3.8" dir="up" place="below" />
                             <slur xml:id="slur-000000051001619" staff="4" place="above" tstamp="2" tstsamp2="2.75" endid="#note-000000018702878" />
                         </measure>
                     </section>

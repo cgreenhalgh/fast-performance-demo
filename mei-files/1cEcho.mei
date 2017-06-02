@@ -135,16 +135,13 @@
                             <dir xml:id="dir-000000015797188" place="above" staff="3" tstamp="0">
                                 <rend xml:id="rend-000000004410803" fontfam="Times New Roman" fontsize="750">Echo (1c)</rend>
                             </dir>
-                            <tempo place="above" staff="3" tstamp= "1" mm="152"> ♩=60</tempo>                        
+                            <tempo place="above" staff="3" tstamp= "1" mm="152"> ♩=60</tempo>
                             <dynam xml:id="dynam-000000005587781" place="below" staff="3" startid="#note-000000182051123">pp</dynam>
                             <slur xml:id="slur-000000159613126" startid="#note-000000182051123" endid="#note-000000002518922" />
                             <slur place="above" staff="4" startid="#note-000000163369121" endid="#note-000000134228469" />
                             <dynam xml:id="dynam-000000103707054" place="below" staff="5" startid="#note-000000073209760">ppp</dynam>
                             <slur xml:id="slur-000000212677466" startid="#note-000000073209760" endid="#note-000000003133214" />
                             <slur place="above" staff="6" startid="#note-000000007098428" endid="#note-000000055778741" />
-                            <dir xml:id="dir-000000015797188" place="below" staff="6" startid="#note-000000073209760">
-                                <rend xml:id="rend-000000004410803" fontfam="Times New Roman">Filter on (reverberation)</rend>
-                            </dir>
                         </measure>
                         <measure xml:id="measure-000000070821280" n="2">
                             <staff xml:id="staff-000000176630502" n="3">
@@ -487,10 +484,7 @@
                                     <rest xml:id="rest-000000170195715" dur="4" />
                                     <rest xml:id="rest-000000004276158" dur="2" />
                                 </layer>
-                            </staff>
-                            <dir xml:id="dir-000000160412894" place="below" staff="6" startid="note-000000058328531">
-                                <rend xml:id="rend-000000173337238" fontfam="Times New Roman">Filter off</rend>
-                            </dir>
+                            </staff>                            
                             <pedal dir="down" staff="3" tstamp="2" place="below"/>
                             <pedal dir="up" staff="3" tstamp="4" place="below"/>
                             <slur xml:id="slur-000000034199813" startid="#note-000000007521240" endid="#note-000000060728503" />

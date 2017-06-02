@@ -1410,9 +1410,6 @@
                                     <rest xml:id="rest-000000104599470" dur="4" />
                                 </layer>
                             </staff>
-                            <dir xml:id="dir-000000003876023" staff="1" place="above" startid="#note-000000190098011">
-                                <rend xml:id="rend-000000004669999" fontfam="Times New Roman" fontstyle="normal" fontweight="normal">Muzicode (if successful goes to P1, if not then Event 2a)</rend>
-                            </dir>
                             <slur xml:id="slur-000000066512541" startid="#note-000000190098011" endid="#note-000000112500087" color="#000000" curvedir="above" />
                             <hairpin xml:id="hairpin-000000166649255" startid="#note-000000116097984" endid="#note-000000050386315" color="#000000" form="cres" />
                             <slur xml:id="slur-000000155984734" startid="#note-000000143415272" endid="#note-000000050386315" color="#000000" curvedir="above" />

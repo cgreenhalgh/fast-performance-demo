@@ -110,7 +110,7 @@
                             </staff>
                             <tempo place="above" staff="2" mm="152"> ♩=120</tempo>
                             <dir xml:id="dir-000000015797188" place="above" staff="2" tstamp="0">
-                                <rend xml:id="rend-000000004410803" fontfam="Times New Roman" fontsize="750">Path 2</rend>
+                                <rend xml:id="rend-000000004410803" fontfam="Times New Roman" fontsize="750">Path 2a</rend>
                             </dir>
                             <dynam xml:id="dynam-000000033627817" place="below" staff="2" startid="#note-000000206246039">f</dynam>
                             <slur tstamp="2" tstamp2="1m+1" curvedir="above" staff="2" />
@@ -1120,7 +1120,7 @@
                             <tie xml:id="tie-000000023051602" startid="#note-000000171140336" endid="#note-000000079993212" />
                         </measure>
                         <scoreDef meter.count="4" meter.unit="4" />
-                        <measure xml:id="measure-000000053584519" n="14">
+                        <measure xml:id="measure-000000053584519" n="14" right="end">
                             <staff xml:id="staff-000000182115987" n="2">
                                 <layer xml:id="layer-000000064227137" n="1">
                                     <chord xml:id="chord-000000099415204" dur="8" stem.dir="down">
