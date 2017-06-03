@@ -611,6 +611,17 @@ control.actions.push
   contentType: 'application/json'
   body: '{"oa:hasTarget":["{{meldannostate}}"], "oa:hasBody":[{"@type":"meldterm:NextPageOrPiece"}] }'
 
+# unused markers
+for marker in ex.markers
+  if marker.precondition == '' and marker.actions.length == 0
+    unused = true
+    for k,v of marker.poststate
+      unused = false
+      break
+    if unused
+      console.log 'Note: disabling unused marker "'+marker.title+'"'
+      marker.precondition = 'false'
+
 console.log 'write experience '+exoutfile
 fs.writeFileSync exoutfile, (JSON.stringify ex, null, '  '), {encoding: 'utf8'}
 
