@@ -303,18 +303,10 @@ add_delayed_actions = (control, prefix, data, meldload) ->
   # delayed visual
   for channel in ['v.animate']
     if data[prefix+channel]?
-      if channel=='v.mc' && String(data[prefix+channel])=='1'
-        if config.defaultmuzicodeurl?
-          control.actions.push 
-            channel: channel
-            url: content_url config.defaultmuzicodeurl
-        else
-          console.log 'ERROR: use of undefined defaultmuzicodeurl in '+prefix+channel
-      else
-        viewgen.add data[prefix+channel]
-        control.actions.push 
-          channel: channel
-          url: content_url data[prefix+channel]
+      viewgen.add data[prefix+channel]
+      control.actions.push 
+        channel: channel
+        url: content_url data[prefix+channel]
   # delayed midi
   if data[prefix+'midi2']?
     # multiple 
@@ -444,21 +436,6 @@ for r in [1..1000]
 
   meiids = readmeiids data.meifile
 
-  if data._index == 0
-    # default stage
-    ex.parameters.initstate.stage = JSON.stringify data.stage
-    # auto on event:load
-    control = {inputUrl:'event:load', actions:[]}
-    ex.controls.push control
-    set_stage control, data
-    add_actions control, 'auto_', data
-  else
-    # non-default stage
-    # test button
-    #control = {inputUrl:'button:'+data.stage, actions:[]}
-    #ex.controls.push control
-    #set_stage control, data
-    #add_actions control, 'auto_', data
   # cue (test/rehearse) button
   control = {inputUrl:'button:cue '+data.stage, actions:[],poststate:{}}
   ex.controls.push control
@@ -492,7 +469,7 @@ for r in [1..1000]
     # and clear stage flags (like reload)
     for sfi in [1..numflagvars]
       control.poststate['stageflags'+(sfi-1)] = if sfi==0 then 1 else 0
-  else if data._index==numstages
+  else if data._index==(numstages-1)
     control.actions.push
       url: 'emit:vStop:mobileapp:{{performanceid}}'
   else
@@ -572,6 +549,15 @@ for sfi in [1..numflagvars]
   control.poststate['stageflags'+(sfi-1)] = 0
 control.poststate.stagecodeflags = 0
 
+# onload - init state / visuals
+control = {inputUrl:'event:load', actions:[], poststate:{}}
+ex.controls.push control
+control.poststate.stage = '"_loaded"'
+# visuals - clear
+for channel in ['v.animate', 'v.mc', 'v.background', 'v.weather']
+  control.actions.push 
+    channel: channel
+    url: ''
 
 # fake pedal input
 control = {inputUrl:'button:next piece',actions:[]}
@@ -590,6 +576,15 @@ control.actions.push
   post: true
   contentType: 'application/x-www-form-urlencoded'
   body: 'name=pedal'
+
+# fake pedal back input
+control = {inputUrl:'button:back',actions:[]}
+ex.controls.push control
+control.actions.push 
+  url: '{{meldcollection}}'
+  post: true
+  contentType: 'application/json'
+  body: '{"oa:hasTarget":["{{meldannostate}}"], "oa:hasBody":[{"@type":"meldterm:PreviousPageOrPiece"}] }'
 
 # fake meld input
 control = {inputUrl:'button:Fake meld',actions:[],precondition:'!!meldnextmeifile'}
