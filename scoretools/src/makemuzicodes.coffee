@@ -606,6 +606,15 @@ control.actions.push
   contentType: 'application/json'
   body: '{"oa:hasTarget":["{{meldannostate}}"], "oa:hasBody":[{"@type":"meldterm:NextPageOrPiece"}] }'
 
+# pedal back meld action
+control = {inputUrl:'post:pedal.back',actions:[]}
+ex.controls.push control
+control.actions.push 
+  url: '{{meldcollection}}'
+  post: true
+  contentType: 'application/json'
+  body: '{"oa:hasTarget":["{{meldannostate}}"], "oa:hasBody":[{"@type":"meldterm:PreviousPageOrPiece"}] }'
+
 # unused markers
 for marker in ex.markers
   if marker.precondition == '' and marker.actions.length == 0

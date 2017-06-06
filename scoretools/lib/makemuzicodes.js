@@ -832,6 +832,20 @@
     body: '{"oa:hasTarget":["{{meldannostate}}"], "oa:hasBody":[{"@type":"meldterm:NextPageOrPiece"}] }'
   });
 
+  control = {
+    inputUrl: 'post:pedal.back',
+    actions: []
+  };
+
+  ex.controls.push(control);
+
+  control.actions.push({
+    url: '{{meldcollection}}',
+    post: true,
+    contentType: 'application/json',
+    body: '{"oa:hasTarget":["{{meldannostate}}"], "oa:hasBody":[{"@type":"meldterm:PreviousPageOrPiece"}] }'
+  });
+
   ref16 = ex.markers;
   for (l1 = 0, len10 = ref16.length; l1 < len10; l1++) {
     marker = ref16[l1];
