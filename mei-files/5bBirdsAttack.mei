@@ -1066,7 +1066,7 @@
                                             </note>
                                             <note xml:id="note-0000000526074490" dur="16" oct="3" pname="b" stem.dir="down" />
                                             <note xml:id="note-0000000189954134" dur="16" oct="3" pname="a" stem.dir="down">
-                                                <accid xml:id="accid-0000000296721189" accid.ges="s" />
+                                                <accid xml:id="accid-0000000296721189" accid="s" />
                                             </note>
                                         </tuplet>
                                     </beam>

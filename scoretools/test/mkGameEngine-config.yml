@@ -7,22 +7,22 @@ meldserver: http://127.0.0.1:5000/addannotation/
 meldmeiuri: http://127.0.0.1:3000/content/
 cuesingle: false
 defaultprojection: 1
-no_effect: data:text/x-midi-hex,90807f
-rain_effect: data:text/x-midi-hex,90817f
-snow_effect: data:text/x-midi-hex,90827f
-wind_effect: data:text/x-midi-hex,90837f
-storm_effect: data:text/x-midi-hex,90847f
-sun_effect: data:text/x-midi-hex,90857f
+no_effect: data:text/x-midi-hex,90707f
+rain_effect: data:text/x-midi-hex,90717f
+snow_effect: data:text/x-midi-hex,90727f
+wind_effect: data:text/x-midi-hex,90737f
+storm_effect: data:text/x-midi-hex,90747f
+sun_effect: data:text/x-midi-hex,90757f
 meidir: ../../mei-files
 weatherdelaymin: 5
 weatherdelaymax: 10
 climbviewout: mkGameEngine-view.json
-no_url:
-rain_url:
-snow_url:
-wind_url:
-storm_url:
-sun_url:
+no_url: http://127.0.0.1:3000/content/clear.jpg
+rain_url: http://127.0.0.1:3000/content/rain.webm
+snow_url: http://127.0.0.1:3000/content/snow.webm
+wind_url: http://127.0.0.1:3000/content/wind.webm
+storm_url: http://127.0.0.1:3000/content/storm.webm
+sun_url: http://127.0.0.1:3000/content/sun.webm
 weatherfadein: 2
 weatherfadeout: 3
 noanimationurl:
