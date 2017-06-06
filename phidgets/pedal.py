@@ -11,6 +11,7 @@ __date__ = 'May 17 2010'
 
 URL = "http://127.0.0.1:3000/input"
 INPUTNAME = "pedal"
+INPUT2NAME = "pedal.back"
 
 #Basic imports
 from ctypes import *
@@ -19,6 +20,8 @@ import random
 import httplib
 import urllib
 import urllib2
+import datetime
+import time
 
 #Phidget specific imports
 from Phidgets.PhidgetException import PhidgetErrorCodes, PhidgetException
@@ -50,7 +53,17 @@ def interfaceKitError(e):
     except PhidgetException as e:
         print("Phidget Exception %i: %s" % (e.code, e.details))
 
+lastpress = {}
+
 def dopost(url, inputname):
+    global lastpress
+    now = datetime.datetime.now()
+    if inputname in lastpress.keys():
+        delta = (now - lastpress[inputname]).total_seconds()
+        if (delta < 0.5):
+            print "Suppress post of %s after %f seconds" % ( inputname, delta )
+            return
+    lastpress[inputname] = now
     try:
         body = urllib.urlencode({ 'name': inputname })
         res = urllib2.urlopen(url, body)
@@ -63,6 +76,8 @@ def dopost(url, inputname):
         print "Error doing post!"
         print e
 
+
+
 def interfaceKitInputChanged(e):
     global URL
     source = e.device
@@ -70,6 +85,9 @@ def interfaceKitInputChanged(e):
     if (e.index == 0 and e.state == True ):
         print("Press!")
         dopost(URL, INPUTNAME)
+    if (e.index == 1 and e.state == True ):
+        print("Back!")
+        dopost(URL, INPUT2NAME)
 
 if (len(sys.argv)>=2):
     URL = sys.argv[1];
@@ -103,7 +121,7 @@ except PhidgetException as e:
 print("Waiting for InterfaceKit to attach....")
 
 try:
-    interfaceKit.waitForAttach(10000)
+    interfaceKit.waitForAttach(1000*60*60*24)
 except PhidgetException as e:
     print("Phidget Exception %i: %s" % (e.code, e.details))
     try:
@@ -115,9 +133,10 @@ except PhidgetException as e:
     print("Exiting....")
     exit(1)
 
-print("Press Enter to quit....")
+print("Running....")
 
-chr = sys.stdin.read(1)
+while True:
+    time.sleep(10)
 
 print("Closing...")
 
