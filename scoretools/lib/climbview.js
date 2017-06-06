@@ -7,6 +7,7 @@
       var ref, ref1, ref2, ref3, ref4, ref5, ref6;
       this.title = title1;
       this.preload = [];
+      this.config = config;
       this.layers = [
         {
           title: 'background',
@@ -17,8 +18,8 @@
           crossfade: false
         }, {
           title: 'animation',
-          channel: 'v.animation',
-          defaultUrl: config.noanimationurl,
+          channel: 'v.animate',
+          defaultUrl: this.content_url(config.noanimationurl, config),
           loop: false,
           fadeIn: 0,
           fadeOut: 0,
@@ -32,7 +33,7 @@
           crossfade: true
         }, {
           title: 'muzicode',
-          channel: 'v.muzicode',
+          channel: 'v.mc',
           loop: false,
           fadeIn: (ref4 = config.muzicodefadein) != null ? ref4 : 0,
           fadeOut: (ref5 = config.muzicodefadeout) != null ? ref5 : 0,
@@ -50,6 +51,15 @@
       this.add(config.wind_url);
     }
 
+    Generator.prototype.content_url = function(url, config) {
+      if ((url != null) && (config.contenturi != null) && (url.indexOf(':')) < 0 && (url.substring(0, 1)) !== '/') {
+        return config.contenturi + url;
+      } else {
+
+      }
+      return url;
+    };
+
     Generator.prototype.get = function() {
       return {
         title: this.title,
@@ -60,6 +70,7 @@
     };
 
     Generator.prototype.add = function(url) {
+      url = this.content_url(url, this.config);
       if ((url != null) && (this.preload.indexOf(url)) < 0) {
         return this.preload.push(url);
       }

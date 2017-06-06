@@ -2,19 +2,21 @@
 
 class Generator
 	constructor: (@title, config) ->
+	
 		@preload = []
+		@config = config
 		@layers = [
 				title:'background'
 				channel:'v.background'
-				#defaultUrl: config.background_url
+				#defaultUrl: @content_url config.background_url, config
 				loop: true
 				fadeIn: config.backgroundfadein ? 0
 				fadeOut: config.backgroundfadeout ? 0				
 				crossfade: false
 			,
 				title:'animation'
-				channel:'v.animation'
-				defaultUrl: config.noanimationurl
+				channel:'v.animate'
+				defaultUrl: @content_url config.noanimationurl, config
 				loop: false
 				fadeIn: 0
 				fadeOut: 0
@@ -28,7 +30,7 @@ class Generator
 				crossfade: true				
 			,
 				title:'muzicode'
-				channel:'v.muzicode'
+				channel:'v.mc'
 				loop: false
 				fadeIn: config.muzicodefadein ? 0
 				fadeOut: config.muzicodefadeout ? 0				
@@ -44,6 +46,12 @@ class Generator
 		@add config.storm_url
 		@add config.wind_url
 
+	content_url: (url, config) ->
+		if url? and config.contenturi? and (url.indexOf ':') < 0 and (url.substring 0,1) != '/'
+			return config.contenturi+url
+		else
+		return url
+
 	get: ->
 		{
 			title: @title
@@ -53,6 +61,7 @@ class Generator
 		}
 
 	add: (url) ->
+		url = @content_url url, @config
 		if url? and (@preload.indexOf url)<0
 			@preload.push url
 
