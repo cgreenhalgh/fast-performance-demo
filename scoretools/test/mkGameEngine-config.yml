@@ -4,6 +4,7 @@ experienceout: mkGameEngine-out.json
 mcserver: http://127.0.0.1:3000/input
 meldserver: http://127.0.0.1:5000/addannotation/
 #meldmeiuri: http://muzicodes/content/
+contenturi: http://localhost:3000/content/
 meldmeiuri: http://127.0.0.1:3000/content/
 cuesingle: false
 defaultprojection: 1
@@ -17,7 +18,7 @@ meidir: ../../mei-files
 weatherdelaymin: 5
 weatherdelaymax: 10
 climbviewout: mkGameEngine-view.json
-no_url: http://127.0.0.1:3000/content/clear.jpg
+no_url: 
 rain_url: http://127.0.0.1:3000/content/rain.webm
 snow_url: http://127.0.0.1:3000/content/snow.webm
 wind_url: http://127.0.0.1:3000/content/wind.webm
@@ -25,7 +26,7 @@ storm_url: http://127.0.0.1:3000/content/storm.webm
 sun_url: http://127.0.0.1:3000/content/sun.webm
 weatherfadein: 2
 weatherfadeout: 3
-noanimationurl:
+noanimationurl: http://127.0.0.1:3000/content/mountainOutline.png
 defaultmuzicodeurl: http://127.0.0.1:3000/content/baseCamp.jpg
 muzicodefadein: 0.5
 muzicodefadeout: 1
