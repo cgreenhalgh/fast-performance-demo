@@ -39,6 +39,13 @@ MELD is run as
 ```
 ./scripts/runmeld.sh
 ```
+Or set up MELD for upstart:
+```
+sudo cp scripts/meld.upstart.conf /etc/init/meld.conf
+sudo service meld start
+```
+
+
 
 MELD is then accessible as [http://127.0.0.1:5000/startTheClimb](http://127.0.0.1:5000/startTheClimb).
 
