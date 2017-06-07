@@ -196,24 +196,40 @@ numflagvars = 0
 
 add_actions = (control, prefix, data, meldload) ->
   add_immediate_actions control, prefix, data, meldload
-  # todo delay
   # control has inputUrl or title (if marker)
   # data has stage
   if data[prefix+'delay']?
     try
       delay = Number(data[prefix+'delay'])
+      vdelta = if data[prefix+'vdelta']? then Number(data[prefix+'vdelta']) else 0
       delaycontrol = 
         inputUrl: 'delay:'+(delayid++)+':'+data.stage+':'+prefix
         actions: []
       ex.controls.push delaycontrol
-      add_delayed_actions delaycontrol, prefix, data, meldload
+      add_delayed_midi delaycontrol, prefix, data, meldload
+      if vdelta==0
+        add_delayed_visual delaycontrol, prefix, data, meldload
       control.actions.push
         url: delaycontrol.inputUrl
         delay: delay
+      if vdelta!=0
+        delay += vdelta;
+        if delay<0
+          console.log 'Warning: negative delay for '+prefix+' visuals in '+data.stage
+          delay = 0
+        delaycontrol = 
+          inputUrl: 'delay:'+(delayid++)+':'+data.stage+':v'+prefix
+          actions: []
+        ex.controls.push delaycontrol
+        add_delayed_visual delaycontrol, prefix, data, meldload
+        control.actions.push
+          url: delaycontrol.inputUrl
+          delay: delay
     catch err
-      console.log 'ERROR: adding delay of '+data[prefix+'delay']+' for '+data.stage+' '+prefix
+      console.log 'ERROR: adding delay of '+data[prefix+'delay']+' (vdelta '+data[prefix+'vdelta']+') for '+data.stage+' '+prefix+' ('+err.message+')'
   else
-    add_delayed_actions control, prefix, data, meldload
+    add_delayed_visual control, prefix, data, meldload
+    add_delayed_midi control, prefix, data, meldload
   
 add_immediate_actions = (control, prefix, data, meldload) ->
   # monitor
@@ -299,7 +315,7 @@ add_immediate_actions = (control, prefix, data, meldload) ->
       control.poststate.meldnextmeifile = nextexp
       control.poststate.cued = "true"
 
-add_delayed_actions = (control, prefix, data, meldload) ->
+add_delayed_visual = (control, prefix, data, meldload) ->
   # delayed visual
   for channel in ['v.animate']
     if data[prefix+channel]?
@@ -307,6 +323,8 @@ add_delayed_actions = (control, prefix, data, meldload) ->
       control.actions.push 
         channel: channel
         url: content_url data[prefix+channel]
+        
+add_delayed_midi = (control, prefix, data, meldload) ->
   # delayed midi
   if data[prefix+'midi2']?
     # multiple 

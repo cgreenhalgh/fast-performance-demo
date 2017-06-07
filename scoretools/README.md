@@ -87,6 +87,7 @@ Actions/etc. for `auto:` and `mcN:`, i.e. names of following columns can be:
 - `v.background` - URL to show on background "visual" channel 
 - `midi` - hex of midi message to send (can be list, comma-separated)
 - `delay` - optional delay in seconds before remaining actions are performed
+- `vdelta` - optional adjustment to `delay` for `v.animation` compared to `midi2`, e.g. to make animation later use a positive value; earlier use a negative value
 - `v.animation` - URL to show on animation "visual" channel (i.e. disklavier part visualisation)
 - `midi2` - hex of midi message to send after delay (if any) (can be list, comma-separated)
 (visual, midinote, midicc, midimsg, effect, mei ids...)
