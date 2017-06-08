@@ -18,12 +18,12 @@ meidir: ../../mei-files
 weatherdelaymin: 5
 weatherdelaymax: 10
 climbviewout: mkGameEngine-view.json
-no_url: 
-rain_url: http://127.0.0.1:3000/content/rain.webm
-snow_url: http://127.0.0.1:3000/content/snow.webm
-wind_url: http://127.0.0.1:3000/content/wind.webm
-storm_url: http://127.0.0.1:3000/content/storm.webm
-sun_url: http://127.0.0.1:3000/content/sun.webm
+no_url:
+rain_url: http://127.0.0.1:3000/content/rainPerf.webm
+snow_url: http://127.0.0.1:3000/content/snowPerf.webm
+wind_url: http://127.0.0.1:3000/content/windPerf.webm
+storm_url: http://127.0.0.1:3000/content/stormPerf.webm
+sun_url: http://127.0.0.1:3000/content/sunPerf.webm
 weatherfadein: 2
 weatherfadeout: 3
 noanimationurl: http://127.0.0.1:3000/content/mountainOutline.png
@@ -38,4 +38,3 @@ performances:
   test: 9333e7a2-16a9-4352-a45a-f6f42d848cde
   first: be418821-436d-41c2-880c-058dffb57d91
   second: 13a7fa70-ae91-4541-9526-fd3b332b585d
-
