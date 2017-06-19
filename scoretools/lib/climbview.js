@@ -4,7 +4,7 @@
 
   Generator = (function() {
     function Generator(title1, config) {
-      var ref, ref1, ref2, ref3, ref4, ref5, ref6;
+      var ref, ref1, ref10, ref2, ref3, ref4, ref5, ref6, ref7, ref8, ref9;
       this.title = title1;
       this.preload = [];
       this.config = config;
@@ -12,9 +12,14 @@
         {
           title: 'background',
           channel: 'v.background',
+          defaultUrl: this.content_url(config.forcebackgroundurl, config),
           loop: true,
           fadeIn: (ref = config.backgroundfadein) != null ? ref : 0,
           fadeOut: (ref1 = config.backgroundfadeout) != null ? ref1 : 0,
+          insetTop: (ref2 = config.backgroundInsetTop) != null ? ref2 : 0,
+          insetBottom: (ref3 = config.backgroundInsetBottom) != null ? ref3 : 0,
+          insetLeft: (ref4 = config.backgroundInsetLeft) != null ? ref4 : 0,
+          insetRight: (ref5 = config.backgroundInsetRight) != null ? ref5 : 0,
           crossfade: false
         }, {
           title: 'animation',
@@ -28,19 +33,20 @@
           title: 'weather',
           channel: 'v.weather',
           loop: true,
-          fadeIn: (ref2 = config.weatherfadein) != null ? ref2 : 0,
-          fadeOut: (ref3 = config.weatherfadeout) != null ? ref3 : 0,
+          fadeIn: (ref6 = config.weatherfadein) != null ? ref6 : 0,
+          fadeOut: (ref7 = config.weatherfadeout) != null ? ref7 : 0,
           crossfade: true
         }, {
           title: 'muzicode',
           channel: 'v.mc',
           loop: false,
-          fadeIn: (ref4 = config.muzicodefadein) != null ? ref4 : 0,
-          fadeOut: (ref5 = config.muzicodefadeout) != null ? ref5 : 0,
-          holdTime: (ref6 = config.muzicodeholdtime) != null ? ref6 : null,
+          fadeIn: (ref8 = config.muzicodefadein) != null ? ref8 : 0,
+          fadeOut: (ref9 = config.muzicodefadeout) != null ? ref9 : 0,
+          holdTime: (ref10 = config.muzicodeholdtime) != null ? ref10 : null,
           crossfade: true
         }
       ];
+      this.add(config.forcebackgroundurl);
       this.add(config.noanimationurl);
       this.add(config.no_url);
       this.add(config.defaultmuzicodeurl);

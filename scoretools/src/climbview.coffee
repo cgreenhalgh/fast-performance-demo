@@ -8,10 +8,14 @@ class Generator
 		@layers = [
 				title:'background'
 				channel:'v.background'
-				#defaultUrl: @content_url config.background_url, config
+				defaultUrl: @content_url config.forcebackgroundurl, config
 				loop: true
 				fadeIn: config.backgroundfadein ? 0
 				fadeOut: config.backgroundfadeout ? 0				
+				insetTop: config.backgroundInsetTop ? 0
+				insetBottom: config.backgroundInsetBottom ? 0
+				insetLeft: config.backgroundInsetLeft ? 0
+				insetRight: config.backgroundInsetRight ? 0
 				crossfade: false
 			,
 				title:'animation'
@@ -37,6 +41,7 @@ class Generator
 				holdTime: config.muzicodeholdtime ? null
 				crossfade: true				
 		]
+		@add config.forcebackgroundurl
 		@add config.noanimationurl
 		@add config.no_url
 		@add config.defaultmuzicodeurl

@@ -246,7 +246,7 @@ add_immediate_actions = (control, prefix, data, meldload) ->
             url: content_url config.defaultmuzicodeurl
         else
           console.log 'ERROR: use of undefined defaultmuzicodeurl in '+prefix+channel
-      else
+      else if not ( channel == 'v.background' and config.forcebackgroundurl? )
         viewgen.add data[prefix+channel]
         control.actions.push 
           channel: channel
@@ -573,9 +573,10 @@ ex.controls.push control
 control.poststate.stage = '"_loaded"'
 # visuals - clear
 for channel in ['v.animate', 'v.mc', 'v.background', 'v.weather']
-  control.actions.push 
-    channel: channel
-    url: ''
+  if not ( channel == 'v.background' and config.forcebackgroundurl? )
+    control.actions.push 
+      channel: channel
+      url: ''
 
 # fake pedal input
 control = {inputUrl:'button:next piece',actions:[]}

@@ -48,6 +48,11 @@ muzicodefadeout: 1
 muzicodeholdtime: 0.2
 backgroundfadein: 2
 backgroundfadeout: 2
+forcebackgroundurl: "video:{\"width\":1280,\"height\":720}"
+backgroundInsetTop: 0.1
+backgroundInsetBottom: 0.1
+backgroundInsetLeft: 0.1
+backgroundInsetRight: 0.1
 
 performances:
   test: 9333e7a2-16a9-4352-a45a-f6f42d848cde
@@ -57,6 +62,8 @@ performances:
 Note:
 
 - XX_effect - action to trigger associated effect
+- forcebackgroundurl prevents background URLs from experience file being used
+- backgroundInsetTop/Bottom/Left/Right - fraction to inset edges of background image/video
 
 End of note stream for default projection drives cueing of default next stage.
 

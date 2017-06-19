@@ -356,7 +356,7 @@
           } else {
             console.log('ERROR: use of undefined defaultmuzicodeurl in ' + prefix + channel);
           }
-        } else {
+        } else if (!(channel === 'v.background' && (config.forcebackgroundurl != null))) {
           viewgen.add(data[prefix + channel]);
           control.actions.push({
             channel: channel,
@@ -785,10 +785,12 @@
   ref15 = ['v.animate', 'v.mc', 'v.background', 'v.weather'];
   for (k1 = 0, len9 = ref15.length; k1 < len9; k1++) {
     channel = ref15[k1];
-    control.actions.push({
-      channel: channel,
-      url: ''
-    });
+    if (!(channel === 'v.background' && (config.forcebackgroundurl != null))) {
+      control.actions.push({
+        channel: channel,
+        url: ''
+      });
+    }
   }
 
   control = {
