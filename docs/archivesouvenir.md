@@ -64,6 +64,7 @@ tl: http://purl.org/NET/c4dm/timeline.owl#
 event: http://purl.org/NET/c4dm/event.owl#
 foaf: http://xmlns.com/foaf/0.1/
 rdfs: http://www.w3.org/2000/01/rdf-schema#
+time: http://www.w3.org/2006/time#
 ```
 
 #### Summary:
@@ -106,15 +107,23 @@ rdfs: http://www.w3.org/2000/01/rdf-schema#
 - `mo:published_as` (`mo:MusicalManifestation`)
 - `mo:musicbrainz_guid` (id?! - Recording?!)
 
+`mo:Signal` (parent class `mo:MusicalExpression`)
+- `mo:time` (`time:TemporalEntity`) (equiv. `time:hasTime`?!)
+
 `mo:MusicalManifestation` (parent class `frbr:Manifestation`)
 (children: `mo:Record` (musicbrainz Release?), `mo:Track` (usually on a particular `mo:Record`), `mo:PublishedScore`, `mo:Release`, ...)
 - `mo:media_type` (`dc:MediaType`)
 - `mo:publication_of` (`mo:MusicalExpression`) 
 - `mo:available_as` (`mo:MusicalItem`)
 
+Do we need to add some more `mo:MusicalManifestation`s, e.g. unpublished recording?
+Or an alternative link from `mo:Signal` to `mo:MusicalItem` (esp. `mo:AudioFile`, etc.) like `mo:available_as`?
+
 `mo:MusicalItem`
 (children `mo:Medium` (children `mo:AudioFile`, `mo:Stream`))
 - `mo:encodes` (`mo:Signal` - not necessarily the one associated via manifestation->expression??)
+
+`mo:AudioFile` (parent classes `mo:MusicalItem` and `foaf:Document` (roughly URL))
 
 `foaf:Agent`: (extended by `mo:MusicArtist`) (see musicbrainz Artist)
 - `foaf:name` name
@@ -126,6 +135,17 @@ rdfs: http://www.w3.org/2000/01/rdf-schema#
 - `foaf:img` (Image)
 
 (or foaf:Group (extended by `mo:MusicGroup`) or foaf:Organisation)
+
+`time:TemporalEntity`
+- `time:hasBeginning` (`time:Instant`)
+- `time:hasEnd` (`time:Instant`)
+- `time:hasXSDDuration` (xsd:duration)
+
+`time:Instant` (parent class `time:TemporalEntity`)
+- `time:inXSDDateTime` (xsd:dateTime)
+- `time:inXSDDateTimeStamp` (xsd:dateTimeStamp)
+
+`time:Interval` (parent class `time:TemporalEntity`)
 
 `tl:UTInstant`:
 - `tl:atDateTime` (xsd:dateTime)
