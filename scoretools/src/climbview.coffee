@@ -11,11 +11,7 @@ class Generator
 				defaultUrl: @content_url config.forcebackgroundurl, config
 				loop: true
 				fadeIn: config.backgroundfadein ? 0
-				fadeOut: config.backgroundfadeout ? 0				
-				insetTop: config.backgroundInsetTop ? 0
-				insetBottom: config.backgroundInsetBottom ? 0
-				insetLeft: config.backgroundInsetLeft ? 0
-				insetRight: config.backgroundInsetRight ? 0
+				fadeOut: config.backgroundfadeout ? 0
 				crossfade: false
 			,
 				title:'animation'
@@ -41,7 +37,32 @@ class Generator
 				holdTime: config.muzicodeholdtime ? null
 				crossfade: true				
 		]
+		video = 
+				title:'video'
+				channel:'v.video'
+				loop: false
+				fadeIn: 0
+				fadeOut: 0
+				crossfade: false
+				insetTop: config.videoInsetTop ? 0
+				insetBottom: config.videoInsetBottom ? 0
+				insetLeft: config.videoInsetLeft ? 0
+				insetRight: config.videoInsetRight ? 0
+				cropTop: config.videoCropTop ? 0
+				cropBottom: config.videoCropBottom ? 0
+				cropLeft: config.videoCropLeft ? 0
+				cropRight: config.videoCropRight ? 0
+		if config.videourl?
+			video.defaultUrl = config.videourl
+			layer = config.videolayer ? 0
+			if layer>@layers.length
+				layer = @layers.length
+			else if layer<0
+				layer = 0
+			@layers.splice layer,0,video
+
 		@add config.forcebackgroundurl
+		@add config.videourl
 		@add config.noanimationurl
 		@add config.no_url
 		@add config.defaultmuzicodeurl

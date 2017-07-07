@@ -4,7 +4,7 @@
 
   Generator = (function() {
     function Generator(title1, config) {
-      var ref, ref1, ref10, ref2, ref3, ref4, ref5, ref6, ref7, ref8, ref9;
+      var layer, ref, ref1, ref10, ref11, ref12, ref13, ref14, ref15, ref2, ref3, ref4, ref5, ref6, ref7, ref8, ref9, video;
       this.title = title1;
       this.preload = [];
       this.config = config;
@@ -16,10 +16,6 @@
           loop: true,
           fadeIn: (ref = config.backgroundfadein) != null ? ref : 0,
           fadeOut: (ref1 = config.backgroundfadeout) != null ? ref1 : 0,
-          insetTop: (ref2 = config.backgroundInsetTop) != null ? ref2 : 0,
-          insetBottom: (ref3 = config.backgroundInsetBottom) != null ? ref3 : 0,
-          insetLeft: (ref4 = config.backgroundInsetLeft) != null ? ref4 : 0,
-          insetRight: (ref5 = config.backgroundInsetRight) != null ? ref5 : 0,
           crossfade: false
         }, {
           title: 'animation',
@@ -33,20 +29,47 @@
           title: 'weather',
           channel: 'v.weather',
           loop: true,
-          fadeIn: (ref6 = config.weatherfadein) != null ? ref6 : 0,
-          fadeOut: (ref7 = config.weatherfadeout) != null ? ref7 : 0,
+          fadeIn: (ref2 = config.weatherfadein) != null ? ref2 : 0,
+          fadeOut: (ref3 = config.weatherfadeout) != null ? ref3 : 0,
           crossfade: true
         }, {
           title: 'muzicode',
           channel: 'v.mc',
           loop: false,
-          fadeIn: (ref8 = config.muzicodefadein) != null ? ref8 : 0,
-          fadeOut: (ref9 = config.muzicodefadeout) != null ? ref9 : 0,
-          holdTime: (ref10 = config.muzicodeholdtime) != null ? ref10 : null,
+          fadeIn: (ref4 = config.muzicodefadein) != null ? ref4 : 0,
+          fadeOut: (ref5 = config.muzicodefadeout) != null ? ref5 : 0,
+          holdTime: (ref6 = config.muzicodeholdtime) != null ? ref6 : null,
           crossfade: true
         }
       ];
+      video = {
+        title: 'video',
+        channel: 'v.video',
+        loop: false,
+        fadeIn: 0,
+        fadeOut: 0,
+        crossfade: false,
+        insetTop: (ref7 = config.videoInsetTop) != null ? ref7 : 0,
+        insetBottom: (ref8 = config.videoInsetBottom) != null ? ref8 : 0,
+        insetLeft: (ref9 = config.videoInsetLeft) != null ? ref9 : 0,
+        insetRight: (ref10 = config.videoInsetRight) != null ? ref10 : 0,
+        cropTop: (ref11 = config.videoCropTop) != null ? ref11 : 0,
+        cropBottom: (ref12 = config.videoCropBottom) != null ? ref12 : 0,
+        cropLeft: (ref13 = config.videoCropLeft) != null ? ref13 : 0,
+        cropRight: (ref14 = config.videoCropRight) != null ? ref14 : 0
+      };
+      if (config.videourl != null) {
+        video.defaultUrl = config.videourl;
+        layer = (ref15 = config.videolayer) != null ? ref15 : 0;
+        if (layer > this.layers.length) {
+          layer = this.layers.length;
+        } else if (layer < 0) {
+          layer = 0;
+        }
+        this.layers.splice(layer, 0, video);
+      }
       this.add(config.forcebackgroundurl);
+      this.add(config.videourl);
       this.add(config.noanimationurl);
       this.add(config.no_url);
       this.add(config.defaultmuzicodeurl);
