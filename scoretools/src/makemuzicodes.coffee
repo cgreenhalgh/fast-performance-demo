@@ -230,27 +230,34 @@ add_actions = (control, prefix, data, meldload) ->
   else
     add_delayed_visual control, prefix, data, meldload
     add_delayed_midi control, prefix, data, meldload
-  
+  if data[prefix+'v.mc.delay']?
+    try
+      delay = Number(data[prefix+'v.mc.delay'])
+      delaycontrol = 
+        inputUrl: 'delay:'+(delayid++)+':'+data.stage+':'+prefix
+        actions: []
+      ex.controls.push delaycontrol
+      add_delayed_mc delaycontrol, prefix, data, meldload
+      control.actions.push
+        url: delaycontrol.inputUrl
+        delay: delay
+    catch err
+      console.log 'ERROR: adding delay of '+data[prefix+'v.mc.delay']+' for '+data.stage+' '+prefix+' ('+err.message+')'
+  else
+    add_delayed_mc control, prefix, data, meldload
+    
 add_immediate_actions = (control, prefix, data, meldload) ->
   # monitor
   control.actions.push 
     channel: ''
     url: content_url data[prefix+'monitor']
   # immediate visual
-  for channel in ['v.background', 'v.mc']
+  for channel in ['v.background']
     if data[prefix+channel]?
-      if channel=='v.mc' && String(data[prefix+channel])=='1'
-        if config.defaultmuzicodeurl?
-          control.actions.push 
-            channel: channel
-            url: content_url config.defaultmuzicodeurl
-        else
-          console.log 'ERROR: use of undefined defaultmuzicodeurl in '+prefix+channel
-      else if not ( channel == 'v.background' and config.forcebackgroundurl? )
-        viewgen.add data[prefix+channel]
-        control.actions.push 
-          channel: channel
-          url: content_url data[prefix+channel]
+      viewgen.add data[prefix+channel]
+      control.actions.push 
+        channel: channel
+        url: content_url data[prefix+channel]
   # immediate midi
   if data[prefix+'midi']?
     # multiple 
@@ -323,6 +330,23 @@ add_delayed_visual = (control, prefix, data, meldload) ->
       control.actions.push 
         channel: channel
         url: content_url data[prefix+channel]
+
+add_delayed_mc = (control, prefix, data, meldload) ->
+  # delayed visual
+  for channel in ['v.mc']
+    if data[prefix+channel]?
+      if channel=='v.mc' && String(data[prefix+channel])=='1'
+        if config.defaultmuzicodeurl?
+          control.actions.push 
+            channel: channel
+            url: content_url config.defaultmuzicodeurl
+        else
+          console.log 'ERROR: use of undefined defaultmuzicodeurl in '+prefix+channel
+      else if not ( channel == 'v.background' and config.forcebackgroundurl? )
+        viewgen.add data[prefix+channel]
+        control.actions.push 
+          channel: channel
+          url: content_url data[prefix+channel]
         
 add_delayed_midi = (control, prefix, data, meldload) ->
   # delayed midi

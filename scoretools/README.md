@@ -98,6 +98,7 @@ Actions/etc. for `auto:` and `mcN:`, i.e. names of following columns can be:
 - `cue` - name of next stage to cue
 - `monitor` - URL to show on monitor (default) channel
 - `v.mc` - "1" (use config defaultmuzicodeurl) or URL to show on muzicode visual channel
+- `v.mc.delay` - optional delay for muzicode action
 - `v.background` - URL to show on background "visual" channel 
 - `midi` - hex of midi message to send (can be list, comma-separated)
 - `delay` - optional delay in seconds before remaining actions are performed
