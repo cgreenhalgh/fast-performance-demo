@@ -99,6 +99,7 @@ Actions/etc. for `auto:` and `mcN:`, i.e. names of following columns can be:
 - `monitor` - URL to show on monitor (default) channel
 - `v.mc` - "1" (use config defaultmuzicodeurl) or URL to show on muzicode visual channel
 - `v.mc.delay` - optional delay for muzicode action
+- `app` - value to emit to mobile app in a `vEvent` message (message will be prefixed with performance ID and ':'). Sending is delayed by `v.mc.delay`.
 - `v.background` - URL to show on background "visual" channel 
 - `midi` - hex of midi message to send (can be list, comma-separated)
 - `delay` - optional delay in seconds before remaining actions are performed

@@ -471,35 +471,34 @@
   };
 
   add_delayed_mc = function(control, prefix, data, meldload) {
-    var channel, l, len2, ref11, results;
+    var channel, l, len2, ref11;
     ref11 = ['v.mc'];
-    results = [];
     for (l = 0, len2 = ref11.length; l < len2; l++) {
       channel = ref11[l];
       if (data[prefix + channel] != null) {
         if (channel === 'v.mc' && String(data[prefix + channel]) === '1') {
           if (config.defaultmuzicodeurl != null) {
-            results.push(control.actions.push({
+            control.actions.push({
               channel: channel,
               url: content_url(config.defaultmuzicodeurl)
-            }));
+            });
           } else {
-            results.push(console.log('ERROR: use of undefined defaultmuzicodeurl in ' + prefix + channel));
+            console.log('ERROR: use of undefined defaultmuzicodeurl in ' + prefix + channel);
           }
         } else if (!(channel === 'v.background' && (config.forcebackgroundurl != null))) {
           viewgen.add(data[prefix + channel]);
-          results.push(control.actions.push({
+          control.actions.push({
             channel: channel,
             url: content_url(data[prefix + channel])
-          }));
-        } else {
-          results.push(void 0);
+          });
         }
-      } else {
-        results.push(void 0);
       }
     }
-    return results;
+    if (data[prefix + 'app'] != null) {
+      return control.actions.push({
+        url: 'emit:vEvent:mobileapp:{{performanceid}}:' + data[prefix + 'app']
+      });
+    }
   };
 
   add_delayed_midi = function(control, prefix, data, meldload) {

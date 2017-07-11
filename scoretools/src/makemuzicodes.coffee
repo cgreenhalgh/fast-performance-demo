@@ -347,7 +347,11 @@ add_delayed_mc = (control, prefix, data, meldload) ->
         control.actions.push 
           channel: channel
           url: content_url data[prefix+channel]
-        
+  # delayed app event (sync'd with visual) for muzicode
+  if data[prefix+'app']?
+    control.actions.push
+      url: 'emit:vEvent:mobileapp:{{performanceid}}:'+data[prefix+'app']
+      
 add_delayed_midi = (control, prefix, data, meldload) ->
   # delayed midi
   if data[prefix+'midi2']?
