@@ -12,6 +12,8 @@ Vagrant.configure(2) do |config|
 
   # node server for muzicodes
   config.vm.network "forwarded_port", guest: 3000, host: 3000
+  # nginx https proxy for muzicodes
+  config.vm.network "forwarded_port", guest: 3443, host: 3443
   # node server for music-performance-manager
   config.vm.network "forwarded_port", guest: 3003, host: 3003
   # meld server
@@ -40,6 +42,12 @@ Vagrant.configure(2) do |config|
     sudo apt-get install -y libsaxonb-java
   SHELL
 
+  # nginx https frontend - what about hostname??
+  #config.vm.provision "shell", privileged: false, inline: <<-SHELL
+  #  sudo apt-get install -y nginx
+  #  sudo update-rc.d nginx defaults
+  #  
+  #SHELL
   
 
 end

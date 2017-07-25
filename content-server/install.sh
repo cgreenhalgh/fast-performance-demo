@@ -33,5 +33,7 @@ cd nginx
 
 sudo docker build -t frontend .
 
+cd ..
+
 sudo docker run --name frontend -d --restart=always \
   -p :80:80 -v `pwd`/html:/usr/share/nginx/html frontend

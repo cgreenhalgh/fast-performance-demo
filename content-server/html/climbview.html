@@ -1,0 +1,30 @@
+<!doctype html>
+<html ng-app="climbApp">
+  <head>
+    <title>Climb! Projection View (Prototype/experiment)</title>
+    <link rel="stylesheet" href="/css/climbview.css"></script>
+	<script src="vendor/jquery-1.11.1.js"></script> 
+	<script src="/vendor/angular/angular.js"></script>
+	<script src="/vendor/angular-animate/angular-animate.js"></script>
+	<script src="vendor/socket.io-1.2.0.js"></script>
+	<script src="vendor/three.js"></script>
+	<script src="js/climbview.js"></script>
+	<script src="/vendor/uuid.js"></script>
+	<script src="/js/socket.js"></script>
+	<script src="/js/logging.js"></script>
+	<script src="/js/mpm-agent.js"></script>
+  </head>
+  <body ng-controller='climbCtrl' >
+     <div class="view">
+        <canvas id="canvas"></canvas>
+     </div> 
+      <div class="test" ng-if="test">
+      	<ul>
+      		<datalist id="urls"><option ng-repeat="url in preload" value="{{url}}"></datalist>
+      		<li ng-repeat="layer in layers">{{layer.title}}: 
+      			<input type="text" ng-model="layer.url" list="urls" size="20">
+      		</li>
+      	</ul>
+      </div>
+  </body>
+</html>
