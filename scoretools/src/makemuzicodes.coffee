@@ -273,7 +273,9 @@ add_immediate_actions = (control, prefix, data, meldload) ->
   control.precondition ?= ''
   # cue next stage
   if data[prefix+'cue']?
-    nextstage = data[prefix+'cue']
+    nextstages = ((data[prefix+'cue'].split '/').map (s) => s.trim()).filter (s) => s.length>0
+    # TODO all / loop
+    nextstage = nextstages[0]
     altstage = null
     stagetest = 'true'
     if not stages[nextstage]?
@@ -585,9 +587,12 @@ for r in [1..1000]
 errors = 0;
 for stage,data of stages
   for prefix in prefixes
-    if data[prefix+'cue']? and not stages[data[prefix+'cue']]?
-      console.log 'ERROR: stage '+stage+' '+prefix+'cue refers to unknown stage "'+data[prefix+'cue']+'"'
-      errors++
+    if data[prefix+'cue']? 
+      nextstages = ((data[prefix+'cue'].split '/').map (s) => s.trim()).filter (s) => s.length>0
+      for nextstage in nextstages
+        if not stages[nextstage]?
+          console.log 'ERROR: stage '+stage+' '+prefix+'cue refers to unknown stage "'+nextstage+'"'
+          errors++
 
 # clear stage flags
 control = {inputUrl:'button:clear flags',actions:[], poststate:{}}

@@ -95,7 +95,7 @@ It is assumed that the first row is the start and the last row is the end.
 Actions/etc. for `auto:` and `mcN:`, i.e. names of following columns can be:
 
 - `name` - esp. muzicode name (title) (two mcNs with same muzicode => trigger on consecutive triggerings)
-- `cue` - name of next stage to cue
+- `cue` - name of next stage to cue, or list of next stage names separated by '/' between which to choose randomly (e.g. 's1/s2/s3')
 - `monitor` - URL to show on monitor (default) channel
 - `v.mc` - "1" (use config defaultmuzicodeurl) or URL to show on muzicode visual channel
 - `v.mc.delay` - optional delay for muzicode action
