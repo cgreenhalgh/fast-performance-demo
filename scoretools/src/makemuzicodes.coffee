@@ -273,56 +273,45 @@ add_immediate_actions = (control, prefix, data, meldload) ->
   control.precondition ?= ''
   # cue next stage
   if data[prefix+'cue']?
-    nextstages = ((data[prefix+'cue'].split '/').map (s) => s.trim()).filter (s) => s.length>0
-    # TODO all / loop
-    nextstage = nextstages[0]
-    altstage = null
-    stagetest = 'true'
-    if not stages[nextstage]?
-      console.log 'ERROR: stage '+data.stage+' '+prefix+' cue to unknown stage: '+nextstage
-    
-    if data.next? and not stages[data.next]?
-      console.log 'ERROR: stage '+data.stage+' has unknown safe next stage '+data.next
-    
-    # is it OK to go to this stage, or will it cause us to repeat something? if so use next (safe route) instead
-    # so have we already played nextstage, or any of the stages on ITS safe route?
-    if nextstage? and data.next? and stages[nextstage]? and stages[data.next]? and nextstage!=data.next
-      stageflags = []
-      for sfi in [1..numflagvars]
-        stageflags[sfi-1] = 0
-      ns = nextstage
-      while ns? && stages[ns]?
-        sfi = Math.floor(stages[ns]._index / BITS_PER_FLAGVAR)
-        sfbi = stages[ns]._index % BITS_PER_FLAGVAR
-        if (stageflags[sfi] & (1<<sfbi))!=0
-          console.log 'ERROR: safe route from '+nextstage+' has a loop at '+ns
-          break
-        stageflags[sfi] = stageflags[sfi] | (1<<sfbi)
-        ns = stages[ns].next
-      altstage = data.next
-      stagetest = ''
-      for sfi in [1..numflagvars]
-        if stagetest.length>0
-          stagetest += ' && '
-        stagetest += '(stageflags'+(sfi-1)+' & '+stageflags[sfi-1]+')==0'
     # if it cues, can it only happen if not already cued?!
     if (cuesingle && prefix!='auto_' && control.precondition.indexOf 'cued') < 0
       control.precondition = '!cued'+(if control.precondition.length == 0 then '' else ' && (')+control.precondition+(if control.precondition.length == 0 then '' else ')')
-    if stages[nextstage]? 
-      nexturi = encodeURIComponent(stages[nextstage].meifile)
-      nextexp = JSON.stringify stages[nextstage].meifile
-      if altstage!=null and stages[altstage]?
-        # run-time choice...
-        nexturi = '{{ '+stagetest+' ? '+(JSON.stringify nexturi)+' : '+(JSON.stringify encodeURIComponent(stages[data.next].meifile))+' }}'
-        nextexp = stagetest+' ? '+nextexp+' : '+(JSON.stringify stages[data.next].meifile)
-      meldprefix = if meldload then 'params.' else ''
-      control.actions.push 
-        url: '{{'+meldprefix+'meldcollection}}'
-        post: true
-        contentType: 'application/json'
-        body: '{"oa:hasTarget":["{{'+meldprefix+'meldannostate}}"], "oa:hasBody":[{"@type":"meldterm:CreateNextCollection", "resourcesToQueue":["{{meldmeiuri}}'+nexturi+'"], "annotationsToQueue":[]}] }'
-      control.poststate.meldnextmeifile = nextexp
-      control.poststate.cued = "true"
+
+    if data.next? and not stages[data.next]?
+      console.log 'ERROR: stage '+data.stage+' has unknown safe next stage '+data.next
+
+    nextstages = ((data[prefix+'cue'].split '/').map (s) => s.trim()).filter (s) => s.length>0
+    text = 'delay:stage:{{chooseOne(';
+    for nextstage in nextstages
+      text = text+(JSON.stringify nextstage)+','
+      stagetest = 'true'
+      
+      # is it OK to go to this stage, or will it cause us to repeat something? if so use next (safe route) instead
+      # so have we already played nextstage, or any of the stages on ITS safe route?
+      if nextstage? and data.next? and stages[nextstage]? and stages[data.next]? and nextstage!=data.next
+        stageflags = []
+        for sfi in [1..numflagvars]
+          stageflags[sfi-1] = 0
+        ns = nextstage
+        while ns? && stages[ns]?
+          sfi = Math.floor(stages[ns]._index / BITS_PER_FLAGVAR)
+          sfbi = stages[ns]._index % BITS_PER_FLAGVAR
+          if (stageflags[sfi] & (1<<sfbi))!=0
+            console.log 'ERROR: safe route from '+nextstage+' has a loop at '+ns
+            break
+          stageflags[sfi] = stageflags[sfi] | (1<<sfbi)
+          ns = stages[ns].next
+        stagetest = ''
+        for sfi in [1..numflagvars]
+          if stagetest.length>0
+            stagetest += ' && '
+          stagetest += '(stageflags'+(sfi-1)+' & '+stageflags[sfi-1]+')==0'
+          
+      text = text+stagetest+','
+      
+    text = text+(JSON.stringify data.next)+')}}'
+    control.actions.push 
+        url: text
 
 add_delayed_visual = (control, prefix, data, meldload) ->
   # delayed visual
@@ -441,6 +430,18 @@ for r in [1..1000]
   if not data.meifile? 
     console.log 'WARNING: no meifile specified for stage '+data.stage
     data.meifile = data.stage+'.mei'
+  # delayed cue stage events
+  control = {inputUrl:'delay:stage:'+data.stage, actions:[], poststate:{}};
+  nexturi = encodeURIComponent(data.meifile)
+  nextexp = JSON.stringify data.meifile
+  control.actions.push 
+        url: '{{meldcollection}}'
+        post: true
+        contentType: 'application/json'
+        body: '{"oa:hasTarget":["{{meldannostate}}"], "oa:hasBody":[{"@type":"meldterm:CreateNextCollection", "resourcesToQueue":["{{meldmeiuri}}'+nexturi+'"], "annotationsToQueue":[]}] }'
+  control.poststate.meldnextmeifile = nextexp
+  control.poststate.cued = "true"
+  ex.controls.push control
 
 numflagvars = Math.ceil numstages/BITS_PER_FLAGVAR
 for sfi in [1..numflagvars]
@@ -487,7 +488,6 @@ for r in [1..1000]
   # cue (test/rehearse) button
   control = {inputUrl:'button:cue '+data.stage, actions:[],poststate:{}}
   ex.controls.push control
-  #meldprefix = if meldload then 'params.' else ''
   control.actions.push 
         url: '{{meldcollection}}'
         post: true
