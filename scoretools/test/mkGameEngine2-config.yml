@@ -42,6 +42,8 @@ videoCropTop: 0.1
 videoCropBottom: 0.1
 videoCropLeft: 0.1
 videoCropRight: 0.1
+videoMirror: false
+videoRotate: false
 
 performances:
   test: 9333e7a2-16a9-4352-a45a-f6f42d848cde

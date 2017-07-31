@@ -71,6 +71,8 @@ Note:
 - videolayer index of video layer, e.g. 0 at back
 - videoInsetTop/Bottom/Left/Right - fraction to inset edges of video layer
 - videoCropTop/Bottom/Left/Right - fraction to inset edges of video layer
+- videoMirror - mirror flag for video layer
+- videoRotate - rotate 180 flag for video layer
 
 End of note stream for default projection drives cueing of default next stage.
 

@@ -56,7 +56,9 @@
         cropTop: (ref11 = config.videoCropTop) != null ? ref11 : 0,
         cropBottom: (ref12 = config.videoCropBottom) != null ? ref12 : 0,
         cropLeft: (ref13 = config.videoCropLeft) != null ? ref13 : 0,
-        cropRight: (ref14 = config.videoCropRight) != null ? ref14 : 0
+        cropRight: (ref14 = config.videoCropRight) != null ? ref14 : 0,
+        mirror: !!config.videoMirror,
+        rotate: !!config.videoRotate
       };
       if (config.videourl != null) {
         video.defaultUrl = config.videourl;

@@ -52,6 +52,8 @@ class Generator
 				cropBottom: config.videoCropBottom ? 0
 				cropLeft: config.videoCropLeft ? 0
 				cropRight: config.videoCropRight ? 0
+				mirror: !!config.videoMirror
+				rotate: !!config.videoRotate
 		if config.videourl?
 			video.defaultUrl = config.videourl
 			layer = config.videolayer ? 0
