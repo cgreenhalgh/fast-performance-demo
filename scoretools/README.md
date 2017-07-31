@@ -92,7 +92,9 @@ Spreadsheet columns:
 
 It is assumed that the first row is the start and the last row is the end.
 
-Actions/etc. for `auto:` and `mcN:`, i.e. names of following columns can be:
+Following columns are divided into blocks specifying response to (either) start of stage (`auto:`) or successful triggering of a muzicode ( `mc1:`, `mc2:`, `mc3:`, `mc4:` or `mc5:`).
+
+Actions/etc. for `auto:` and `mcN:` blocks, i.e. names of following columns can be:
 
 - `name` - esp. muzicode name (title) (two mcNs with same muzicode => trigger on consecutive triggerings)
 - `cue` - name of next stage to cue, or list of next stage names separated by '/' between which to choose randomly (e.g. 's1/s2/s3')

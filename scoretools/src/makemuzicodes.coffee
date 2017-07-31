@@ -137,7 +137,7 @@ cuesingle = config.cuesingle ? false
 stages = {}
 
 prefixes = ['auto_', 'mc1_', 'mc2_', 'mc3_', 'mc4_', 'mc5_', 'default_']
-mcs = ['mc1_', 'mc2_', 'mc3_']
+mcs = ['mc1_', 'mc2_', 'mc3_', 'mc4_', 'mc5_']
 weathers = ['no', 'wind', 'rain', 'snow', 'sun', 'storm']
 
 # effect urls
