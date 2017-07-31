@@ -34,7 +34,18 @@ muzicodeholdtime: 0.2
 backgroundfadein: 2
 backgroundfadeout: 2
 
+videourl: "video:{\"width\":1280,\"height\":720}"
+videolayer: 0
+videoInsetTop: 0.12
+videoInsetBottom: 0.75
+videoInsetLeft: 0.11
+videoInsetRight: 0.11
+videoCropTop: 0.12
+videoCropBottom: 0.75
+videoCropLeft: 0.11
+videoCropRight: 0.11
+
 performances:
-  test: 9333e7a2-16a9-4352-a45a-f6f42d848cde
-  first: be418821-436d-41c2-880c-058dffb57d91
-  second: 13a7fa70-ae91-4541-9526-fd3b332b585d
+  test: de3250be-9b54-4a7b-9675-fd145fc2561c
+  dress: e888ea0f-8c81-48a8-8462-bc98dd04f495
+  first: f01a5d26-6569-4879-9aef-58334110c307
