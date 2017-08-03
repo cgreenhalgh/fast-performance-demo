@@ -36,14 +36,17 @@ backgroundfadeout: 2
 
 videourl: "video:{\"width\":1280,\"height\":720}"
 videolayer: 2
-videoInsetTop: 0
-videoInsetBottom: 0.858
-videoInsetLeft: 0.09
-videoInsetRight: 0.12
-videoCropTop: 0.12
-videoCropBottom: 0.75
+videoInsetTop: 0.858
+videoInsetBottom: 0.0
+videoInsetLeft: 0.12
+videoInsetRight: 0.09
+videoCropTop: 0.44
+videoCropBottom: 0.43
 videoCropLeft: 0.11
 videoCropRight: 0.11
+videoRotate: false
+videoMirror: false
+
 
 performances:
   test: de3250be-9b54-4a7b-9675-fd145fc2561c
