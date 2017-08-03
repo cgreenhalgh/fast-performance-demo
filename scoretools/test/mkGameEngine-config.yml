@@ -35,11 +35,11 @@ backgroundfadein: 2
 backgroundfadeout: 2
 
 videourl: "video:{\"width\":1280,\"height\":720}"
-videolayer: 0
-videoInsetTop: 0.12
-videoInsetBottom: 0.75
-videoInsetLeft: 0.11
-videoInsetRight: 0.11
+videolayer: 2
+videoInsetTop: 0
+videoInsetBottom: 0.858
+videoInsetLeft: 0.09
+videoInsetRight: 0.12
 videoCropTop: 0.12
 videoCropBottom: 0.75
 videoCropLeft: 0.11

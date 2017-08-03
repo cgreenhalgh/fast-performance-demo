@@ -1066,7 +1066,7 @@
                                             </note>
                                             <note xml:id="note-0000000526074490" dur="16" oct="3" pname="b" stem.dir="down" />
                                             <note xml:id="note-0000000189954134" dur="16" oct="3" pname="a" stem.dir="down">
-                                                <accid xml:id="accid-0000000296721189" accid="s" />
+                                                <accid xml:id="accid-0000000296721189" accid.ges="s" />
                                             </note>
                                         </tuplet>
                                     </beam>
@@ -3938,7 +3938,7 @@
                             <tie xml:id="tie-0000000117922167" startid="#note-0000000992545802" endid="#note-0000000180684078" />
                             <tie xml:id="tie-0000001850173915" startid="#note-0000001875703181" endid="#note-0000001798882147" />
                             <tie xml:id="tie-0000001428457958" startid="#note-0000000180684078" endid="#note-0000000888935338"/>
-                            <tie xml:id="tie-0000000306254169" startid="#note-0000001798882147" endid="#note-0000001015285354"/>
+                            <tie xml:id="tie-0000000306254169" startid="#note-0000001798882147" endid="#note-0000001798882147"/>
                             <dynam xml:id="dynam-0000000113219700" staff="3" startid="#note-0000000272599930">mp</dynam>
                             <slur xml:id="slur-0000000576048892" startid="#note-0000000272599930" endid="#note-0000001223107015" />
                             <dynam xml:id="dynam-0000001036353372" staff="4" startid="#note-0000002032090268">p</dynam>
