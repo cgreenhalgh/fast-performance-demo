@@ -128,6 +128,9 @@
                             <dir xml:id="dir-000000015797188" place="above" staff="1" tstamp="0">
                                 <rend xml:id="rend-000000004410803" fontfam="Times New Roman" fontsize="750">A Sleeping Bear (4a)</rend>
                             </dir>
+                            <dir xml:id="dir-000000005488680" place="below" staff="1" tstamp="1">
+                                <rend xml:id="rend-000000104712150" fontfam="Times New Roman">Disk Code - 1st 2 notes</rend>
+                            </dir>
                             <slur startid="#note-000000187331024" endid="#note-000000205371568" />
 
                             <hairpin startid="#note-000000127100484" staff="2" endid="#note-000000006192509" form="cres" place="below" />
@@ -2428,6 +2431,9 @@
                                     </chord>
                                 </layer>
                             </staff>
+                            <dir xml:id="dir-000000005488680" place="above" staff="1" tstamp="2.5">
+                                <rend xml:id="rend-000000104712150" fontfam="Times New Roman">Challenge Code - Group of 5</rend>
+                            </dir>
                             <tempo xml:id="tempo-000000107646248" place="above" staff="1" startid="#rest-000000094345842" midi.bpm="50">♩= 50</tempo>
                             <tempo xml:id="tempo-000000107646248" place="above" staff="3" startid="#rest-000000094345842" midi.bpm="50">♩= 50</tempo>
                             <dynam xml:id="dynam-000000057823417" place="below" staff="1" startid="#note-000000010858600">pp</dynam>

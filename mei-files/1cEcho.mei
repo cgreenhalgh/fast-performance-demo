@@ -135,6 +135,9 @@
                             <dir xml:id="dir-000000015797188" place="above" staff="3" tstamp="0">
                                 <rend xml:id="rend-000000004410803" fontfam="Times New Roman" fontsize="750">Echo (1c)</rend>
                             </dir>
+                            <dir place="below" staff="3" tstamp="0" >
+                                <rend fontfam="Times New Roman">Disk code - 1st 2 pitches of top line</rend>
+                            </dir>
                             <tempo place="above" staff="3" tstamp= "1" mm="152"> ♩=60</tempo>
                             <dynam xml:id="dynam-000000005587781" place="below" staff="3" startid="#note-000000182051123">pp</dynam>
                             <slur xml:id="slur-000000159613126" startid="#note-000000182051123" endid="#note-000000002518922" />
@@ -484,7 +487,7 @@
                                     <rest xml:id="rest-000000170195715" dur="4" />
                                     <rest xml:id="rest-000000004276158" dur="2" />
                                 </layer>
-                            </staff>                            
+                            </staff>
                             <pedal dir="down" staff="3" tstamp="2" place="below"/>
                             <pedal dir="up" staff="3" tstamp="4" place="below"/>
                             <slur xml:id="slur-000000034199813" startid="#note-000000007521240" endid="#note-000000060728503" />
@@ -534,7 +537,6 @@
                                 <layer xml:id="layer-000000194994860" n="5">
                                     <rest xml:id="rest-000000174602751" dur="1" />
                                 </layer>
-
                           </staff>
                           <dir xml:id="dir-000000019612935" place="below" staff="3" startid="note-000000051300837" endid="note-000000125719178" >
                               <rend xml:id="rend-000000199955004" fontfam="Times New Roman">Play any number of ad lib. pitches</rend>

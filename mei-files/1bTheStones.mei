@@ -968,17 +968,10 @@
                                     <mRest xml:id="mrest-000000060087169" />
                                 </layer>
                             </staff>
-                            <dir xml:id="dir-000000016891666" place="below" staff="1" startid="#rest-000000103929203">
-                                <rend xml:id="rend-000000075942149" fontfam="Times New Roman">filter</rend>
-                            </dir>
-                            <dir xml:id="dir-000000078086991" place="above" staff="1" startid="#note-000000148987670">
-                                <rend xml:id="rend-000000191285529" fontfam="Times New Roman">Muzicode. (If successful goes to P2)</rend>
-                            </dir>
-                            <pedal xml:id="pedal-000000181849580" staff="2" startid="#note-000000092182182" dir="down" place="above" />
-                            <pedal xml:id="pedal-000000105897998" staff="2" startid="#note-000000092182182" dir="down" place="below" />
+
                             <slur xml:id="slur-000000163542216" startid="#note-000000092182182" endid="#note-000000016977087" />
-                            <dir xml:id="dir-000000005488680" place="above" staff="2" startid="#note-000000209583604">
-                                <rend xml:id="rend-000000104712150" fontfam="Times New Roman">play any pitches</rend>
+                            <dir xml:id="dir-000000005488680" place="above" staff="2" tstamp="3">
+                                <rend xml:id="rend-000000104712150" fontfam="Times New Roman">Challenge Code - play any pitches</rend>
                             </dir>
                             <hairpin form="dim" staff="4" tstamp="4.5" place="below" tstamp2="5.7"/>
                             <pedal dir="down" staff="2" tstamp="3" place="below"/>
