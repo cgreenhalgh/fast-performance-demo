@@ -18,6 +18,9 @@ Vagrant.configure(2) do |config|
   config.vm.network "forwarded_port", guest: 3003, host: 3003
   # meld server
   config.vm.network "forwarded_port", guest: 5000, host: 5000
+  # muzivisual test/dev only
+  config.vm.network "forwarded_port", guest: 8000, host: 8000
+
   # requires root :-(
   #config.vm.network "forwarded_port", guest: 80, host: 80
 
