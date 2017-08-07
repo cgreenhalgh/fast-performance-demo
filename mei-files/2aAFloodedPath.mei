@@ -4340,6 +4340,9 @@
                                     <mRest xml:id="mrest-000000032160348" />
                                 </layer>
                             </staff>
+                            <dir place="below" staff="1" place="above" tstamp="1.5" >
+                                <rend fontfam="Times New Roman">Challenge code - play top pitches </rend>
+                            </dir>
                             <hairpin xml:id="hairpin-000000043002602" startid="#chord-000000166901728" endid="#note-000000059555851" form="cres" place="below"/>
                             <dynam xml:id="dynam-000000169610328" place="below" staff="1" startid="#chord-000000028843658">ff</dynam>
                             <dynam xml:id="dynam-000000170514295" place="below" staff="1" startid="#chord-000000159214068">p</dynam>

@@ -1015,6 +1015,9 @@
                                     </beam>
                                 </layer>
                             </staff>
+                            <dir place="above" staff="1" tstamp="0" >
+                                <rend fontfam="Times New Roman">Challenge code - whole phrase</rend>
+                            </dir>
                             <dynam xml:id="dynam-0000001681115712" staff="2" place="above" startid="#note-0000001108006690">mp</dynam>
                             <slur xml:id="slur-0000001244360017" startid="#note-0000001108006690" endid="#note-0000000354674628" />
                             <hairpin xml:id="hairpin-0000000847735127" staff="2" place="above" startid="#note-0000001698536806" endid="#note-0000001730192370" form="cres" />
@@ -1916,7 +1919,7 @@
                                             </note>
                                         </tuplet>
                                     </beam>
-                                    <note xml:id="note-0000000099902715" dur="8" oct="5" pname="d" stem.dir="down"/>                                
+                                    <note xml:id="note-0000000099902715" dur="8" oct="5" pname="d" stem.dir="down"/>
                                     <rest xml:id="rest-0000000720458400" dur="4" />
                                 </layer>
                             </staff>

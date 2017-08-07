@@ -88,6 +88,9 @@
                             <tempo xml:id="tempo-0000000620919286" place="above" staff="1" tstamp="0">
                                 <rend xml:id="rend-0000001576683176" fontweight="bold">♩= 90</rend>
                             </tempo>
+                            <dir place="above" staff="2" tstamp="2" >
+                                <rend fontfam="Times New Roman">Disk code - top line</rend>
+                            </dir>
                             <dynam xml:id="dynam-0000001933205356" staff="1" startid="#note-0000000571177542">pp</dynam>
                             <slur xml:id="slur-0000000512167132" startid="#note-0000000571177542" endid="#note-0000000580305162" />
                             <fermata xml:id="fermata-0000000462790718" staff="1" startid="#rest-0000000564799716" shape="curved" />

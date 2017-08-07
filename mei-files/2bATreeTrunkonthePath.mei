@@ -476,6 +476,9 @@
                                     </tuplet>
                                 </layer>
                             </staff>
+                            <dir place="above" staff="1" tstamp="4" >
+                                <rend fontfam="Times New Roman">Disk code - Bb top line</rend>
+                            </dir>
                             <hairpin xml:id="hairpin-0000001076012186" staff="1" startid="#chord-0000001135859579" endid="#note-0000000729300994" form="cres" />
                             <dynam xml:id="dynam-0000001177466435" staff="1" startid="#chord-0000000614234952">p</dynam>
                             <fermata xml:id="fermata-0000002141076946" staff="1" startid="#chord-0000000614234952" shape="curved" />

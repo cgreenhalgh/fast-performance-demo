@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <?xml-model href="http://music-encoding.org/schema/4.0.0/mei-all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <?xml-model href="http://music-encoding.org/schema/4.0.0/mei-all.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <mei xmlns="http://www.music-encoding.org/ns/mei" meiversion="4.0.0">
@@ -1007,6 +1007,9 @@
                                     </chord>
                                 </layer>
                             </staff>
+                            <dir place="above" staff="1" tstamp="1.5" >
+                                <rend fontfam="Times New Roman">Challenge code 2nd and 3rd phrases</rend>
+                            </dir>
                             <dynam xml:id="dynam-0000001697139052" staff="1" startid="#note-0000001202580223">f</dynam>
                             <slur xml:id="slur-0000000919079177" startid="#note-0000001202580223" endid="#note-0000002114743040" />
                             <tie xml:id="tie-0000002089338898" startid="#note-0000001049183168" endid="#note-0000002114743040" />

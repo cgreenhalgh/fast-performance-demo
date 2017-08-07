@@ -4716,6 +4716,9 @@
                                     <mRest xml:id="mrest-0000000892530730" />
                                 </layer>
                             </staff>
+                            <dir place="above" staff="2" tstamp="0" >
+                                <rend fontfam="Times New Roman">Challenge code - 1st group of 6</rend>
+                            </dir>
                             <dynam xml:id="dynam-0000002102540809" staff="2" startid="#note-0000001169290049">mf</dynam>
                             <slur xml:id="slur-0000000040179712" startid="#note-0000001169290049" endid="#note-0000001491650621" />
                             <hairpin xml:id="hairpin-0000000392318199" staff="2" startid="#note-0000001021869084" endid="#note-0000001721929460" form="cres" />

@@ -141,6 +141,9 @@
                                     <mRest xml:id="mrest-0000002014571685" />
                                 </layer>
                             </staff>
+                            <dir place="below" staff="1" tstamp="1" >
+                                <rend fontfam="Times New Roman">Disk code - Db,F bottom line</rend>
+                            </dir>
                             <tie xml:id="tie-0000001431168179" startid="#note-0000000306801521" endid="#note-0000000718313170" />
                             <tie xml:id="tie-0000001862383007" startid="#note-0000000162965413" endid="#note-0000000347137355" />
                             <tie xml:id="tie-0000002079841957" startid="#note-0000000086128843" endid="#note-0000001440538097" />
@@ -1125,6 +1128,9 @@
                                     <mRest xml:id="mrest-0000000583348921" />
                                 </layer>
                             </staff>
+                            <dir place="above" staff="1" tstamp="1" >
+                                <rend fontfam="Times New Roman">Challenge code - 1st F to D</rend>
+                            </dir>
                             <tempo xml:id="tempo-0000000588528214" place="above" staff="1" startid="#rest-0000000966727999" mm="90" mm.unit="4">♩= 90</tempo>
                             <hairpin xml:id="hairpin-0000001468987168" staff="1" startid="#note-0000001252534128" endid="#note-0000001102594936" form="cres" />
                             <slur xml:id="slur-0000002047524172" startid="#note-0000001252534128" endid="#chord-0000001409926879" />
