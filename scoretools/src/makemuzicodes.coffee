@@ -427,7 +427,19 @@ for r in [1..1000]
   stages[data.stage] = data
   # defaults for ...-monitor
   for prefix in prefixes
-    data[prefix+'monitor'] ?= 'data:text/plain,stage '+data.stage+' '+prefix+' triggered!'
+    if not data[prefix+'monitor']?
+      if prefix=='auto_'
+        data[prefix+'monitor'] = 'data:text/plain,stage '+data.stage+' '+prefix+' triggered!'
+      else if data[prefix+'cue']
+        data[prefix+'monitor'] = 'data:text/plain,Code played successfully to cue stage '+data[prefix+'cue']
+      else if data[prefix+'midi'] or data[prefix+'midi2']
+        data[prefix+'monitor'] = 'data:text/plain,Code played to send MIDI (disklavier?)'
+      else if data[prefix+'app']
+        data[prefix+'monitor'] = 'data:text/plain,Code played to send notification (app)'
+      else if data[prefix+'v.mc'] 
+        data[prefix+'monitor'] = 'data:text/plain,Code played to trigger visual (approach?)'
+      else
+        data[prefix+'monitor'] = 'data:text/plain,stage '+data.stage+' '+prefix+' triggered!'
   if not data.meifile? 
     console.log 'WARNING: no meifile specified for stage '+data.stage
     data.meifile = data.stage+'.mei'
@@ -532,7 +544,14 @@ processmeifile = (meifile, data, meiids) ->
       if midi==pmidis[pix]
         # found!
         #console.log 'note', note
-        meiutils.colornote note
+        color = '#666'
+        if data[mc+'cue'] 
+          color = '#c00' # challenge?!
+        else if data[mc+'midi'] or data[mc+'midi2']
+          color = '#00a' # disklav?!
+        else if data[mc+'app'] or data[mc+'v.mc'] 
+          color = '#080' # approach?
+        meiutils.colornote note, color
         pix++
     if pix==0
       console.log 'Warning: did not find notes for code '+data[mc+'name']+' to highlight in '+data.meifile+' at '+data[mc]+' = '+fragments

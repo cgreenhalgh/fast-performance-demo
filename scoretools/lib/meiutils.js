@@ -213,10 +213,13 @@
     return (parseInt(oct)) * 12 + 12 + ix;
   };
 
-  COLOR = '#c00';
+  COLOR = '#888';
 
-  module.exports.colornote = function(note) {
-    return note.setAttribute('color', COLOR);
+  module.exports.colornote = function(note, color) {
+    if (color == null) {
+      color = COLOR;
+    }
+    return note.setAttribute('color', color);
   };
 
 }).call(this);

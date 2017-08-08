@@ -174,7 +174,8 @@ module.exports.notetomidi = (text) ->
 		ix++
 	return (parseInt oct)*12+12+ix
 
-COLOR = '#c00'
+COLOR = '#888'
 
-module.exports.colornote = (note) ->
-	note.setAttribute 'color', COLOR
+module.exports.colornote = (note, color) ->
+	color ?= COLOR
+	note.setAttribute 'color', color
