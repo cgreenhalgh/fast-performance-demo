@@ -19,7 +19,8 @@ if ! [ -d "musiccodes/server/public/content" ]; then
 	mkdir musiccodes/server/public/content
 fi
 
-cp mei-files/*.mei musiccodes/server/public/content/
+#cp mei-files/*.mei musiccodes/server/public/content/
+cp mei-files/out/*.mei musiccodes/server/public/content/
 cp images/* musiccodes/server/public/content/
 
 cd scoretools

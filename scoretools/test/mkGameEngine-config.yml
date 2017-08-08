@@ -15,6 +15,7 @@ wind_effect: data:text/x-midi-hex,90737f
 storm_effect: data:text/x-midi-hex,90747f
 sun_effect: data:text/x-midi-hex,90757f
 meidir: ../../mei-files
+meioutdir: ../../mei-files/out
 weatherdelaymin: 5
 weatherdelaymax: 10
 climbviewout: mkGameEngine-view.json

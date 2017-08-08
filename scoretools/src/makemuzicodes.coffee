@@ -7,6 +7,7 @@ yaml = require 'js-yaml'
 fs   = require 'fs'
 path = require 'path'
 getCodeIds = (require './meiutils').getCodeIds
+meiutils = require './meiutils'
 
 climbview = require './climbview'
 
@@ -449,13 +450,13 @@ for sfi in [1..numflagvars]
 
 # read mei file, extract IDs associated with possible codes
 # map of label (code mei name) -> [ xml:ids ]
-readmeiids = (meifile) ->
+readmeifile = (meifile) ->
   meidir = configdir
   if config.meidir
     meidir = relpath config.meidir, configdir
   meifile = relpath meifile, meidir
   mei = null
-  console.log 'Processing mei file '+meifile
+  #console.log 'Reading mei file '+meifile
   try
     mei = fs.readFileSync meifile, 'utf8'
     #console.log 'read '+mei.charCodeAt(0)+','+mei.charCodeAt(1)+','+mei.charCodeAt(2)
@@ -467,12 +468,100 @@ readmeiids = (meifile) ->
       # could be utf16 BEM
       if mei.length>0 && mei.charCodeAt(0)!=60 && mei.charCodeAt(0)!=65279
         console.log 'ERROR: file does not seem to be utf16 or utf8 XML: '+meifile
-        return {}
+        return null
+    return mei
   catch e 
     console.log 'ERROR: reading mei file '+meifile+': '+e.message
+    return null
+
+# read mei file, extract IDs associated with possible codes
+# map of label (code mei name) -> [ xml:ids ]
+writemeifile = (meifile, text) ->
+  meidir = configdir
+  if config.meioutdir
+    meidir = relpath config.meioutdir, configdir
+  meifile = relpath meifile, meidir
+  console.log 'Write mei file '+meifile
+  try
+    mei = fs.writeFileSync meifile, text, 'utf8'
+  catch e 
+    console.log 'ERROR: writing mei file '+meifile+': '+e.message
+
+readmeiids = (meifile) ->
+  mei = readmeifile meifile
+  if not mei?
     return {}
   getCodeIds mei
 
+processmeifile = (meifile, data, meiids) ->
+  meitext = readmeifile meifile
+  if not meitext?
+    return
+  mei = meiutils.parse meitext
+  if not mei?
+    console.log 'Could not parse mei file '+data.mei
+    writemeifile meifile, meitext
+  for mc, mi in mcs
+    if not data[mc+'name']
+      continue
+    marker = ex.markers.find (m)-> m.title==data[mc+'name']
+    if not marker
+      console.log 'ERROR: no marker '+data[mc+'name']
+      continue
+    if not marker.code?
+      console.log 'No code for marker '+data[mc+'name']+' in '+meifile
+      continue
+    if not data[mc]? or ''==data[mc]
+      console.log 'No measure for marker '+data[mc+'name']+' in '+meifile
+      continue
+    fragments = getfragmentids data[mc], meiids
+    notes = meiutils.getnotes mei, fragments
+    # WARNING: simple hack for sequences only
+    pnotes = marker.code.split ','
+    pmidis = (pnotes.map meiutils.notetomidi).filter (m) => m?
+    pix = 0
+    nmidis= []
+    for note in notes
+      if pix>=pmidis.length
+        break
+      midi = meiutils.getmidinote note
+      if not midi
+        #console.log 'no midi note equivalent', note
+        continue
+      nmidis.push midi
+      if midi==pmidis[pix]
+        # found!
+        #console.log 'note', note
+        meiutils.colornote note
+        pix++
+    if pix==0
+      console.log 'Warning: did not find notes for code '+data[mc+'name']+' to highlight in '+data.meifile+' at '+data[mc]+' = '+fragments
+      console.log 'pattern: '+marker.code+' -> '+pmidis
+      console.log 'notes: '+nmidis
+    else if pix<pmidis.length
+      console.log 'Warning: find only '+pix+'/'+pmidis.length+' notes for code '+data[mc+'name']+' to highlight in '+data.meifile+' at '+data[mc]+' = '+fragments
+      console.log 'pattern: '+marker.code+' -> '+pmidis
+      console.log 'notes: '+nmidis
+  meiout = meiutils.serialize mei
+  writemeifile meifile, meiout
+  
+
+getfragmentids = (text, meiids) ->
+  labels = String(text).split ','
+  fragments = []
+  for label in labels when label!=''
+    if (label.indexOf '#')==0
+      fragments.push label
+    else
+      ids = meiids[label]
+      if not ids?
+        console.log 'Warning: could not find measure "'+label+'" in meifile' #+data.meifile+' (stage '+data.stage+' mc '+mc+')'
+      else
+        #console.log 'Measure '+label+' -> '+ids
+        for id in ids
+          fragments.push '#'+id
+  fragments
+      
 # process rows / stages
 for r in [1..1000]
   cell = sheet[cellid(0,r)]
@@ -484,7 +573,7 @@ for r in [1..1000]
   data = stages[cell.v]
 
   meiids = readmeiids data.meifile
-
+  
   # cue (test/rehearse) button
   control = {inputUrl:'button:cue '+data.stage, actions:[],poststate:{}}
   ex.controls.push control
@@ -551,19 +640,7 @@ for r in [1..1000]
     add_actions marker, mc, data
     # trigger -> mei
     if data[mc]? and data[mc]!=''
-      labels = String(data[mc]).split ','
-      fragments = []
-      for label in labels when label!=''
-        if (label.indexOf '#')==0
-          fragments.push label
-        else
-          ids = meiids[label]
-          if not ids?
-            console.log 'Warning: could not find code "'+data[mc]+'" in meifile '+data.meifile+' (stage '+data.stage+' mc '+mc+')'
-          else
-            console.log 'Code '+data[mc]+' -> '+ids
-            for id in ids
-              fragments.push '#'+id
+      fragments = getfragmentids data[mc], meiids
       for fragment in fragments
         # MELD highlight action 
         # curl -X POST -H "Content-Type: application/json" -d '{"oa:hasTarget":[{"@id":"$MEI_ELEMENT"}], "oa:hasBody":[{"@type":"meldterm:Emphasis"}] }' -v $COLLECTION_URI
@@ -582,6 +659,8 @@ for r in [1..1000]
       poststate: {}
     ex.controls.push control
     add_actions control, 'default_', data
+  
+  processmeifile data.meifile, data, meiids
 
 # check cross-references
 errors = 0;

@@ -3,9 +3,12 @@
 # although other things are too...
 
 DOMParser = (require 'xmldom').DOMParser
+XMLSerializer = (require 'xmldom').XMLSerializer
 Node = (require 'xmldom').Node
 xpath = require 'xpath'
-select = xpath.useNamespaces "mei": "http://www.music-encoding.org/ns/mei"
+select = xpath.useNamespaces 
+  "mei": "http://www.music-encoding.org/ns/mei"
+  "xml": "http://www.w3.org/XML/1998/namespace"
 
 # DOM Node types
 TEXT_NODE = 3
@@ -31,6 +34,13 @@ getattributemap = (node) ->
   for att in node.attributes
     atts[att.name] = att.value
   atts
+
+getattribute = (node,name) ->
+  atts = {}
+  for att in node.attributes
+    if name==att.name
+      return att.value
+  null
 
 # map of label -> [ xml:ids ]
 getlabelledids = (doc) ->
@@ -72,3 +82,99 @@ getCodeIds = (meitext) ->
   labels
   
 module.exports.getCodeIds = getCodeIds
+
+module.exports.parse = (meitext) ->
+  new DOMParser().parseFromString meitext,'text/xml'
+
+module.exports.serialize = (doc) ->
+  new XMLSerializer().serializeToString doc
+
+module.exports.getnotes = (doc, fragmentids) ->
+	notes = []
+	# fragments are probably measures
+	for fid in fragmentids
+		if (fid.indexOf '#')==0
+			fid = fid.substring(1)
+		# hack - ignoring staffs and layers at the moment!!
+		path = "//mei:measure[@xml:id='"+fid+"']//mei:note"
+		#console.log 'xpath '+path
+		notes = notes.concat (select path, doc)
+		#console.log 'path:'+path, notes
+	notes
+
+# C4 = middle C = midi note 60
+NOTES = [ 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B' ]
+ACCIDENTALS = 
+	's': 1
+	'f': -1
+	'n': 0
+	'ss': 2
+	'ff': -2
+	'x': 2
+	'xs': 3
+	'sx': 3
+	'ts': 3
+	'tf': -3
+	'nf': -1
+	'ns': 1
+	'su': 1 # quarter tone
+	'fd': -1 # qt
+	'nu': 0
+	'nd': 0
+	'1qf': 0
+	'3qf': -1
+	'1qs': 0
+	'3qs': 1
+
+module.exports.getmidinote = (note) ->
+	atts = getattributemap note
+	notename = atts['pname']
+	oct = atts['oct'] ? 0
+	acc = atts['accid.ges']
+	accids = select "mei:accid", note
+	for accid in accids
+		atts2 = getattributemap accid
+		#console.log 'found accid child '+(JSON.stringify atts2)
+		if atts2['accid']?
+			acc= atts2['accid']
+	#console.log notename+', '+oct+', '+acc
+	if not note? or not oct?
+		console.log 'Could not find note/octave in note '+(JSON.stringify atts)
+		return null
+	notename = notename.toUpperCase()
+	ix = NOTES.indexOf notename
+	if ix<0
+		console.log 'Note with unknown pitch: '+notename+' '+(JSON.stringify atts)
+		return null
+	midi = parseInt(oct)*12+12+ix
+	if acc? 
+		offset = ACCIDENTALS[acc]
+		#console.log 'accidental '+acc+' -> '+offset
+		if not offset?
+			console.log 'Unknown accidental '+acc+' in node '+(JSON.stringify atts)
+		else
+			midi += offset
+	return midi
+
+module.exports.notetomidi = (text) ->
+	# hack - ignore * and ?
+	if (text.indexOf '*')>=0 || (text.indexOf '?')>=0
+		return null
+	note = text[0]
+	ix = NOTES.indexOf note
+	if ix<0
+		console.log 'Marker note with unknown pitch: '+text
+		return null
+	oct = text.substring(1)
+	if (oct.indexOf '#')==0
+		oct = oct.substring 1
+		ix++
+	else if (oct.indexOf 'b')==0
+		oct = oct.substring 1
+		ix++
+	return (parseInt oct)*12+12+ix
+
+COLOR = '#c00'
+
+module.exports.colornote = (note) ->
+	note.setAttribute 'color', COLOR
