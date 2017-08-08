@@ -365,6 +365,9 @@
                                     <rest xml:id="rest-0000001732452344" dur="1" />
                                 </layer>
                             </staff>
+                            <dir place="below" staff="1" tstamp="1" >
+                                <rend fontfam="Times New Roman">Disk code - 1st 2 notes, top line</rend>
+                            </dir>
                             <slur startid="#note-0000000701917034" endid="#note-0000000432361106" />
                             <slur startid="#note-0000000140903661" endid="#note-0000000265578499" />
                             <slur startid="#note-0000001935591550" endid="#note-0000000489377557" />

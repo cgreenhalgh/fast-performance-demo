@@ -620,6 +620,9 @@
                                     </beam>
                                 </layer>
                             </staff>
+                            <dir place="below" staff="2" tstamp="0" >
+                                <rend fontfam="Times New Roman">Disk code - 1st 2 notes, bottom line</rend>
+                            </dir>
                             <slur xml:id="slur-0000001428674685" startid="#note-0000000770987246" endid="#note-0000000597111490" />
                             <slur xml:id="slur-0000001288748838" startid="#note-0000000101495112" endid="#note-0000001122150502" />
                             <pedal xml:id="pedal-0000002110550757" staff="2" startid="#note-0000001464882702" dir="up" />
@@ -1054,7 +1057,7 @@
                             <pedal xml:id="pedal-0000001965875054" staff="2" startid="#note-0000001368706671" dir="down" />
                             <slur xml:id="slur-0000001893591964" startid="#note-0000001368706671" endid="#note-0000001839779004" />
                         </measure>
-                        <measure xml:id="measure-0000001692466923" n="9">
+                        <measure xml:id="measure-0000001692466923" n="10">
                             <staff xml:id="staff-0000000718085361" n="1">
                                 <layer xml:id="layer-0000000473621172" n="1">
                                     <beam xml:id="beam-0000001705436884">
@@ -1288,7 +1291,7 @@
                             <pedal xml:id="pedal-0000001053972680" staff="2" startid="#note-0000001805060375" dir="down" />
                             <pedal xml:id="pedal-0000000369559982" staff="1" startid="#mrest-0000002099825545" dir="up" />
                         </measure>
-                        <measure xml:id="measure-0000001079726674" n="10">
+                        <measure xml:id="measure-0000001079726674" n="11">
                             <staff xml:id="staff-0000000363998275" n="1">
                                 <layer xml:id="layer-0000001182023106" n="1">
                                     <mRest xml:id="mrest-0000002099825545" />
@@ -1451,7 +1454,7 @@
                             <slur xml:id="slur-0000001951086290" startid="#note-0000001311357798" endid="#note-0000001072246685" />
                             <pedal xml:id="pedal-0000001415852099" staff="4" startid="#note-0000001072246685" dir="up" />
                         </measure>
-                        <measure xml:id="measure-0000001322624514" n="11">
+                        <measure xml:id="measure-0000001322624514" n="12">
                             <staff xml:id="staff-0000001750492528" n="1">
                                 <layer xml:id="layer-0000002066577339" n="1">
                                     <beam xml:id="beam-0000001208258284">
@@ -1634,7 +1637,7 @@
                             <slur xml:id="slur-0000000636628261" startid="#note-0000000269901769" endid="#note-0000001152355734" />
                             <slur xml:id="slur-0000000862473902" startid="#note-0000000173364251" endid="#note-0000001982525954" />
                         </measure>
-                        <measure xml:id="measure-0000000237728867" n="12">
+                        <measure xml:id="measure-0000000237728867" n="13">
                             <staff xml:id="staff-0000001161695541" n="1">
                                 <layer xml:id="layer-0000001751338059" n="1">
                                     <rest xml:id="rest-0000000018919279" dur="8" />
@@ -1784,7 +1787,7 @@
                             <tie xml:id="tie-0000000377814670" startid="#note-0000002062314824" endid="#note-0000001587476417" />
                             <slur xml:id="slur-0000000062800796" startid="#note-0000001269410473" endid="#note-0000000097361089" />
                         </measure>
-                        <measure xml:id="measure-0000002054341886" n="13">
+                        <measure xml:id="measure-0000002054341886" n="14">
                             <staff xml:id="staff-0000002049518364" n="1">
                                 <layer xml:id="layer-0000000540916106" n="1">
                                     <rest xml:id="rest-0000001511758162" dur="8" />
@@ -1928,7 +1931,7 @@
                             <slur xml:id="slur-0000000182725348" startid="#note-0000002111489024" endid="#note-0000001996813622" />
                             <slur xml:id="slur-0000000126070380" startid="#note-0000000540441989" endid="#note-0000001289083433" />
                         </measure>
-                        <measure xml:id="measure-0000002146293465" n="14">
+                        <measure xml:id="measure-0000002146293465" n="15">
                             <staff xml:id="staff-0000001115834077" n="1">
                                 <layer xml:id="layer-0000001158889853" n="1">
                                     <rest xml:id="rest-0000000126246149" dur="8" />
@@ -1977,7 +1980,7 @@
                             <pedal xml:id="pedal-0000000497043789" staff="2" startid="#rest-0000001818295239" dir="up" />
                             <fermata xml:id="fermata-0000001441907645" staff="2" startid="#rest-0000001818295239" shape="curved" />
                         </measure>
-                        <measure xml:id="measure-0000001771362924" n="15" right="end">
+                        <measure xml:id="measure-0000001771362924" n="16" right="end">
                             <staff xml:id="staff-0000001809758710" n="1">
                                 <layer xml:id="layer-0000000770588199" n="1">
                                     <rest xml:id="rest-0000000969953922" dur="8" />

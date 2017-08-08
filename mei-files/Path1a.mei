@@ -701,6 +701,9 @@
                                     <mRest xml:id="mrest-0000001040786781" />
                                 </layer>
                             </staff>
+                            <dir place="above" staff="1" tstamp="2" >
+                                <rend fontfam="Times New Roman">Disk code - highest note, top line</rend>
+                            </dir>
                             <slur xml:id="slur-0000001096189415" startid="#note-0000000759269761" endid="#note-0000000153863380" />
                             <tie xml:id="tie-0000001669610626" startid="#note-0000001763826437" endid="#note-0000000153863380" />
                             <pedal xml:id="pedal-0000000309385302" staff="2" startid="#note-0000000153863380" dir="up" />

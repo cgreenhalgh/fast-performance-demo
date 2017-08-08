@@ -109,10 +109,7 @@
                             <dynam xml:id="dynam-000000062208537" place="below" staff="3" startid="#note-000000128631381">p</dynam>
                             <pedal dir="down" staff="3" tstamp="1" place="below"/>
                             <pedal dir="up" staff="3" tstamp="2.9" place="below"/>
-                            <pedal xml:id="pedal-000000033038148" staff="3" startid="#note-000000128631381" dir="down" place="above" />
-                            <pedal xml:id="pedal-000000153591712" staff="3" startid="#note-000000128631381" dir="down" place="below" />
                             <slur xml:id="slur-000000106959138" startid="#note-000000148092891" endid="#note-000000164955691" place="above" />
-                            <pedal xml:id="pedal-000000203789556" staff="3" startid="#note-000000161687240" dir="up" place="below" />
                         </measure>
                         <measure xml:id="measure-000000004593067" n="2">
                             <staff xml:id="staff-000000006627228" n="3">
@@ -338,8 +335,6 @@
                             <pedal xml:id="pedal-000000156706917" staff="3" tstamp="3.9" dir="up" place="below" />
                             <pedal xml:id="pedal-000000061593508" staff="3" tstamp="4" dir="down" place="below" />
                             <pedal xml:id="pedal-000000156706917" staff="3" tstamp="4.9" dir="up" place="below" />
-                            <pedal xml:id="pedal-000000150702000" staff="3" startid="#rest-000000192979816" dir="down" place="above" />
-                            <pedal xml:id="pedal-000000184507788" staff="3" startid="#rest-000000192979816" dir="down" place="below" />
                             <dynam xml:id="dynam-000000076120060" place="below" staff="3" startid="#note-000000130138693">p</dynam>
                         </measure>
                         <measure xml:id="measure-000000132532882" n="4">
@@ -433,8 +428,7 @@
                             <dynam xml:id="dynam-000000011604542" place="below" staff="3" startid="#note-000000063072904">pp</dynam>
                             <pedal xml:id="pedal-000000156706917" staff="3" tstamp="1" dir="down" place="below" />
                             <pedal xml:id="pedal-000000156706917" staff="3" tstamp="2.85" dir="up" place="below" />
-                            <slur xml:id="slur-000000003513301" place="above" startid="#note-000000142223170" endid="#note-000000086299302" />
-                            <pedal xml:id="pedal-000000027590405" staff="3" startid="#note-000000167339446" dir="up" place="below" />
+                            <slur xml:id="slur-000000003513301" place="above" startid="#note-000000142223170" endid="#note-000000086299302" />                            
                         </measure>
                         <measure xml:id="measure-000000069679193" n="5">
                             <staff xml:id="staff-000000114932868" n="3">

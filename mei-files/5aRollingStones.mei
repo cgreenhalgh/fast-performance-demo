@@ -1475,6 +1475,9 @@
                                     <clef xml:id="clef-0000001761261279" shape="F" line="4" />
                                 </layer>
                             </staff>
+                            <dir place="below" staff="1" tstamp="2" >
+                                <rend fontfam="Times New Roman">Challenge code - 1st 7 notes</rend>
+                            </dir>
                             <dynam xml:id="dynam-0000000740732879" staff="1" startid="#note-0000001307074695">f</dynam>
                             <slur xml:id="slur-0000000508826812" startid="#note-0000001307074695" endid="#note-0000000008076238" />
                             <slur xml:id="slur-0000000405375557" startid="#note-0000000120373061" endid="#note-0000000574142104" />

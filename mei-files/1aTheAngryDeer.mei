@@ -438,6 +438,9 @@
                                     <rest xml:id="rest-000000025506730" dur="4" />
                                 </layer>
                             </staff>
+                            <dir place="above" staff="1" tstamp="2" >
+                                <rend fontfam="Times New Roman">Disk code - 2nd group of semi-quavers</rend>
+                            </dir>
                             <tie xml:id="tie-000000056128970" startid="#note-000000005415180" endid="#note-000000030841047" />
                             <tie xml:id="tie-000000043177917" startid="#note-000000210785392" endid="#note-000000067408840" />
                             <slur xml:id="slur-000000081557365" startid="#note-000000022818368" endid="#note-000000035449175" color="#000000" curvedir="above" />
@@ -1410,6 +1413,9 @@
                                     <rest xml:id="rest-000000104599470" dur="4" />
                                 </layer>
                             </staff>
+                            <dir place="above" staff="1" tstamp="2" >
+                                <rend fontfam="Times New Roman">Challenge code - 3rd group of semi-q</rend>
+                            </dir>
                             <slur xml:id="slur-000000066512541" startid="#note-000000190098011" endid="#note-000000112500087" color="#000000" curvedir="above" />
                             <hairpin xml:id="hairpin-000000166649255" startid="#note-000000116097984" endid="#note-000000050386315" color="#000000" form="cres" />
                             <slur xml:id="slur-000000155984734" startid="#note-000000143415272" endid="#note-000000050386315" color="#000000" curvedir="above" />

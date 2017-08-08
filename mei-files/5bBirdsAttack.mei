@@ -493,6 +493,9 @@
                                     <rest xml:id="rest-0000001476770415" dur="2" />
                                 </layer>
                             </staff>
+                            <dir place="above" staff="1" tstamp="0" >
+                                <rend fontfam="Times New Roman">Disk code - 1st group of semi-q, top line</rend>
+                            </dir>
                             <dynam xml:id="dynam-0000000284374820" staff="1" startid="#note-0000000005668954">mp</dynam>
                             <dynam xml:id="dynam-0000001412678516" staff="2" startid="#note-0000001183198950">mp</dynam>
                             <dynam xml:id="dynam-0000000732663718" staff="3" startid="#note-0000001656267957">f</dynam>
@@ -1139,6 +1142,9 @@
                                     <mRest xml:id="mrest-0000000448918713" />
                                 </layer>
                             </staff>
+                            <dir place="above" staff="1" tstamp="2.5" >
+                                <rend fontfam="Times New Roman">Challenge code - whole phrase, top line</rend>
+                            </dir>
                             <dynam xml:id="dynam-0000000512167142" staff="1" startid="#note-0000000061180705">p</dynam>
                             <tie xml:id="tie-0000000283057553" startid="#note-0000000061180705" endid="#note-0000001066051457" />
                             <slur xml:id="slur-0000001248102725" startid="#note-0000000061180705" endid="#note-0000001489502886" />

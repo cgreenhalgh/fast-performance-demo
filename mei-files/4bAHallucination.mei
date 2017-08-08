@@ -279,6 +279,9 @@
                                     <mRest xml:id="mrest-0000000948761932" />
                                 </layer>
                             </staff>
+                            <dir place="above" staff="1" tstamp="4.5" >
+                                <rend fontfam="Times New Roman">Disk code - D,Eb,A</rend>
+                            </dir>
                             <slur xml:id="slur-0000000303069358" startid="#note-0000001085416867" endid="#note-0000000639448225" />
                             <tie xml:id="tie-0000000821346570" startid="#note-0000000278786832" endid="#note-0000000639448225" />
                         </measure>
