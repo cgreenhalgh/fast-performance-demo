@@ -253,12 +253,20 @@ add_immediate_actions = (control, prefix, data, meldload) ->
     channel: ''
     url: content_url data[prefix+'monitor']
   # immediate visual
-  for channel in ['v.background']
+  for channel in ['v.background','v.mc']
     if data[prefix+channel]?
-      viewgen.add data[prefix+channel]
-      control.actions.push 
-        channel: channel
-        url: content_url data[prefix+channel]
+      if channel=='v.mc' && String(data[prefix+channel])=='1'
+        if config.defaultmuzicodeurl?
+          control.actions.push 
+            channel: channel
+            url: content_url config.defaultmuzicodeurl
+        else
+          console.log 'ERROR: use of undefined defaultmuzicodeurl in '+prefix+channel
+      else if not ( channel == 'v.background' and config.forcebackgroundurl? )
+        viewgen.add data[prefix+channel]
+        control.actions.push 
+          channel: channel
+          url: content_url data[prefix+channel]
   # immediate midi
   if data[prefix+'midi']?
     # multiple 
@@ -325,19 +333,19 @@ add_delayed_visual = (control, prefix, data, meldload) ->
 
 add_delayed_mc = (control, prefix, data, meldload) ->
   # delayed visual
-  for channel in ['v.mc']
+  for channel in ['v.mc2']
     if data[prefix+channel]?
-      if channel=='v.mc' && String(data[prefix+channel])=='1'
+      if channel=='v.mc2' && String(data[prefix+channel])=='1'
         if config.defaultmuzicodeurl?
           control.actions.push 
-            channel: channel
+            channel: 'v.mc'
             url: content_url config.defaultmuzicodeurl
         else
           console.log 'ERROR: use of undefined defaultmuzicodeurl in '+prefix+channel
       else if not ( channel == 'v.background' and config.forcebackgroundurl? )
         viewgen.add data[prefix+channel]
         control.actions.push 
-          channel: channel
+          channel: if channel=='v.mc2' then 'v.mc' else channel
           url: content_url data[prefix+channel]
   # delayed app event (sync'd with visual) for muzicode
   if data[prefix+'app']?
@@ -436,7 +444,7 @@ for r in [1..1000]
         data[prefix+'monitor'] = 'data:text/plain,Code played to send MIDI (disklavier?)'
       else if data[prefix+'app']
         data[prefix+'monitor'] = 'data:text/plain,Code played to send notification (app)'
-      else if data[prefix+'v.mc'] 
+      else if data[prefix+'v.mc'] or data[prefix+'v.mc2'] 
         data[prefix+'monitor'] = 'data:text/plain,Code played to trigger visual (approach?)'
       else
         data[prefix+'monitor'] = 'data:text/plain,stage '+data.stage+' '+prefix+' triggered!'
@@ -505,6 +513,11 @@ readmeiids = (meifile) ->
     return {}
   getCodeIds mei
 
+meicolorcue = config.meicolorcue ? '#c00'
+meicolormidi = config.meicolormidi ? '#00d'
+meicolorapp = config.meicolorapp ? '#080'
+meicolorother = config.meicolorother ? '#666'
+
 processmeifile = (meifile, data, meiids) ->
   meitext = readmeifile meifile
   if not meitext?
@@ -544,13 +557,13 @@ processmeifile = (meifile, data, meiids) ->
       if midi==pmidis[pix]
         # found!
         #console.log 'note', note
-        color = '#666'
+        color = meicolorother
         if data[mc+'cue'] 
-          color = '#c00' # challenge?!
+          color = meicolorcue # challenge?!
         else if data[mc+'midi'] or data[mc+'midi2']
-          color = '#00a' # disklav?!
-        else if data[mc+'app'] or data[mc+'v.mc'] 
-          color = '#080' # approach?
+          color = meicolormidi # disklav?!
+        else if data[mc+'app'] or data[mc+'v.mc'] or data[mc+'v.mc2']  
+          color = meicolorapp # approach?
         meiutils.colornote note, color
         pix++
     if pix==0

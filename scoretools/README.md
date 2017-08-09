@@ -18,6 +18,10 @@ experiencein: FILE.json
 experienceout: FILE.json
 meidir: ../mei-files
 meioutdir: ../mei-files/out
+meicolorcue: #c00
+meicolormidi: #00d
+meicolorapp: #080
+meicolorother: #666
 mcserver: http://localhost:3000/input
 meldserver: http://localhost:5000/addannotation/
 meldmeiuri: http://localhost:3000/content/
@@ -102,8 +106,9 @@ Actions/etc. for `auto:` and `mcN:` blocks, i.e. names of following columns can 
 - `name` - esp. muzicode name (title) (two mcNs with same muzicode => trigger on consecutive triggerings)
 - `cue` - name of next stage to cue, or list of next stage names separated by '/' between which to choose randomly (e.g. 's1/s2/s3')
 - `monitor` - URL to show on monitor (default) channel
-- `v.mc` - "1" (use config defaultmuzicodeurl) or URL to show on muzicode visual channel
-- `v.mc.delay` - optional delay for muzicode action
+- `v.mc` - immediate action on muzicode visual channel; URL or "1" (use config defaultmuzicodeurl)
+- `v.mc.delay` - optional delay for muzicode action v.mc2
+- `v.mc2` - delayed action on muzicode visual channel
 - `app` - value to emit to mobile app in a `vEvent` message (message will be prefixed with performance ID and ':'). Sending is delayed by `v.mc.delay`.
 - `v.background` - URL to show on background "visual" channel 
 - `midi` - hex of midi message to send (can be list, comma-separated)
