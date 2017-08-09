@@ -167,6 +167,8 @@
       atts2 = getattributemap(accid);
       if (atts2['accid'] != null) {
         acc = atts2['accid'];
+      } else if (atts2['accid.ges'] != null) {
+        acc = atts2['accid.ges'];
       }
     }
     if ((note == null) || (oct == null)) {

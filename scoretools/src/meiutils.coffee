@@ -137,6 +137,8 @@ module.exports.getmidinote = (note) ->
 		#console.log 'found accid child '+(JSON.stringify atts2)
 		if atts2['accid']?
 			acc= atts2['accid']
+		else if atts2['accid.ges']?
+			acc= atts2['accid.ges']
 	#console.log notename+', '+oct+', '+acc
 	if not note? or not oct?
 		console.log 'Could not find note/octave in note '+(JSON.stringify atts)
