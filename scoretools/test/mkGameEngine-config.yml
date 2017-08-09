@@ -29,9 +29,9 @@ weatherfadein: 2
 weatherfadeout: 3
 noanimationurl: http://127.0.0.1:3000/content/mountainOutline.png
 defaultmuzicodeurl: http://127.0.0.1:3000/content/baseCamp.jpg
-muzicodefadein: 0.5
-muzicodefadeout: 1
-muzicodeholdtime: 0.2
+muzicodefadein: 0.2
+muzicodefadeout: 0.2
+#muzicodeholdtime:
 backgroundfadein: 2
 backgroundfadeout: 2
 
