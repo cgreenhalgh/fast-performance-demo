@@ -20,7 +20,10 @@ if ! [ -d "musiccodes/server/public/content" ]; then
 fi
 
 #cp mei-files/*.mei musiccodes/server/public/content/
-cp mei-files/out/*.mei musiccodes/server/public/content/
+if ! [ -d "mei-files/out" ]; then
+	mkdir mei-files/out
+fi
+
 cp images/* musiccodes/server/public/content/
 
 cd scoretools
@@ -29,3 +32,6 @@ npm install --no-bin-links
 node lib/makemuzicodes.js test/mkGameEngine-config.yml
 cp test/mkGameEngine-out.json ../musiccodes/server/experiences/
 cp test/mkGameEngine-view.json ../musiccodes/server/public/content/
+cd ..
+cp mei-files/out/*.mei musiccodes/server/public/content/
+
