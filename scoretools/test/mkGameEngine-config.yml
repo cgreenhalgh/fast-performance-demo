@@ -20,10 +20,10 @@ weatherdelaymin: 5
 weatherdelaymax: 10
 climbviewout: mkGameEngine-view.json
 no_url:
-rain_url: http://127.0.0.1:3000/content/rainPerf.webm
-snow_url: http://127.0.0.1:3000/content/snowPerf.webm
-wind_url: http://127.0.0.1:3000/content/windPerf.webm
-storm_url: http://127.0.0.1:3000/content/stormPerf.webm
+rain_url: http://127.0.0.1:3000/content/rain360_30.webm
+snow_url: http://127.0.0.1:3000/content/snow360_30.webm
+wind_url: http://127.0.0.1:3000/content/wind360_30.webm
+storm_url: http://127.0.0.1:3000/content/storm360_30.webm
 sun_url: http://127.0.0.1:3000/content/sunPerf.webm
 weatherfadein: 2
 weatherfadeout: 3
@@ -37,7 +37,7 @@ backgroundfadeout: 2
 
 videourl: "video:{\"width\":1280,\"height\":720}"
 videolayer: 2
-videoInsetTop: 0.858
+videoInsetTop: 0.860
 videoInsetBottom: 0.0
 videoInsetLeft: 0.12
 videoInsetRight: 0.09

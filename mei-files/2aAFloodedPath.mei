@@ -324,7 +324,7 @@
                             </staff>
                             <staff xml:id="staff-000000096917680" n="3">
                                 <layer xml:id="layer-000000019100213" n="1">
-                                    <rest dur="5" />
+                                    <mRest/>
                                     <clef shape="F" line="4" />
                                 </layer>
                             </staff>
@@ -952,7 +952,7 @@
                             </staff>
                             <staff xml:id="staff-000000050888227" n="4">
                                 <layer xml:id="layer-000000209966305" n="5">
-                                    <rest dur="3"/>
+                                    <mRest/>
                                 </layer>
                             </staff>
                         </measure>
@@ -3020,7 +3020,7 @@
                             </staff>
                             <staff xml:id="staff-000000205587889" n="3">
                                 <layer xml:id="layer-000000127568725" n="1">
-                                    <rest dur="5" xml:id="mrest-000000138814470" />
+                                    <mRest xml:id="mrest-000000138814470" />
                                     <clef xml:id="clef-000000121239875" shape="F" line="4" />
                                 </layer>
                             </staff>

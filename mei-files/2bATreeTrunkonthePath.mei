@@ -3371,7 +3371,6 @@
                             <tie xml:id="tie-0000001158531419" startid="#note-0000000807004052" endid="#note-0000000899091583" />
                             <fermata xml:id="fermata-0000001227137438" staff="2" startid="#chord-0000001200941715" shape="curved" />
                             <hairpin xml:id="hairpin-0000000012525170" staff="3" startid="#chord-0000000766387431" endid="#rest-0000000518879811" form="dim" />
-                            <slur xml:id="slur-0000001249086483" startid="#chord-0000000616248379" endid="#chord-0000000616248379" />
                             <tie xml:id="tie-0000000012615205" startid="#note-0000001273407764" endid="#note-0000000692368009" />
                             <tie xml:id="tie-0000001692193340" startid="#note-0000001201822959" endid="#note-0000000940918301" />
                         </measure>

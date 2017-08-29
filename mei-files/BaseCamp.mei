@@ -428,7 +428,7 @@
                             <dynam xml:id="dynam-000000011604542" place="below" staff="3" startid="#note-000000063072904">pp</dynam>
                             <pedal xml:id="pedal-000000156706917" staff="3" tstamp="1" dir="down" place="below" />
                             <pedal xml:id="pedal-000000156706917" staff="3" tstamp="2.85" dir="up" place="below" />
-                            <slur xml:id="slur-000000003513301" place="above" startid="#note-000000142223170" endid="#note-000000086299302" />                            
+                            <slur xml:id="slur-000000003513301" place="above" startid="#note-000000142223170" endid="#note-000000086299302" />
                         </measure>
                         <measure xml:id="measure-000000069679193" n="5">
                             <staff xml:id="staff-000000114932868" n="3">
@@ -804,7 +804,7 @@
                             <dir xml:id="dir-000000057849469" place="above" staff="3" tstamp="0">
                                 <rend xml:id="rend-000000181974259" fontfam="Times New Roman">Ending 1</rend>
                             </dir>
-                            <dir xml:id="dir-000000120333237" place="above" staff="3" tstamp="0" startid="#note-000000082682288">
+                            <dir xml:id="dir-000000120333237" place="above" staff="3" tstamp="0">
                                 <rend xml:id="rend-000000057661723" fontfam="Times New Roman">Choose one of the three endings.</rend>
                             </dir>
                             <line staff="3" dis="8" dis.place="above" startid="#note-000000082682288" endid="#rest-000000060660854"/>

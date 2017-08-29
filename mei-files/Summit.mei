@@ -371,8 +371,7 @@
                             <slur startid="#note-0000000701917034" endid="#note-0000000432361106" />
                             <slur startid="#note-0000000140903661" endid="#note-0000000265578499" />
                             <slur startid="#note-0000001935591550" endid="#note-0000000489377557" />
-                            <tie xml:id="tie-0000000008804209" startid="#note-0000001959996096" endid="#note-0000001690059158" />
-                            <tie xml:id="tie-0000001153186969" startid="#note-0000001703354125" endid="#note-0000000680417242" />
+                            
                             <tie xml:id="tie-0000001704284859" startid="#note-0000001408157808" endid="#note-0000001980575378" />
                             <dynam xml:id="dynam-0000000336589941" place="below" staff="3" startid="#note-0000001396858337">p</dynam>
                             <slur xml:id="slur-0000000252274303" startid="#note-0000001396858337" endid="#note-0000001899718380" />
@@ -2944,12 +2943,12 @@
                         <measure xml:id="measure-0000001492314556" n="22">
                             <staff xml:id="staff-0000001432933627" n="1">
                                 <layer xml:id="layer-0000001190300362" n="1">
-                                    <rest xml:id="rest-0000000710813681" dur="1" />
+                                    <mRest xml:id="rest-0000000710813681" dur="1" />
                                 </layer>
                             </staff>
                             <staff xml:id="staff-0000001805260423" n="2">
                                 <layer xml:id="layer-0000000561854527" n="5">
-                                    <rest xml:id="rest-0000000068277104" dur="1" />
+                                    <mRest xml:id="rest-0000000068277104" dur="1" />
                                 </layer>
                             </staff>
                             <staff xml:id="staff-0000000516954449" n="3">
@@ -3087,7 +3086,7 @@
                                     </beam>
                                 </layer>
                                 <layer xml:id="layer-0000000408332983" n="3">
-                                    <rest xml:id="rest-0000001618337639" dur="8" ploc="d5"/>
+                                    <rest xml:id="rest-0000001618337639" dur="8"/>
                                     <beam xml:id="beam-0000000042678305">
                                         <note xml:id="note-0000001983352685" dur="16" oct="6" pname="f" stem.dir="up" />
                                         <note xml:id="note-0000000320918563" dur="16" oct="6" pname="g" stem.dir="up" />

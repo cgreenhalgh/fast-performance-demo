@@ -42,12 +42,12 @@
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000003270895" n="2">
-                                <layer xml:id="layer-000000156366524" n="5">
+                                <layer xml:id="layer-000000156366524" n="2">
                                     <mRest xml:id="mrest-000000194239852" />
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000009728078" n="3">
-                                <layer xml:id="layer-000000121032452" n="1">
+                                <layer xml:id="layer-000000121032452" n="3">
                                     <beam xml:id="beam-000000165607659">
                                         <note xml:id="note-000000035288350" dur="32" oct="4" pname="d" stem.dir="up" />
                                         <note xml:id="note-000000175635296" dur="32" oct="4" pname="e" stem.dir="up" />
@@ -96,7 +96,7 @@
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000123212300" n="4">
-                                <layer xml:id="layer-000000069827975" n="5">
+                                <layer xml:id="layer-000000069827975" n="4">
                                     <beam xml:id="beam-000000212494494">
                                         <note xml:id="note-000000042306148" dur="32" pname="a" stem.dir="up" />
                                         <note xml:id="note-000000039527898" dur="32" pname="b" stem.dir="up" />
@@ -145,9 +145,7 @@
                             <dir xml:id="dir-000000015797188" place="above" staff="1" tstamp="0">
                                 <rend xml:id="rend-000000004410803" fontfam="Times New Roman" fontsize="750">Avatar Finds a Shimmering Stone (3a)</rend>
                             </dir>
-                            <tempo xml:id="tempo-000000161068393" place="above" staff="1" startid="#rest-000000107122244" midi.bpm="60">♩= 60</tempo>
-                            <tempo xml:id="tempo-000000196702698" place="above" staff="3" startid="#note-000000035288350" midi.bpm="60">♩= 60</tempo>
-
+                            <tempo xml:id="tempo-000000161068393" place="above" staff="1" tstamp="0">♩= 60</tempo>
                             <dynam xml:id="dynam-000000102536156" place="above" staff="4" startid="#note-000000042306148">pp</dynam>
                             <pedal xml:id="pedal-000000094624847" staff="4" startid="#note-000000042306148" dir="down" place="below" />
                             <pedal xml:id="pedal-000000083946537" staff="4" startid="#note-000000189025778" dir="up" place="below" />
@@ -162,12 +160,12 @@
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000124216315" n="2">
-                                <layer xml:id="layer-000000160378089" n="5">
+                                <layer xml:id="layer-000000160378089" n="2">
                                     <mRest xml:id="mrest-000000186738256" />
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000168774801" n="3">
-                                <layer xml:id="layer-000000150687785" n="1">
+                                <layer xml:id="layer-000000150687785" n="3">
                                     <beam xml:id="beam-000000065508251">
                                         <note xml:id="note-000000208753407" dur="32" oct="4" pname="d" stem.dir="up">
                                             <accid xml:id="accid-000000024604554" accid="n" />
@@ -228,7 +226,7 @@
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000150361742" n="4">
-                                <layer xml:id="layer-000000091375202" n="5">
+                                <layer xml:id="layer-000000091375202" n="4">
                                     <beam xml:id="beam-000000199106878">
                                         <note xml:id="note-000000155599359" dur="32" oct="3" pname="b" stem.dir="down">
                                             <accid xml:id="accid-000000149617790" accid="f" />
@@ -1827,7 +1825,7 @@
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000002553588" n="4">
-                                <layer xml:id="layer-000000081887770" n="5">
+                                <layer xml:id="layer-000000081887770" n="4">
                                     <mRest />
                                 </layer>
                             </staff>
@@ -1851,12 +1849,12 @@
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000168188363" n="2">
-                                <layer xml:id="layer-000000184202775" n="5">
+                                <layer xml:id="layer-000000184202775" n="2">
                                     <rest xml:id="rest-000000184267217" dur="1" />
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000096425228" n="3">
-                                <layer xml:id="layer-000000053866892" n="1">
+                                <layer xml:id="layer-000000053866892" n="3">
                                     <beam xml:id="beam-000000161680983">
                                         <tuplet xml:id="tuplet-000000200663694" num="5" numbase="4" bracket.visible="false">
                                             <chord xml:id="chord-000000161388068" dur="32" stem.dir="down">
@@ -2193,7 +2191,7 @@
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000157475764" n="4">
-                                <layer xml:id="layer-000000105586636" n="5">
+                                <layer xml:id="layer-000000105586636" n="4">
                                     <mRest xml:id="rest-000000175320707" dur="2" />
                                 </layer>
                             </staff>
@@ -2230,12 +2228,12 @@
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000127115346" n="2">
-                                <layer xml:id="layer-000000195883666" n="5">
+                                <layer xml:id="layer-000000195883666" n="2">
                                     <rest xml:id="rest-000000071527223" dur="1" />
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000058518405" n="3">
-                                <layer xml:id="layer-000000133244192" n="1">
+                                <layer xml:id="layer-000000133244192" n="3">
                                     <beam xml:id="beam-000000022753325">
                                         <tuplet xml:id="tuplet-000000095284401" num="5" numbase="4" bracket.visible="false">
                                             <chord xml:id="chord-000000113696433" dur="32" stem.dir="up">
@@ -2544,7 +2542,7 @@
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000056330384" n="4">
-                                <layer xml:id="layer-000000170997100" n="5">
+                                <layer xml:id="layer-000000170997100" n="4">
                                     <rest xml:id="rest-000000059006939" dur="1" />
                                 </layer>
                             </staff>
@@ -2644,12 +2642,12 @@
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000147292322" n="2">
-                                <layer xml:id="layer-000000052153142" n="5">
+                                <layer xml:id="layer-000000052153142" n="2">
                                     <rest xml:id="rest-000000137472140" dur="1" />
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000191993842" n="3">
-                                <layer xml:id="layer-000000031679368" n="1">
+                                <layer xml:id="layer-000000031679368" n="3">
                                     <beam xml:id="beam-000000202007141">
                                         <tuplet xml:id="tuplet-000000211063122" num="5" numbase="4" bracket.visible="false">
                                             <chord xml:id="chord-000000043514335" dots="1" dur="16" stem.dir="up">
@@ -2922,7 +2920,7 @@
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000188678827" n="4">
-                                <layer xml:id="layer-000000022385159" n="5">
+                                <layer xml:id="layer-000000022385159" n="4">
                                     <rest xml:id="rest-000000178686268" dur="1" />
                                 </layer>
                             </staff>
@@ -3008,7 +3006,7 @@
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000048843070" n="2">
-                                <layer xml:id="layer-000000168662934" n="5">
+                                <layer xml:id="layer-000000168662934" n="2">
                                     <rest xml:id="rest-000000084564529" dur="8" />
                                     <beam xml:id="beam-000000187309082">
                                         <tuplet xml:id="tuplet-000000184669950" num="5" numbase="4" bracket.visible="false">
@@ -3054,14 +3052,14 @@
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000085329876" n="3">
-                                <layer xml:id="layer-000000158762169" n="1">
+                                <layer xml:id="layer-000000158762169" n="3">
                                     <rest xml:id="rest-000000058508713" dur="4" />
                                     <rest xml:id="rest-000000005530972" dur="8" />
                                     <rest xml:id="rest-000000003916267" dur="8" fermata="above" />
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000008133355" n="4">
-                                <layer xml:id="layer-000000062419304" n="5">
+                                <layer xml:id="layer-000000062419304" n="4">
                                     <rest xml:id="rest-000000056685460" dur="4" />
                                     <rest xml:id="rest-000000186822382" dur="8" />
                                     <rest xml:id="rest-000000030318672" dur="8" fermata="above" />
@@ -3078,12 +3076,12 @@
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000062888945" n="2">
-                                <layer xml:id="layer-000000190534967" n="5">
+                                <layer xml:id="layer-000000190534967" n="2">
                                     <mRest xml:id="mrest-000000117622027" />
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000119447180" n="3">
-                                <layer xml:id="layer-000000012249270" n="1">
+                                <layer xml:id="layer-000000012249270" n="3">
                                     <rest xml:id="rest-000000058756611" dur="8" fermata="above" />
                                     <tuplet xml:id="tuplet-000000128981396" num="5" numbase="4" bracket.visible="true">
                                         <rest xml:id="rest-000000066037243" dots="1" dur="16" />
@@ -3142,7 +3140,7 @@
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000070111518" n="4">
-                                <layer xml:id="layer-000000142194636" n="5">
+                                <layer xml:id="layer-000000142194636" n="4">
                                     <chord xml:id="chord-000000172831352" dur="4" fermata="above" stem.dir="up">
                                         <artic xml:id="artic-000000075945541" artic="ten" />
                                         <note xml:id="note-000000136652102" oct="1" pname="g">
@@ -3250,7 +3248,7 @@
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000179300052" n="2">
-                                <layer xml:id="layer-000000138616703" n="5">
+                                <layer xml:id="layer-000000138616703" n="2">
                                     <tuplet xml:id="tuplet-000000193201420" num="5" numbase="4" bracket.visible="true">
                                         <rest xml:id="rest-000000089882381" dur="8" />
                                         <chord xml:id="chord-000000190726113" dur="32" stem.dir="up">
@@ -3295,7 +3293,7 @@
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000158296803" n="3">
-                                <layer xml:id="layer-000000138899030" n="1">
+                                <layer xml:id="layer-000000138899030" n="3">
                                     <chord xml:id="chord-000000146035789" dur="8" stem.dir="down">
                                         <note xml:id="note-000000138607607" oct="6" pname="g" accid.ges="f" />
                                         <note xml:id="note-000000007989134" oct="7" pname="a" accid.ges="f" />
@@ -3307,7 +3305,7 @@
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000213113725" n="4">
-                                <layer xml:id="layer-000000180600341" n="5">
+                                <layer xml:id="layer-000000180600341" n="4">
                                     <chord xml:id="chord-000000161697587" dur="8" stem.dir="down">
                                         <note xml:id="note-000000103047441" oct="3" pname="g" accid.ges="f" />
                                         <note xml:id="note-000000158459268" oct="4" pname="a" accid.ges="f" />
@@ -3337,12 +3335,12 @@
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000009495070" n="2">
-                                <layer xml:id="layer-000000082616792" n="5">
+                                <layer xml:id="layer-000000082616792" n="2">
                                     <rest xml:id="rest-000000063163744" dur="1" />
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000004887246" n="3">
-                                <layer xml:id="layer-000000064491195" n="1">
+                                <layer xml:id="layer-000000064491195" n="3">
                                     <beam xml:id="beam-000000154835739">
                                         <tuplet xml:id="tuplet-000000131069636" num="5" numbase="4" bracket.visible="false">
                                             <chord xml:id="chord-000000180240709" dur="32" stem.dir="up">
@@ -3647,7 +3645,7 @@
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000145341820" n="4">
-                                <layer xml:id="layer-000000179600017" n="5">
+                                <layer xml:id="layer-000000179600017" n="4">
                                     <rest xml:id="rest-000000132786610" dur="1" />
                                 </layer>
                             </staff>
@@ -3700,7 +3698,7 @@
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000138457627" n="2">
-                                <layer xml:id="layer-000000147708521" n="5">
+                                <layer xml:id="layer-000000147708521" n="2">
                                     <tuplet xml:id="tuplet-000000169172714" num="5" numbase="4" bracket.visible="true">
                                         <rest xml:id="rest-000000190571905" dur="8" />
                                         <chord xml:id="chord-000000027932017" dur="32" stem.dir="up">
@@ -3717,12 +3715,12 @@
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000028658847" n="3">
-                                <layer xml:id="layer-000000047243656" n="1">
+                                <layer xml:id="layer-000000047243656" n="3">
                                     <mRest xml:id="mrest-000000162241104" />
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000027625431" n="4">
-                                <layer xml:id="layer-000000199911239" n="5">
+                                <layer xml:id="layer-000000199911239" n="4">
                                     <mRest xml:id="mrest-000000017419671" />
                                 </layer>
                             </staff>
@@ -3743,12 +3741,12 @@
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000000620158" n="2">
-                                <layer xml:id="layer-000000083917658" n="5">
+                                <layer xml:id="layer-000000083917658" n="2">
                                     <mRest xml:id="mrest-000000083577472" />
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000206130098" n="3">
-                                <layer xml:id="layer-000000019070089" n="1">
+                                <layer xml:id="layer-000000019070089" n="3">
                                     <rest xml:id="rest-000000121615952" dur="8" />
                                     <beam xml:id="beam-000000213659809">
                                         <tuplet xml:id="tuplet-000000091855279" num="7" numbase="4" bracket.visible="false">
@@ -3802,7 +3800,7 @@
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000122561350" n="4">
-                                <layer xml:id="layer-000000095702542" n="5">
+                                <layer xml:id="layer-000000095702542" n="4">
                                     <mRest xml:id="mrest-000000167785412" />
                                 </layer>
                             </staff>
@@ -3818,17 +3816,17 @@
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000075067923" n="2">
-                                <layer xml:id="layer-000000188216011" n="5">
+                                <layer xml:id="layer-000000188216011" n="2">
                                     <mRest xml:id="mrest-000000036610442" />
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000155753744" n="3">
-                                <layer xml:id="layer-000000080763263" n="1">
+                                <layer xml:id="layer-000000080763263" n="3">
                                     <rest xml:id="rest-000000150009485" dur="2" />
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000046763516" n="4">
-                                <layer xml:id="layer-000000011965151" n="5">
+                                <layer xml:id="layer-000000011965151" n="4">
                                     <beam xml:id="beam-000000135603458">
                                         <tuplet xml:id="tuplet-000000173495836" num="7" numbase="4" bracket.visible="false">
                                             <chord xml:id="chord-000000026469154" dur="32" stem.dir="down">
@@ -3980,12 +3978,12 @@
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000141317147" n="2">
-                                <layer xml:id="layer-000000165299642" n="5">
+                                <layer xml:id="layer-000000165299642" n="2">
                                     <mRest xml:id="mrest-000000211962228" />
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000211933900" n="3">
-                                <layer xml:id="layer-000000028767691" n="1">
+                                <layer xml:id="layer-000000028767691" n="3">
                                     <beam xml:id="beam-000000034362397">
                                         <tuplet xml:id="tuplet-000000042929784" num="7" numbase="4" bracket.visible="false">
                                             <chord xml:id="chord-000000014507314" dur="32" stem.dir="down">
@@ -4048,7 +4046,7 @@
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000060102120" n="4">
-                                <layer xml:id="layer-000000029441217" n="5">
+                                <layer xml:id="layer-000000029441217" n="4">
                                     <chord xml:id="chord-000000069827984" dur="16" stem.dir="up">
                                         <note xml:id="note-000000180140299" oct="1" pname="e" accid.ges="f" />
                                         <note xml:id="note-000000111509791" oct="2" pname="e" accid.ges="f" />
@@ -4170,12 +4168,12 @@
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000102636111" n="2">
-                                <layer xml:id="layer-000000155237149" n="5">
+                                <layer xml:id="layer-000000155237149" n="2">
                                     <mRest xml:id="mrest-000000115732951" />
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000094559659" n="3">
-                                <layer xml:id="layer-000000168696438" n="1">
+                                <layer xml:id="layer-000000168696438" n="3">
                                     <rest xml:id="rest-000000153425660" dur="8" />
                                     <beam xml:id="beam-000000063765523">
                                         <tuplet xml:id="tuplet-000000123697023" num="7" numbase="4" bracket.visible="false">
@@ -4226,7 +4224,7 @@
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000108859548" n="4">
-                                <layer xml:id="layer-000000179539335" n="5">
+                                <layer xml:id="layer-000000179539335" n="4">
                                     <rest xml:id="rest-000000157234936" dur="4" />
                                     <beam xml:id="beam-000000093495847">
                                         <tuplet xml:id="tuplet-000000052305964" num="7" numbase="4" bracket.visible="false">
@@ -4327,12 +4325,12 @@
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000064024271" n="2">
-                                <layer xml:id="layer-000000204997635" n="5">
+                                <layer xml:id="layer-000000204997635" n="2">
                                     <mRest xml:id="mrest-000000122893161" />
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000058079270" n="3">
-                                <layer xml:id="layer-000000114264569" n="1">
+                                <layer xml:id="layer-000000114264569" n="3">
                                     <rest xml:id="rest-000000070906300" dur="4" />
                                     <beam xml:id="beam-000000181934692">
                                         <tuplet xml:id="tuplet-000000122843814" num="7" numbase="4" bracket.visible="false">
@@ -4395,7 +4393,7 @@
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000200721915" n="4">
-                                <layer xml:id="layer-000000063773223" n="5">
+                                <layer xml:id="layer-000000063773223" n="4">
                                     <beam xml:id="beam-000000073446934">
                                         <tuplet xml:id="tuplet-000000173387911" num="7" numbase="4" bracket.visible="false">
                                             <chord xml:id="chord-000000114596931" dur="16" stem.dir="up">
@@ -4553,18 +4551,18 @@
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000016372791" n="2">
-                                <layer xml:id="layer-000000150833380" n="5">
+                                <layer xml:id="layer-000000150833380" n="2">
                                     <mRest xml:id="mrest-000000200548112" />
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000195716881" n="3">
-                                <layer xml:id="layer-000000125909765" n="1">
+                                <layer xml:id="layer-000000125909765" n="3">
                                     <rest xml:id="rest-000000146877664" dur="4" />
                                     <rest xml:id="rest-000000155515931" dur="4" fermata="above" />
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000000599982" n="4">
-                                <layer xml:id="layer-000000206170851" n="5">
+                                <layer xml:id="layer-000000206170851" n="4">
                                     <beam xml:id="beam-000000134262950">
                                         <tuplet xml:id="tuplet-000000023524940" num="7" numbase="4" bracket.visible="false">
                                             <chord xml:id="chord-000000194907192" dots="1" dur="16" stem.dir="up">

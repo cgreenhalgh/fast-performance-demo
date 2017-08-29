@@ -61,7 +61,7 @@
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000048340803" n="4">
-                                <layer xml:id="layer-000000101215543" n="5">
+                                <layer xml:id="layer-000000101215543" n="2">
                                     <rest xml:id="rest-000000117915451" dur="4" />
                                     <beam xml:id="beam-000000003793327">
                                         <note xml:id="note-000000163369121" dur="32" oct="5" pname="b" stem.dir="down" />
@@ -87,7 +87,7 @@
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000048206443" n="5">
-                                <layer xml:id="layer-000000018432467" n="1">
+                                <layer xml:id="layer-000000018432467" n="3">
                                     <rest xml:id="rest-000000107730729" dur="2" />
                                     <beam xml:id="beam-000000051356727">
                                         <note xml:id="note-000000073209760" dur="32" oct="6" pname="e" stem.dir="down" />
@@ -109,7 +109,7 @@
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000008279241" n="6">
-                                <layer xml:id="layer-000000081185103" n="5">
+                                <layer xml:id="layer-000000081185103" n="4">
                                     <rest xml:id="rest-000000112951806" dur="2" />
                                     <beam xml:id="beam-000000083025213">
                                         <note xml:id="note-000000007098428" dur="32" oct="5" pname="b" stem.dir="down" />
@@ -179,7 +179,7 @@
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000019052314" n="4">
-                                <layer xml:id="layer-000000056264116" n="5">
+                                <layer xml:id="layer-000000056264116" n="2">
                                     <note xml:id="note-000000135958465" dur="8" oct="5" pname="e" stem.dir="down" artic="acc"/>
                                     <rest xml:id="rest-000000014304827" dur="8" />
                                     <rest xml:id="rest-000000151434559" dur="4" />
@@ -212,7 +212,7 @@
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000073749246" n="5">
-                                <layer xml:id="layer-000000123925925" n="1">
+                                <layer xml:id="layer-000000123925925" n="3">
                                     <rest xml:id="rest-000000038934318" dur="4" />
                                     <note xml:id="note-000000186519418" dur="8" oct="5" pname="a" stem.dir="down" artic="acc"/>
                                     <rest xml:id="rest-000000154280524" dur="8" />
@@ -241,7 +241,7 @@
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000147534709" n="6">
-                                <layer xml:id="layer-000000147258281" n="5">
+                                <layer xml:id="layer-000000147258281" n="4">
                                     <rest xml:id="rest-000000212608239" dur="4" />
                                     <note xml:id="note-000000022424878" dur="8" oct="5" pname="e" stem.dir="down" artic="acc"/>
                                     <rest xml:id="rest-000000193900490" dur="8" />
@@ -305,17 +305,17 @@
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000068796487" n="4">
-                                <layer xml:id="layer-000000001116207" n="5">
+                                <layer xml:id="layer-000000001116207" n="2">
                                     <rest xml:id="rest-000000169073588" dur="1" />
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000201407900" n="5">
-                                <layer xml:id="layer-000000121711599" n="1">
+                                <layer xml:id="layer-000000121711599" n="3">
                                     <rest xml:id="rest-000000210616739" dur="1" />
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000166638486" n="6">
-                                <layer xml:id="layer-000000070580931" n="5">
+                                <layer xml:id="layer-000000070580931" n="4">
                                     <rest xml:id="rest-000000018259291" dur="1" />
                                 </layer>
                             </staff>
@@ -326,7 +326,7 @@
                         </measure>
                         <measure xml:id="measure-000000208285670" n="4">
                             <staff xml:id="staff-000000027711069" n="3">
-                                <layer xml:id="layer-000000177357807" n="">
+                                <layer xml:id="layer-000000177357807" n="1">
                                     <beam xml:id="beam-000000039981895">
                                         <tuplet xml:id="tuplet-000000128196686" num="3" numbase="2">
                                             <note xml:id="note-000000069006132" dur="8" oct="3" pname="f" stem.dir="down" />
@@ -339,7 +339,7 @@
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000093472811" n="4">
-                                <layer xml:id="layer-000000201783842" n="6">
+                                <layer xml:id="layer-000000201783842" n="2">
                                     <tuplet xml:id="tuplet-000000083162039" num="3" numbase="2">
                                         <note xml:id="note-000000162639100" dur="4" pname="a" stem.dir="up" />
                                         <note xml:id="note-000000073753475" dur="4" oct="1" pname="a" stem.dir="up" />
@@ -351,12 +351,12 @@
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000086624138" n="5">
-                                <layer xml:id="layer-000000114957991" n="1">
+                                <layer xml:id="layer-000000114957991" n="3">
                                     <rest xml:id="rest-000000048901315" dur="1" />
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000140189747" n="6">
-                                <layer xml:id="layer-000000121144091" n="5">
+                                <layer xml:id="layer-000000121144091" n="4">
                                     <rest xml:id="rest-000000074388014" dur="1" />
                                 </layer>
                             </staff>
@@ -373,7 +373,7 @@
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000051184304" n="4">
-                                <layer xml:id="layer-000000062899154" n="5">
+                                <layer xml:id="layer-000000062899154" n="2">
                                     <beam xml:id="beam-000000190207566">
                                         <tuplet xml:id="tuplet-000000067269053" num="3" numbase="2">
                                             <note xml:id="note-000000104271130" dur="8" oct="3" pname="f" stem.dir="up" />
@@ -386,7 +386,7 @@
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000057822254" n="5">
-                                <layer xml:id="layer-000000097382808" n="1">
+                                <layer xml:id="layer-000000097382808" n="3">
                                     <tuplet xml:id="tuplet-000000076860618" num="3" numbase="2">
                                         <note xml:id="note-000000045019586" dur="4" pname="a" stem.dir="up" />
                                         <note xml:id="note-000000016735675" dur="4" oct="1" pname="a" stem.dir="up" />
@@ -398,7 +398,7 @@
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000093307182" n="6">
-                                <layer xml:id="layer-000000149786403" n="5">
+                                <layer xml:id="layer-000000149786403" n="4">
                                     <rest xml:id="rest-000000197136231" dur="1" />
                                 </layer>
                             </staff>
@@ -416,13 +416,13 @@
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000126650192" n="4">
-                                <layer xml:id="layer-000000052782389" n="5">
+                                <layer xml:id="layer-000000052782389" n="2">
                                     <rest xml:id="rest-000000046550496" dur="1" />
                                     <clef xml:id="clef-000000038966238" shape="F" line="4" />
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000195675921" n="5">
-                                <layer xml:id="layer-000000212357757" n="1">
+                                <layer xml:id="layer-000000212357757" n="3">
                                     <beam xml:id="beam-000000058063006">
                                         <tuplet xml:id="tuplet-000000145917825" num="3" numbase="2">
                                             <note xml:id="note-000000146812491" dur="8" oct="3" pname="f" stem.dir="up" />
@@ -435,7 +435,7 @@
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000147067870" n="6">
-                                <layer xml:id="layer-000000100918968" n="5">
+                                <layer xml:id="layer-000000100918968" n="4">
                                     <tuplet xml:id="tuplet-000000055038081" num="3" numbase="2">
                                         <note xml:id="note-000000000431496" dur="4" pname="a" stem.dir="up" />
                                         <note xml:id="note-000000106672798" dur="4" oct="1" pname="a" stem.dir="up" />
@@ -466,17 +466,17 @@
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000210719058" n="4">
-                                <layer xml:id="layer-000000035632971" n="5">
+                                <layer xml:id="layer-000000035632971" n="2">
                                     <rest xml:id="rest-000000132248870" dur="1" />
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000198165870" n="5">
-                                <layer xml:id="layer-000000145214229" n="1">
+                                <layer xml:id="layer-000000145214229" n="3">
                                     <rest xml:id="rest-000000173696064" dur="1" />
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000009973663" n="6">
-                                <layer xml:id="layer-000000084065773" n="5">
+                                <layer xml:id="layer-000000084065773" n="4">
                                     <beam xml:id="beam-000000130120840">
                                         <tuplet xml:id="tuplet-000000016255968" num="3" numbase="2">
                                             <note xml:id="note-000000207481010" dur="8" oct="3" pname="f" stem.dir="up" />
@@ -516,7 +516,7 @@
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000106589746" n="4">
-                                <layer xml:id="layer-000000108392607" n="1">
+                                <layer xml:id="layer-000000108392607" n="2">
                                     <rest xml:id="rest-000000139589991" dur="4" />
                                     <tuplet xml:id="tuplet-000000164992183" num="3" numbase="2">
                                         <note xml:id="note-000000018538073" dur="4" oct="3" pname="a" stem.dir="down" />
@@ -529,12 +529,12 @@
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000124516384" n="5">
-                                <layer xml:id="layer-000000194994860" n="5">
+                                <layer xml:id="layer-000000194994860" n="3">
                                     <rest xml:id="rest-000000174602751" dur="1" />
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000124516384" n="6">
-                                <layer xml:id="layer-000000194994860" n="5">
+                                <layer xml:id="layer-000000194994860" n="4">
                                     <rest xml:id="rest-000000174602751" dur="1" />
                                 </layer>
                           </staff>
@@ -553,7 +553,7 @@
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000093933881" n="4">
-                                <layer xml:id="layer-000000210357653" n="5">
+                                <layer xml:id="layer-000000210357653" n="2">
                                     <note xml:id="note-000000021534467" dur="4" oct="4" pname="e" stem.dir="down" />
                                     <beam xml:id="beam-000000157215772">
                                         <tuplet xml:id="tuplet-000000181031291" num="3" numbase="2">
@@ -574,12 +574,12 @@
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000001249122" n="5">
-                                <layer xml:id="layer-000000156520392" n="1">
+                                <layer xml:id="layer-000000156520392" n="3">
                                     <rest xml:id="rest-000000196583787" dur="1" />
                                 </layer>
                             </staff>
                             <staff xml:id="staff-000000124516384" n="6">
-                                <layer xml:id="layer-000000194994860" n="5">
+                                <layer xml:id="layer-000000194994860" n="4">
                                     <rest xml:id="rest-000000174602751" dur="1" />
                                 </layer>
                             </staff>
