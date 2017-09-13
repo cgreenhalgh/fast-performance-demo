@@ -1,0 +1,19 @@
+# Climb docker stuff
+
+Mainly a muzicode instance with the right content and experience.
+
+```
+mkdir content
+mkdir experiences
+cp ../images/* content/
+cp ../scoretools/test/mkGameEngine-out.json experiences/
+cp ../scoretools/test/mkGameEngine-view.json content/
+cp ../mei-files/out/*.mei content/
+```
+
+Docker
+
+```
+docker build -t climb .
+```
+
