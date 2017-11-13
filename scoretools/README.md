@@ -16,6 +16,7 @@ Config file in YAML, `config.yml`:
 spreadsheet: FILE.xlsx
 experiencein: FILE.json
 experienceout: FILE.json
+meldout: FILE.json
 meidir: ../mei-files
 meioutdir: ../mei-files/out
 meicolorcue: #c00
@@ -122,6 +123,25 @@ The optional value in the `mcN:` column specifies a score element to highlight i
 - The (complete case-sensitive) text of a score direction at the measure of the code
 - A xml:id of a score element (starting with `#`)
 - a measure number
+
+### Meld output file
+
+The file to set up (v2) meld is an array of stage objects.
+
+Each `stage` object has properties:
+- `stage` - stage ID (identifies each compositional fragment) (string)
+- `next` - next stage on the current path (string)
+- `cue` - next stage(s) to cue automatically (array of string). If this stage has a challenge then this will be the FAILURE destination.
+- `meifile` - mei file corresponding to the stage (string)
+- `mcs` - list of muzicode objects for muzicodes at this stage
+
+Each `muzicode` object has propoerties:
+- `name` - identifies this mcN (string)
+- `cue` - the stage to cue if this mcN is triggered (string)
+- `type` - flag to indicate if this mcN is a `choice`, `challenge`, `disklavier`, `approaching` (challenge)
+- `meielements` - array of element XML:IDs (e.g., notes) within meifile corresponding to this mcN
+- `narrative` - narrative description of this mcN (e.g. as per https://github.com/cgreenhalgh/music-archive/blob/master/test/data/narrativesJune8.csv) 
+- `app` - explanatory game-mechanical description (intended for the audience's consumption) (string)
 
 ## MIDI files
 

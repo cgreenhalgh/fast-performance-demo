@@ -32,6 +32,7 @@ xlfile = relpath config.spreadsheet, configdir
 exinfile = relpath config.experiencein, configdir
 exoutfile = relpath config.experienceout, configdir
 viewoutfile = relpath config.climbviewout, configdir
+meldoutfile = relpath config.meldout, configdir
 
 # climbview config generator
 viewgen = climbview.generator 'Climbview '+viewoutfile+' from '+configfile, config
@@ -41,6 +42,8 @@ fs = require 'fs'
 
 console.log 'read template experience '+exinfile
 ex = JSON.parse fs.readFileSync exinfile, {encoding:'utf8'}
+
+meldout = []
 
 console.log 'read spreadsheet '+xlfile
 workbook = xlsx.readFile xlfile
@@ -606,6 +609,9 @@ for r in [1..1000]
 
   meiids = readmeiids data.meifile
   
+  meldstage = {stage:data.stage, next:data.next, cue:data['auto_cue'], meifile:data.meifile, mcs:[]}
+  meldout.push(meldstage)
+  
   # cue (test/rehearse) button
   control = {inputUrl:'button:cue '+data.stage, actions:[],poststate:{}}
   ex.controls.push control
@@ -650,6 +656,10 @@ for r in [1..1000]
   for mc, mi in mcs
     if not data[mc+'name']
       continue
+    meldmc = {name:[mc+'name'],cue:[mc+'cue'],meielements:[]}
+    meldstage.mcs.push(meldmc)
+    # TODO meldmc.type, .narrative, .app
+    
     marker = get_marker ex, data[mc+'name'], ('stage '+data.stage+' '+mc+'name')
     # in stage precondition
     # marker should only be used once now!
@@ -674,6 +684,7 @@ for r in [1..1000]
     if data[mc]? and data[mc]!=''
       fragments = getfragmentids data[mc], meiids
       for fragment in fragments
+        meldmc.meielements.push(fragment)
         # MELD highlight action 
         # curl -X POST -H "Content-Type: application/json" -d '{"oa:hasTarget":[{"@id":"$MEI_ELEMENT"}], "oa:hasBody":[{"@type":"meldterm:Emphasis"}] }' -v $COLLECTION_URI
         marker.actions.push 
@@ -795,6 +806,9 @@ fs.writeFileSync exoutfile, (JSON.stringify ex, null, '  '), {encoding: 'utf8'}
 viewconfig = viewgen.get()
 console.log 'write climbview file '+viewoutfile
 fs.writeFileSync viewoutfile, (JSON.stringify viewconfig, null, '  '), {encoding: 'utf8'}
+
+console.log 'write meld config file '+meldoutfile
+fs.writeFileSync meldoutfile, (JSON.stringify meldout, null, '  '), {encoding: 'utf8'}
 
 console.log 'done'
 return errors
