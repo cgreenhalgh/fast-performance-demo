@@ -609,7 +609,9 @@ for r in [1..1000]
 
   meiids = readmeiids data.meifile
   
-  meldstage = {stage:data.stage, next:data.next, cue:data['auto_cue'], meifile:data.meifile, mcs:[]}
+  meldstage = {stage:data.stage, next:data.next, cue:[], meifile:data.meifile, mcs:[]}
+  if data.auto_cue?
+    meldstage.cue = data.auto_cue.split '/'
   meldout.push(meldstage)
   
   # cue (test/rehearse) button
@@ -651,13 +653,29 @@ for r in [1..1000]
     control.actions.push
       url: 'emit:vStageChange:mobileapp:{{performanceid}}:{{stage}}->'+data.stage
 
+  meitext = readmeifile data.meifile
+  mei = if meitext?
+      meiutils.parse meitext
+    else
+      null
   # muzicodes
   codetitles = {}
+  challengecount = 0
   for mc, mi in mcs
     if not data[mc+'name']
       continue
-    meldmc = {name:[mc+'name'],cue:[mc+'cue'],meielements:[]}
+    meldmc = {name:data[mc+'name'],meielements:[]}
+    if data[mc+'cue']?
+      meldmc.cue = data[mc+'cue']
+      meldmc.type = 'challenge'
+      challengecount = challengecount+1
+    else if data[mc+'midi'] or data[mc+'midi2']
+      meldmc.type = 'disklavier'
+    else if data[mc+'app']
+      meldmc.type = 'approaching'
     meldstage.mcs.push(meldmc)
+    if data[mc+'app']?
+      meldmc.app = (data[mc+'app'].split ':')[0]
     # TODO meldmc.type, .narrative, .app
     
     marker = get_marker ex, data[mc+'name'], ('stage '+data.stage+' '+mc+'name')
@@ -692,7 +710,30 @@ for r in [1..1000]
           post: true
           contentType: 'application/json'
           body: '{"oa:hasTarget":[{"@id":"{{meldmei}}'+fragment+'"}], "oa:hasBody":[{"@type":"meldterm:Emphasis"}] }'
-    
+      if marker.code?
+        notes = meiutils.getnotes mei, fragments
+        # WARNING: simple hack for sequences only
+        pnotes = marker.code.split ','
+        pmidis = (pnotes.map meiutils.notetomidi).filter (m) => m?
+        pix = 0
+        nmidis= []
+        for note in notes
+          if pix>=pmidis.length
+            break
+          midi = meiutils.getmidinote note
+          if not midi
+            #console.log 'no midi note equivalent', note
+            continue
+          nmidis.push midi
+          if midi==pmidis[pix]
+            # found!
+            pix++
+            meldmc.meielements.push '#'+(note.getAttribute 'xml:id')
+  
+  if challengecount>1
+    for meldmc in meldstage.mcs
+      meldmc.type = 'choice'
+
   # default cue
   if defaultprojection!='' && data['default_cue']?
     control = 

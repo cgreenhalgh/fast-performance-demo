@@ -139,9 +139,10 @@ Each `muzicode` object has propoerties:
 - `name` - identifies this mcN (string)
 - `cue` - the stage to cue if this mcN is triggered (string)
 - `type` - flag to indicate if this mcN is a `choice`, `challenge`, `disklavier`, `approaching` (challenge)
-- `meielements` - array of element XML:IDs (e.g., notes) within meifile corresponding to this mcN
-- `narrative` - narrative description of this mcN (e.g. as per https://github.com/cgreenhalgh/music-archive/blob/master/test/data/narrativesJune8.csv) 
+- `meielements` - array of element XML:IDs (e.g., measures, notes) within meifile corresponding to this mcN
 - `app` - explanatory game-mechanical description (intended for the audience's consumption) (string)
+
+(to be defined: `narrative` - narrative description of this mcN (e.g. as per https://github.com/cgreenhalgh/music-archive/blob/master/test/data/narrativesJune8.csv).)
 
 ## MIDI files
 

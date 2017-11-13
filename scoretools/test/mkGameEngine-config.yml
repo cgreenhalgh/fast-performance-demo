@@ -1,6 +1,7 @@
 spreadsheet: mkGameEngine.xlsx
 experiencein: mkGameEngine-in.json
 experienceout: mkGameEngine-out.json
+meldout: mkGameEngine-meld.json
 mcserver: http://127.0.0.1:3000/input
 meldserver: http://127.0.0.1:5000/addannotation/
 #meldmeiuri: http://muzicodes/content/
