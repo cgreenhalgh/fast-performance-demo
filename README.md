@@ -8,6 +8,8 @@ See [docs/install.md](docs/install.md) for initial installation. See also [docs/
 
 ## set up
 
+See [docs/install.md](docs/install.md)
+
 The experience is configured by editing:
 - [scoretools/test/mkGameEngine-config.yml](scoretools/test/mkGameEngine-config.yml) - general config
 - [scoretools/test/mkGameEngine.xlsx](scoretools/test/mkGameEngine.xlsx) - stage structure and associated actions

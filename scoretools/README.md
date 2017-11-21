@@ -8,6 +8,7 @@ Note: install muzicodes first to get npm, etc.
 
 (--no-bin-links for windows only)
 ```
+sudo npm install -g coffee-script
 npm install --no-bin-links
 ```
 

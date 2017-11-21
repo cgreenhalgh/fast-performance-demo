@@ -129,3 +129,14 @@ See also [android](android.md) notes.
 see [phidgets](../phidgets/install.md)
 
 Provisionally replaced by use of AirTurn bluetooth pedal, which emulates keyboard input.
+
+
+## Score tools
+
+See [../scoretools/README.md](../scoretools/README.md)
+
+```
+sudo npm install -g coffee-script
+cd scoretools
+npm install --no-bin-links
+```
