@@ -11,10 +11,10 @@ Linux see [instructions](http://www.phidgets.com/docs/OS_-_Linux)
 ```
 cd
 sudo apt-get install -y libusb-1.0-0-dev 
-wget http://www.phidgets.com/downloads/libraries/libphidget.tar.gz
-tar zxf libphidget.tar.gz
-cd libphidget-*
-./configure
+wget https://www.phidgets.com/downloads/phidget22/libraries/linux/libphidget22.tar.gz
+tar zxf libphidget22.tar.gz
+cd libphidget*
+./configure --prefix=/usr 
 make
 sudo make install
 ```
@@ -34,9 +34,9 @@ sudo ./HelloWorld
 python support [instructions](http://www.phidgets.com/docs/Language_-_Python#Linux)
 ```
 cd
-wget http://www.phidgets.com/downloads/libraries/PhidgetsPython.zip
-unzip PhidgetsPython.zip
-cd PhidgetsPython
+wget https://www.phidgets.com/downloads/phidget22/libraries/any/Phidget22Python.zip
+unzip Phidget22Python.zip
+cd Phidget22Python
 sudo python setup.py install
 ```
 

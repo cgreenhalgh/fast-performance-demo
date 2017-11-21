@@ -31,6 +31,13 @@ Pre-reqs
 ```
 sudo pip install -r requirements.txt
 ```
+set up MELD for upstart:
+```
+sudo cp scripts/meld.upstart.conf /etc/init/meld.conf
+sudo service meld start
+```
+
+Or run manually...
 
 There are scripts to run meld in [./scripts/runmeld.sh](./scripts/runmeld.sh), so 
 the following internal details should be necessary.

@@ -24,14 +24,14 @@ import datetime
 import time
 
 #Phidget specific imports
-from Phidgets.PhidgetException import PhidgetErrorCodes, PhidgetException
-from Phidgets.Events.Events import AttachEventArgs, DetachEventArgs, ErrorEventArgs, InputChangeEventArgs, OutputChangeEventArgs, SensorChangeEventArgs
-from Phidgets.Devices.InterfaceKit import InterfaceKit
-from Phidgets.Phidget import PhidgetLogLevel
+from Phidget22.PhidgetException import *
+#from Phidget22.Events import *
+from Phidget22.Devices.DigitalInput import *
+from Phidget22.Phidget import *
 
 #Create an interfacekit object
 try:
-    interfaceKit = InterfaceKit()
+    interfaceKit = DigitalInput()
 except RuntimeError as e:
     print("Runtime Exception: %s" % e.details)
     print("Exiting....")
@@ -78,7 +78,7 @@ def dopost(url, inputname):
 
 
 
-def interfaceKitInputChanged(e):
+def interfaceKitInputChanged(e, state):
     global URL
     source = e.device
     print("InterfaceKit %i: Input %i: %s" % (source.getSerialNum(), e.index, e.state))
@@ -100,8 +100,12 @@ try:
 	
     interfaceKit.setOnAttachHandler(interfaceKitAttached)
     interfaceKit.setOnDetachHandler(interfaceKitDetached)
-    interfaceKit.setOnErrorhandler(interfaceKitError)
-    interfaceKit.setOnInputChangeHandler(interfaceKitInputChanged)
+    interfaceKit.setOnErrorHandler(interfaceKitError)
+    interfaceKit.setOnStateChangeHandler(interfaceKitInputChanged)
+    # 0 -> press 
+    # TODO: 1 -> back
+    interfaceKit.setChannel(0)
+
     #interfaceKit.setOnOutputChangeHandler(interfaceKitOutputChanged)
     #interfaceKit.setOnSensorChangeHandler(interfaceKitSensorChanged)
 except PhidgetException as e:
@@ -110,18 +114,10 @@ except PhidgetException as e:
     exit(1)
 
 print("Opening phidget object....")
-
-try:
-    interfaceKit.openPhidget()
-except PhidgetException as e:
-    print("Phidget Exception %i: %s" % (e.code, e.details))
-    print("Exiting....")
-    exit(1)
-
 print("Waiting for InterfaceKit to attach....")
 
 try:
-    interfaceKit.waitForAttach(1000*60*60*24)
+    interfaceKit.openWaitForAttachment(1000*60*60*24)
 except PhidgetException as e:
     print("Phidget Exception %i: %s" % (e.code, e.details))
     try:
