@@ -39,12 +39,12 @@ except RuntimeError as e:
 
 #Event Handler Callback Functions
 def interfaceKitAttached(e):
-    attached = e.device
-    print("InterfaceKit %i Attached!" % (attached.getSerialNum()))
+    #attached = e.device
+    print("Pedal Attached!")
 
 def interfaceKitDetached(e):
-    detached = e.device
-    print("InterfaceKit %i Detached!" % (detached.getSerialNum()))
+    #detached = e.device
+    print("Pedal Detached!")
 
 def interfaceKitError(e):
     try:
@@ -78,16 +78,16 @@ def dopost(url, inputname):
 
 
 
-def interfaceKitInputChanged(e, state):
+def interfaceKitInputChanged(dd, state):
     global URL
-    source = e.device
-    print("InterfaceKit %i: Input %i: %s" % (source.getSerialNum(), e.index, e.state))
-    if (e.index == 0 and e.state == True ):
+    #source = e.device
+    print("Input %d", state)
+    if (state == True ):
         print("Press!")
         dopost(URL, INPUTNAME)
-    if (e.index == 1 and e.state == True ):
-        print("Back!")
-        dopost(URL, INPUT2NAME)
+    #if (e.index == 1 and e.state == True ):
+    #    print("Back!")
+    #    dopost(URL, INPUT2NAME)
 
 if (len(sys.argv)>=2):
     URL = sys.argv[1];
