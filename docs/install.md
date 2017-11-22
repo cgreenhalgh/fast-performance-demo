@@ -22,31 +22,64 @@ Should start musiccodes as service on port 3000. If not try
 
 ## meld
 
-Clone meld (note, currently a branch integrating support for music-performance-manager)
+New meld...
+
+### Meld server
+
+Clone meld server
 ```
-git clone https://github.com/cgreenhalgh/meld.git
-git checkout mpm
+git clone https://github.com/oerc-music/meld.git
 ```
 Pre-reqs
 ```
+cd meld/server
 sudo pip install -r requirements.txt
 ```
+run manually
+```
+source set_env.sh
+python manage.py runserver --host=0.0.0.0
+```
+Or
+
 set up MELD for upstart:
 ```
 sudo cp scripts/meld.upstart.conf /etc/init/meld.conf
 sudo service meld start
 ```
 
-Or run manually...
+### Meld muzicode config
 
-There are scripts to run meld in [./scripts/runmeld.sh](./scripts/runmeld.sh), so 
-the following internal details should be necessary.
+Update meld/server/mkGameEngine-meld.json
+```
+cd /vagrant/meld/server
+export MELD_BASE_URI=http://${IP}:5000
+export MELD_MEI_URI=http://${IP}:3000/content
+export MELD_SCORE_URI="http://${IP}:5000/score"
+python generate_climb_scores.py mkGameEngine-meld.json /vagrant/meld/server/score/
+```
 
-See [meldnotes.md](meldmotes.md) for more on setting up MELD...
-Note, to run Meld within vm use `--host==0.0.0.0` option, e.g.
+### Meld client
+
+Clone meld client
 ```
-python manage.py runserver --host=0.0.0.0
+git clone https://github.com/oerc-music/meld-client.git
 ```
+Build
+```
+cd meld-client
+npm install --no-bin-links
+```
+
+Upstart...
+
+
+Run manually (port 8080 default)
+```
+node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js
+```
+
+Open [http://127.0.0.1:8080/startTheClimb](http://127.0.0.1:8080/startTheClimb)
 
 ## music performance manager
 
