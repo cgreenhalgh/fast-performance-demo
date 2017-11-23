@@ -457,13 +457,13 @@ for r in [1..1000]
     data.meifile = data.stage+'.mei'
   # delayed cue stage events
   control = {inputUrl:'delay:stage:'+data.stage, actions:[], poststate:{}};
-  nexturi = encodeURIComponent(data.meifile)
+  nexturi = encodeURIComponent(data.stage)
   nextexp = JSON.stringify data.meifile
   control.actions.push 
         url: '{{meldsessionpost}}'
         post: true
         contentType: 'application/ld+json'
-        body: '{"oa:hasTarget":{ "@id": "{{meldsession}}"}, "oa:motivatedBy": { "@id": "motivation:createNextSession" }, "oa:hasBody":{"@id":"{{meldmeiuri}}'+nexturi+'"} }'
+        body: '{"oa:hasTarget":{ "@id": "{{meldsession}}"}, "oa:motivatedBy": { "@id": "motivation:createNextSession" }, "oa:hasBody":{"@id":"{{meldscoreuri}}'+nexturi+'"} }'
   control.poststate.meldnextmeifile = nextexp
   control.poststate.cued = "true"
   ex.controls.push control
@@ -622,7 +622,7 @@ for r in [1..1000]
         url: '{{meldsessionpost}}'
         post: true
         contentType: 'application/json'
-        body: '{"oa:hasTarget": { "@id": "{{meldsession}}"}, "oa:motivatedBy": { "@id": "motivation:createNextSession" }, "oa:hasBody": { "@id": "{{meldmeiuri}}'+encodeURIComponent(data.meifile)+'"} }'
+        body: '{"oa:hasTarget": { "@id": "{{meldsession}}"}, "oa:motivatedBy": { "@id": "motivation:createNextSession" }, "oa:hasBody": { "@id": "{{meldscoreuri}}'+encodeURIComponent(data.stage)+'"} }'
   control.poststate.meldnextmeifile = JSON.stringify data.meifile
   control.poststate.cued = "true"
 

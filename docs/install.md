@@ -38,7 +38,7 @@ sudo pip install -r requirements.txt
 run manually
 ```
 source set_env.sh
-python manage.py runserver --host=0.0.0.0
+python manage.py runserver --host=0.0.0.0 --threaded
 ```
 Or
 
