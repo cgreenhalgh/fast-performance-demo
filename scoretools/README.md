@@ -25,8 +25,8 @@ meicolormidi: #00d
 meicolorapp: #080
 meicolorother: #666
 mcserver: http://localhost:3000/input
-meldscoreuri: http://localhost:5000/score/
-meldmeiuri: http://localhost:3000/content/
+meldscoreuri: http://127.0.0.1:5000/score/
+meldmeiuri: http://127.0.0.1:3000/content/
 contenturi: http://localhost:3000/content/
 cuesingle:false
 defaultprojection: 1

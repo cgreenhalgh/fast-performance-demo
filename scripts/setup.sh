@@ -34,8 +34,8 @@ cp test/mkGameEngine-out.json ../musiccodes/server/experiences/
 cp test/mkGameEngine-view.json ../musiccodes/server/public/content/
 cp test/mkGameEngine-meld.json ../meld/server/
 cd ..
-#cp mei-files/out/*.mei musiccodes/server/public/content/
-cp mei-files/*.mei musiccodes/server/public/content/
+cp mei-files/out/*.mei musiccodes/server/public/content/
+#cp mei-files/*.mei musiccodes/server/public/content/
 
 IP="127.0.0.1"
 export MELD_BASE_URI=http://${IP}:5000
