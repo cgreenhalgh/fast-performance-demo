@@ -94,10 +94,11 @@ ex.parameters.initstate =
   stage: '""'
   cued: false
   meldmei: '""'
-  meldcollection: '""'
-  meldannostate: '""'
+  meldsession: '""'
+  meldsessionpost: '""'
   meldnextmeifile: 'null'
   mcserver: JSON.stringify (config.mcserver ? 'http://localhost:3000/input')
+  meldscoreuri: JSON.stringify (config.meldscoreuri ? 'http://localhost:5000/score/')
   meldmeiuri: JSON.stringify (config.meldmeiuri ? 'http://localhost:3000/content/')
   contenturi: JSON.stringify (config.contenturi ? 'http://localhost:3000/content/')
   performanceid: '""'
@@ -459,10 +460,10 @@ for r in [1..1000]
   nexturi = encodeURIComponent(data.meifile)
   nextexp = JSON.stringify data.meifile
   control.actions.push 
-        url: '{{meldcollection}}'
+        url: '{{meldsessionpost}}'
         post: true
-        contentType: 'application/json'
-        body: '{"oa:hasTarget":["{{meldannostate}}"], "oa:hasBody":[{"@type":"meldterm:CreateNextCollection", "resourcesToQueue":["{{meldmeiuri}}'+nexturi+'"], "annotationsToQueue":[]}] }'
+        contentType: 'application/ld+json'
+        body: '{"oa:hasTarget":{ "@id": "{{meldsession}}"}, "oa:motivatedBy": { "@id": "motivation:createNextSession" }, "oa:hasBody":{"@id":"{{meldmeiuri}}'+nexturi+'"} }'
   control.poststate.meldnextmeifile = nextexp
   control.poststate.cued = "true"
   ex.controls.push control
@@ -618,10 +619,10 @@ for r in [1..1000]
   control = {inputUrl:'button:cue '+data.stage, actions:[],poststate:{}}
   ex.controls.push control
   control.actions.push 
-        url: '{{meldcollection}}'
+        url: '{{meldsessionpost}}'
         post: true
         contentType: 'application/json'
-        body: '{"oa:hasTarget":["{{meldannostate}}"], "oa:hasBody":[{"@type":"meldterm:CreateNextCollection", "resourcesToQueue":["{{meldmeiuri}}'+encodeURIComponent(data.meifile)+'"], "annotationsToQueue":[]}] }'
+        body: '{"oa:hasTarget": { "@id": "{{meldsession}}"}, "oa:motivatedBy": { "@id": "motivation:createNextSession" }, "oa:hasBody": { "@id": "{{meldmeiuri}}'+encodeURIComponent(data.meifile)+'"} }'
   control.poststate.meldnextmeifile = JSON.stringify data.meifile
   control.poststate.cued = "true"
 
@@ -637,8 +638,8 @@ for r in [1..1000]
   set_stage control, data
   add_actions control, 'auto_', data, true
   control.poststate.meldmei = 'params.meldmei'
-  control.poststate.meldannostate = 'params.meldannostate'
-  control.poststate.meldcollection = 'params.meldcollection'
+  control.poststate.meldsessionpost = 'params.meldcollection.replace("/sessions", "/sessions/bypass")'
+  control.poststate.meldsession = 'params.meldcollection'
   # app view events
   if data._index==0
     control.actions.push
@@ -700,16 +701,16 @@ for r in [1..1000]
     add_actions marker, mc, data
     # trigger -> mei
     if data[mc]? and data[mc]!=''
+      marker.actions.push 
+        url: '{{meldsessionpost}}'
+        post: true
+        contentType: 'application/ld+json'
+        body: '{"oa:hasTarget": { "@id": "{{meldscoreuri}}'+data.stage+'#'+data[mc+'name']+'"},"oa:motivatedBy": { "@id": "motivation:muzicodeTriggered" }}'
+      
       fragments = getfragmentids data[mc], meiids
       for fragment in fragments
         meldmc.meielements.push(fragment)
-        # MELD highlight action 
-        # curl -X POST -H "Content-Type: application/json" -d '{"oa:hasTarget":[{"@id":"$MEI_ELEMENT"}], "oa:hasBody":[{"@type":"meldterm:Emphasis"}] }' -v $COLLECTION_URI
-        marker.actions.push 
-          url: '{{meldcollection}}'
-          post: true
-          contentType: 'application/json'
-          body: '{"oa:hasTarget":[{"@id":"{{meldmei}}'+fragment+'"}], "oa:hasBody":[{"@type":"meldterm:Emphasis"}] }'
+        # no separate highlight action in new meld
       if marker.code?
         notes = meiutils.getnotes mei, fragments
         # WARNING: simple hack for sequences only
@@ -776,12 +777,13 @@ for channel in ['v.animate', 'v.mc', 'v.background', 'v.weather']
 
 # fake pedal input
 control = {inputUrl:'button:next piece',actions:[]}
+# not currently supported in MELD?!
 ex.controls.push control
 control.actions.push 
-  url: '{{meldcollection}}'
+  url: '{{meldsessionpost}}'
   post: true
-  contentType: 'application/json'
-  body: '{"oa:hasTarget":["{{meldannostate}}"], "oa:hasBody":[{"@type":"meldterm:NextPageOrPiece","forceNextPiece":true}] }'
+  contentType: 'application/ld+json'
+  body: '{"oa:hasTarget": { "@id": "{{meldsession}}"},"oa:motivatedBy": { "@id": "motivation:transitionToNextSession" }}'
 
 # fake pedal input
 control = {inputUrl:'button:pedal',actions:[]}
@@ -796,10 +798,10 @@ control.actions.push
 control = {inputUrl:'button:back',actions:[]}
 ex.controls.push control
 control.actions.push 
-  url: '{{meldcollection}}'
+  url: '{{meldsessionpost}}'
   post: true
-  contentType: 'application/json'
-  body: '{"oa:hasTarget":["{{meldannostate}}"], "oa:hasBody":[{"@type":"meldterm:PreviousPageOrPiece"}] }'
+  contentType: 'application/ld+json'
+  body: '{"oa:hasTarget": { "@id": "{{meldsession}}"},"oa:motivatedBy": { "@id": "motivation:prevPageOrPiece"} }'
 
 # fake meld input
 control = {inputUrl:'button:Fake meld',actions:[],precondition:'!!meldnextmeifile'}
@@ -808,7 +810,7 @@ control.actions.push
   url: 'http://localhost:3000/input'
   post: true
   contentType: 'application/x-www-form-urlencoded'
-  body: 'name=meld.load&meldmei={{meldmeiuri}}{{encodeURIComponent(meldnextmeifile)}}&meldcollection=&meldannostate='
+  body: 'name=meld.load&meldmei={{meldmeiuri}}{{encodeURIComponent(meldnextmeifile)}}&meldcollection='
   # meldmei, meldcollection
 
 
@@ -816,19 +818,19 @@ control.actions.push
 control = {inputUrl:'post:pedal',actions:[]}
 ex.controls.push control
 control.actions.push 
-  url: '{{meldcollection}}'
+  url: '{{meldsessionpost}}'
   post: true
-  contentType: 'application/json'
-  body: '{"oa:hasTarget":["{{meldannostate}}"], "oa:hasBody":[{"@type":"meldterm:NextPageOrPiece"}] }'
+  contentType: 'application/ld+json'
+  body: '{"oa:hasTarget": { "@id": "{{meldsession}}"},"oa:motivatedBy": { "@id": "motivation:nextPageOrPiece" }}'
 
 # pedal back meld action
 control = {inputUrl:'post:pedal.back',actions:[]}
 ex.controls.push control
 control.actions.push 
-  url: '{{meldcollection}}'
+  url: '{{meldsessionpost}}'
   post: true
-  contentType: 'application/json'
-  body: '{"oa:hasTarget":["{{meldannostate}}"], "oa:hasBody":[{"@type":"meldterm:PreviousPageOrPiece"}] }'
+  contentType: 'application/ld+json'
+  body: '{"oa:hasTarget": { "@id": "{{meldsession}}"},"oa:motivatedBy": { "@id": "motivation:prevPageOrPiece" }}'
 
 # unused markers
 for marker in ex.markers

@@ -76,7 +76,7 @@ Upstart...
 
 Run manually (port 8080 default)
 ```
-node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js
+node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --host=0.0.0.0
 ```
 
 Open [http://127.0.0.1:8080/startTheClimb](http://127.0.0.1:8080/startTheClimb)
