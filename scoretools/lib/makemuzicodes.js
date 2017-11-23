@@ -145,8 +145,8 @@
     meldsessionpost: '""',
     meldnextmeifile: 'null',
     mcserver: JSON.stringify((ref2 = config.mcserver) != null ? ref2 : 'http://localhost:3000/input'),
-    meldscoreuri: JSON.stringify((ref3 = config.meldscoreuri) != null ? ref3 : 'http://localhost:5000/score/'),
-    meldmeiuri: JSON.stringify((ref4 = config.meldmeiuri) != null ? ref4 : 'http://localhost:3000/content/'),
+    meldscoreuri: JSON.stringify((ref3 = config.meldscoreuri) != null ? ref3 : 'http://127.0.0.1:5000/score/'),
+    meldmeiuri: JSON.stringify((ref4 = config.meldmeiuri) != null ? ref4 : 'http://127.0.0.1:3000/content/'),
     contenturi: JSON.stringify((ref5 = config.contenturi) != null ? ref5 : 'http://localhost:3000/content/'),
     performanceid: '""',
     performancename: '""',
@@ -365,7 +365,7 @@
   };
 
   add_immediate_actions = function(control, prefix, data, meldload) {
-    var channel, l, len2, len3, len4, msg, msgs, nextstage, nextstages, ns, o, q, ref12, ref13, ref14, sfbi, sfi, stageflags, stagetest, t, text, u;
+    var channel, l, len2, len3, len4, msg, msgs, nextstage, nextstages, nomeld, ns, o, q, ref12, ref13, ref14, sfbi, sfi, stageflags, stagetest, t, text, u;
     control.actions.push({
       channel: '',
       url: content_url(data[prefix + 'monitor'])
@@ -427,7 +427,11 @@
           return s.length > 0;
         };
       })(this));
-      text = 'delay:stage:{{chooseOne(';
+      nomeld = prefix !== 'auto_';
+      if (nomeld && nextstages.length > 1) {
+        console.log('ERROR: stage ' + data.stage + ' non-auto cue ' + prefix + ' has multiple next stages; will get out of sync with MELD!');
+      }
+      text = 'delay:stage' + (nomeld ? '_nomeld' : '') + ':{{chooseOne(';
       for (q = 0, len4 = nextstages.length; q < len4; q++) {
         nextstage = nextstages[q];
         text = text + (JSON.stringify(nextstage)) + ',';
@@ -673,6 +677,16 @@
     control.poststate.meldnextmeifile = nextexp;
     control.poststate.cued = "true";
     ex.controls.push(control);
+    control = {
+      inputUrl: 'delay:stage_nomeld:' + data.stage,
+      actions: [],
+      poststate: {}
+    };
+    nexturi = encodeURIComponent(data.stage);
+    nextexp = JSON.stringify(data.meifile);
+    control.poststate.meldnextmeifile = nextexp;
+    control.poststate.cued = "true";
+    ex.controls.push(control);
   }
 
   numflagvars = Math.ceil(numstages / BITS_PER_FLAGVAR);
@@ -731,7 +745,7 @@
     return getCodeIds(mei);
   };
 
-  meicolorcue = (ref13 = config.meicolorcue) != null ? ref13 : '#c00';
+  meicolorcue = (ref13 = config.meicolorcue) != null ? ref13 : '#000';
 
   meicolormidi = (ref14 = config.meicolormidi) != null ? ref14 : '#00d';
 

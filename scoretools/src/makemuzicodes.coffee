@@ -98,8 +98,8 @@ ex.parameters.initstate =
   meldsessionpost: '""'
   meldnextmeifile: 'null'
   mcserver: JSON.stringify (config.mcserver ? 'http://localhost:3000/input')
-  meldscoreuri: JSON.stringify (config.meldscoreuri ? 'http://localhost:5000/score/')
-  meldmeiuri: JSON.stringify (config.meldmeiuri ? 'http://localhost:3000/content/')
+  meldscoreuri: JSON.stringify (config.meldscoreuri ? 'http://127.0.0.1:5000/score/')
+  meldmeiuri: JSON.stringify (config.meldmeiuri ? 'http://127.0.0.1:3000/content/')
   contenturi: JSON.stringify (config.contenturi ? 'http://localhost:3000/content/')
   performanceid: '""'
   performancename: '""'
@@ -294,7 +294,10 @@ add_immediate_actions = (control, prefix, data, meldload) ->
       console.log 'ERROR: stage '+data.stage+' has unknown safe next stage '+data.next
 
     nextstages = ((data[prefix+'cue'].split '/').map (s) => s.trim()).filter (s) => s.length>0
-    text = 'delay:stage:{{chooseOne(';
+    nomeld = prefix != 'auto_'
+    if nomeld and nextstages.length>1
+      console.log 'ERROR: stage '+data.stage+' non-auto cue '+prefix+' has multiple next stages; will get out of sync with MELD!'
+    text = 'delay:stage'+(if nomeld then '_nomeld' else '')+':{{chooseOne(';
     for nextstage in nextstages
       text = text+(JSON.stringify nextstage)+','
       stagetest = 'true'
@@ -467,6 +470,13 @@ for r in [1..1000]
   control.poststate.meldnextmeifile = nextexp
   control.poststate.cued = "true"
   ex.controls.push control
+  # no meld?!
+  control = {inputUrl:'delay:stage_nomeld:'+data.stage, actions:[], poststate:{}};
+  nexturi = encodeURIComponent(data.stage)
+  nextexp = JSON.stringify data.meifile
+  control.poststate.meldnextmeifile = nextexp
+  control.poststate.cued = "true"
+  ex.controls.push control
 
 numflagvars = Math.ceil numstages/BITS_PER_FLAGVAR
 for sfi in [1..numflagvars]
@@ -517,7 +527,7 @@ readmeiids = (meifile) ->
     return {}
   getCodeIds mei
 
-meicolorcue = config.meicolorcue ? '#c00'
+meicolorcue = config.meicolorcue ? '#000'
 meicolormidi = config.meicolormidi ? '#00d'
 meicolorapp = config.meicolorapp ? '#080'
 meicolorother = config.meicolorother ? '#666'
