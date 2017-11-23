@@ -733,7 +733,8 @@ for r in [1..1000]
   
   if challengecount>1
     for meldmc in meldstage.mcs
-      meldmc.type = 'choice'
+      if meldmc.type == 'challenge'
+        meldmc.type = 'choice'
 
   # default cue
   if defaultprojection!='' && data['default_cue']?

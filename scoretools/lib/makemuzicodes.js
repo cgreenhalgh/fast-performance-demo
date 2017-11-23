@@ -994,7 +994,9 @@
       ref19 = meldstage.mcs;
       for (j1 = 0, len7 = ref19.length; j1 < len7; j1++) {
         meldmc = ref19[j1];
-        meldmc.type = 'choice';
+        if (meldmc.type === 'challenge') {
+          meldmc.type = 'choice';
+        }
       }
     }
     if (defaultprojection !== '' && (data['default_cue'] != null)) {
