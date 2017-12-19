@@ -527,7 +527,7 @@ readmeiids = (meifile) ->
     return {}
   getCodeIds mei
 
-meicolorcue = config.meicolorcue ? '#000'
+meicolorcue = config.meicolorcue ? ''
 meicolormidi = config.meicolormidi ? '#00d'
 meicolorapp = config.meicolorapp ? '#080'
 meicolorother = config.meicolorother ? '#666'
@@ -578,7 +578,8 @@ processmeifile = (meifile, data, meiids) ->
           color = meicolormidi # disklav?!
         else if data[mc+'app'] or data[mc+'v.mc'] or data[mc+'v.mc2']  
           color = meicolorapp # approach?
-        meiutils.colornote note, color
+        if color? and color!=''
+          meiutils.colornote note, color
         pix++
     if pix==0
       console.log 'Warning: did not find notes for code '+data[mc+'name']+' to highlight in '+data.meifile+' at '+data[mc]+' = '+fragments
