@@ -4,8 +4,13 @@ if ! [ -d "musiccodes" ]; then
 fi
 
 
-if ! [ -d "meld" ]; then
+if ! [ -d "meld/meld" ]; then
 	echo 'Please install meld'
+	exit -1
+fi
+
+if ! [ -d "meld-client/meld-client" ]; then
+	echo 'Please install meld-client'
 	exit -1
 fi
 

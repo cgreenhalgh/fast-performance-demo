@@ -37,18 +37,18 @@ The player view is accessible from the editor or as [http://localhost:3000/playe
 The climb visual view is accessible as [http://localhost:3000/climbview.html#?config=%2Fassets%2FmkGameEngine-view.json&test=1](http://localhost:3000/climbview.html#?config=%2Fassets%2FmkGameEngine-view.json&test=1) or
 [http://localhost:3000/climbview.html#?config=%2Fassets%2FmkGameEngine-view.json](http://localhost:3000/climbview.html#?config=%2Fassets%2FmkGameEngine-view.json) (no testing) 
 
-MELD is run as
-```
-./scripts/runmeld.sh
-```
-Or set up MELD for upstart:
+Set up MELD for upstart:
 ```
 sudo cp scripts/meld.upstart.conf /etc/init/meld.conf
 sudo service meld start
 ```
+Set up MELD-client for upstart:
+```
+sudo cp meld-client/meld-client.conf /etc/init/meld-client.conf
+sudo service meld-client start
+```
+Note: meld-client takes quite a lot time to start up.
 
-
-
-MELD is then accessible as [http://127.0.0.1:5000/startTheClimb](http://127.0.0.1:5000/startTheClimb).
+MELD is then accessible as [http://127.0.0.1:8080/startTheClimb](http://127.0.0.1:8080/startTheClimb) (NB, NOT localhost!).
 
 The Music performance manager dashboard as [http://localhost:3003/dashboard.html](http://localhost:3003/dashboard.html)
