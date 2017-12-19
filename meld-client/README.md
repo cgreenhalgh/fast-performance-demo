@@ -4,16 +4,11 @@ Clone
 ```
 git clone https://github.com/oerc-music/meld-client
 ```
-
-Build
+(install docker)
+then
 ```
-cd meld-client
-npm install
+sudo docker build -t meld-client .
 ```
-
-Run
 ```
-node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --host=0.0.0.0
+sudo docker run -d --name=meld-client --restart=always -p 8080:8080 meld-client
 ```
-
-Upstart
