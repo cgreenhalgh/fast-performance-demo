@@ -745,7 +745,7 @@
     return getCodeIds(mei);
   };
 
-  meicolorcue = (ref13 = config.meicolorcue) != null ? ref13 : '#000';
+  meicolorcue = (ref13 = config.meicolorcue) != null ? ref13 : '';
 
   meicolormidi = (ref14 = config.meicolormidi) != null ? ref14 : '#00d';
 
@@ -813,7 +813,9 @@
           } else if (data[mc + 'app'] || data[mc + 'v.mc'] || data[mc + 'v.mc2']) {
             color = meicolorapp;
           }
-          meiutils.colornote(note, color);
+          if ((color != null) && color !== '') {
+            meiutils.colornote(note, color);
+          }
           pix++;
         }
       }
