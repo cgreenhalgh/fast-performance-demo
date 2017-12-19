@@ -37,14 +37,10 @@ npm install --no-bin-links
 node lib/makemuzicodes.js test/mkGameEngine-config.yml
 cp test/mkGameEngine-out.json ../musiccodes/server/experiences/
 cp test/mkGameEngine-view.json ../musiccodes/server/public/content/
-cp test/mkGameEngine-meld.json ../meld/server/
+cp test/mkGameEngine-meld.json ../meld/meld/server/
 cd ..
 cp mei-files/out/*.mei musiccodes/server/public/content/
 #cp mei-files/*.mei musiccodes/server/public/content/
 
-IP="127.0.0.1"
-export MELD_BASE_URI=http://${IP}:5000
-export MELD_MEI_URI=http://${IP}:3000/content
-export MELD_SCORE_URI="http://${IP}:5000/score"
-
-(cd meld/server; python generate_climb_scores.py mkGameEngine-meld.json /vagrant/meld/server/score/)
+sudo docker cp meld/meld/server/mkGameEngine-meld.json meld:/root/work/
+sudo docker exec meld python generate_climb_scores.py mkGameEngine-meld.json score

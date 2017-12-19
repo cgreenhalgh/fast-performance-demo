@@ -7,6 +7,22 @@ Dockerise...?!
 ```
 git clone https://github.com/oerc-music/meld
 ```
+(docker -see below)
+```
+sudo docker build -t meld .
+```
+run
+```
+sudo docker run -d --name=meld --restart=always -p 5000:5000 meld
+```
+
+update score files
+```
+sudo docker cp meld/server/mkGameEngine-meld.json meld:/root/work/
+sudo docker exec meld python generate_climb_scores.py mkGameEngine-meld.json score
+```
+
+
 
 ## docker
 
@@ -36,7 +52,4 @@ sudo docker run hello-world
 ```
 
 
-```
-sudo docker build -t meld .
-```
 

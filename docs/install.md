@@ -20,63 +20,57 @@ Should start musiccodes as service on port 3000. If not try
 ./scripts/run.sh
 ```
 
-## meld
+## docker
 
-New meld...
-
-### Meld server
-
-Clone meld server
+See [docs](https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/#install-using-the-repository)
 ```
-git clone https://github.com/oerc-music/meld.git
+sudo apt-get update
+sudo apt-get install -y \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo apt-key fingerprint 0EBFCD88
 ```
-Pre-reqs
+Verify that you now have the key with the fingerprint 9DC8 5822 9FC7 DD38 854A E2D8 8D81 803C 0EBF CD88, 
 ```
-cd meld/server
-sudo pip install -r requirements.txt
+sudo add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
+sudo apt-get update
+sudo apt-get install -y docker-ce
 ```
-run manually
+Optional,
 ```
-source set_env.sh
-python manage.py runserver --host=0.0.0.0 --threaded
-```
-Or
-
-set up MELD for upstart:
-```
-sudo cp scripts/meld.upstart.conf /etc/init/meld.conf
-sudo service meld start
-```
-
-### Meld muzicode config
-
-Update meld/server/mkGameEngine-meld.json
-```
-cd /vagrant/meld/server
-export MELD_BASE_URI=http://${IP}:5000
-export MELD_MEI_URI=http://${IP}:3000/content
-export MELD_SCORE_URI="http://${IP}:5000/score"
-python generate_climb_scores.py mkGameEngine-meld.json /vagrant/meld/server/score/
+sudo docker run hello-world
 ```
 
-### Meld client
+## meld server
 
-Clone meld client
 ```
-git clone https://github.com/oerc-music/meld-client.git
+cd meld
+git clone https://github.com/oerc-music/meld
+sudo docker build -t meld .
+sudo docker run -d --name=meld --restart=always -p 5000:5000 meld
+cd ..
 ```
-Build
+
+update score files
+```
+sudo docker cp meld/meld/server/mkGameEngine-meld.json meld:/root/work/
+sudo docker exec meld python generate_climb_scores.py mkGameEngine-meld.json score
+```
+
+## meld client
+
 ```
 cd meld-client
-npm install --no-bin-links
-```
-
-Upstart...
-
-
-Run manually (port 8080 default)
-```
-node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --host=0.0.0.0
+git clone https://github.com/oerc-music/meld-client
+sudo docker build -t meld-client .
+sudo docker run -d --name=meld-client --restart=always -p 8080:8080 meld
+cd ..
 ```
 
 Open [http://127.0.0.1:8080/startTheClimb](http://127.0.0.1:8080/startTheClimb)
