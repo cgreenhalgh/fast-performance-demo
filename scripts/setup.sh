@@ -42,5 +42,9 @@ cd ..
 cp mei-files/out/*.mei musiccodes/server/public/content/
 #cp mei-files/*.mei musiccodes/server/public/content/
 
+# keep old logs
+sudo docker exec meld /bin/sh -c 'du -sk sessions'
+sudo docker cp meld:/root/work/sessions/ meld/sessions/
+
 sudo docker cp meld/meld/server/mkGameEngine-meld.json meld:/root/work/
 sudo docker exec meld python generate_climb_scores.py mkGameEngine-meld.json score
