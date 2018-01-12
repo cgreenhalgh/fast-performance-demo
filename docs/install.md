@@ -67,7 +67,7 @@ cd ..
 ```
 (not -v `pwd`/meld/server/sessions:/root/work/sessions/ )
 
-update score files
+(note: update score files - done from setup.sh)
 ```
 sudo docker cp meld/meld/server/mkGameEngine-meld.json meld:/root/work/
 sudo docker exec meld python generate_climb_scores.py mkGameEngine-meld.json score
@@ -79,11 +79,12 @@ sudo docker exec meld python generate_climb_scores.py mkGameEngine-meld.json sco
 cd meld-client
 git clone https://github.com/oerc-music/meld-client
 sudo docker build -t meld-client .
-sudo docker run -d --name=meld-client --restart=always -p 8080:8080 meld
+sudo docker run -d --name=meld-client --restart=always -p 8080:8080 meld-client
 cd ..
 ```
 
-Open [http://127.0.0.1:8080/startTheClimb](http://127.0.0.1:8080/startTheClimb)
+(depending on vagrant port mapping:)
+Open [http://127.0.0.1:8081/startTheClimb](http://127.0.0.1:8081/startTheClimb)
 
 ## music performance manager
 
@@ -97,6 +98,7 @@ cd music-performance-manager
 ./scripts/install.sh
 npm install --no-bin-links
 bower install
+sudo service mpm start
 ```
 
 Should start mpm as service on port 3003.

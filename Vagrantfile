@@ -1,6 +1,7 @@
 Vagrant.configure(2) do |config|
     config.vm.box = "ubuntu/trusty64"
-
+    config.vm.box_check_update = false
+    
   config.vm.provider "virtualbox" do |v|
     v.memory = 2048
     # for tests (chrome)
@@ -35,16 +36,17 @@ Vagrant.configure(2) do |config|
 
   # Meld pre-reqs - then see meld/README.md
   config.vm.provision "shell", privileged: false, inline: <<-SHELL
+    # also for pedal!
     sudo apt-get install -y python-pip python-dev
-    sudo apt-get install -y python-dev libxml2-dev libxslt1-dev zlib1g-dev 
+    #sudo apt-get install -y python-dev libxml2-dev libxslt1-dev zlib1g-dev 
   
     # nginx reverse proxy - for presenting as remote servers
     #sudo apt-get install -y nginx
 
     # for mei xslt
     #sudo apt-get install -y xsltproc
-    sudo apt-get install -y openjdk-7-jre-headless
-    sudo apt-get install -y libsaxonb-java
+    #sudo apt-get install -y openjdk-7-jre-headless
+    #sudo apt-get install -y libsaxonb-java
   SHELL
 
   # nginx https frontend - what about hostname??
