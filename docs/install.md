@@ -2,6 +2,15 @@
 
 assumes you have set up pre-reqs as per ../Vagrantfile!
 
+## vagrant dns
+
+Note vagrant DNS resolution MIGHT be more reliable if you halt the VM and set
+```
+vboxmanage list vms
+vboxmanage modifyvm "fast-performance-demo_default_XXXX" --natdnshostresolver1 on
+```
+and start it again.
+
 ## musiccodes
 
 Clone musiccodes
@@ -53,9 +62,10 @@ sudo docker run hello-world
 cd meld
 git clone https://github.com/oerc-music/meld
 sudo docker build -t meld .
-sudo docker run -d --name=meld --restart=always -p 5000:5000 meld
+sudo docker run -d --name=meld --restart=always -v `pwd`/meld/server/score/:/root/work/score/ -p 5000:5000 meld
 cd ..
 ```
+(not -v `pwd`/meld/server/sessions:/root/work/sessions/ )
 
 update score files
 ```
@@ -63,7 +73,7 @@ sudo docker cp meld/meld/server/mkGameEngine-meld.json meld:/root/work/
 sudo docker exec meld python generate_climb_scores.py mkGameEngine-meld.json score
 ```
 
-## meld client
+## meld	 client
 
 ```
 cd meld-client

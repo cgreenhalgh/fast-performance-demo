@@ -4,6 +4,7 @@ RUN mkdir -p /root/work
 WORKDIR /root/work
 
 COPY meld-client/package.json .
+COPY package-lock.json .
 
 RUN npm install
 
