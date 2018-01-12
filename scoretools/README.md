@@ -125,6 +125,8 @@ The optional value in the `mcN:` column specifies a score element to highlight i
 - A xml:id of a score element (starting with `#`)
 - a measure number
 
+Note, current and next stage messages are also emitted on channel `stageview`, e.g. [http://localhost:3000/fullscreenslave.html?c=stageview](http://localhost:3000/fullscreenslave.html?c=stageview).
+
 ### Meld output file
 
 The file to set up (v2) meld is an array of stage objects.

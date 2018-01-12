@@ -92,11 +92,14 @@ for marker in ex.markers
 # state - stage (string), cued (bool)
 ex.parameters.initstate = 
   stage: '""'
+  stageix: 0
   cued: false
   meldmei: '""'
   meldsession: '""'
   meldsessionpost: '""'
   meldnextmeifile: 'null'
+  nextstage: '""'
+  nextstageix: 0
   mcserver: JSON.stringify (config.mcserver ? 'http://localhost:3000/input')
   meldscoreuri: JSON.stringify (config.meldscoreuri ? 'http://127.0.0.1:5000/score/')
   meldmeiuri: JSON.stringify (config.meldmeiuri ? 'http://127.0.0.1:3000/content/')
@@ -372,11 +375,19 @@ add_delayed_midi = (control, prefix, data, meldload) ->
           channel: ''
           url: 'data:text/x-midi-hex,'+msg
 
+add_stage_announcement = (control, stage, next) -> 
+  control.actions.push
+    channel: 'stageview'
+    url: 'data:text/html,<h1>Now: <b>('+(if stage? then (stage._index+1)+')</b> '+stage.stage else '{{stageix}}) {{stage}}')+',<br>Next: ('+(if next? then (next._index+1)+') '+next.stage else '{{nextstageix}}) {{nextstage}}')+'</h1>'
+
 set_stage = (control, data) ->
   control.poststate ?= {}
   control.poststate.cued = "false"
   control.poststate.stage = JSON.stringify data.stage
+  control.poststate.stageix = data._index+1
   control.poststate.stagecodeflags = '0'
+  add_stage_announcement control, data
+  
   # visited stage
   sfi = Math.floor(data._index / BITS_PER_FLAGVAR)
   sfbi = data._index % BITS_PER_FLAGVAR
@@ -469,6 +480,9 @@ for r in [1..1000]
         contentType: 'application/ld+json'
         body: '{"oa:hasTarget":{ "@id": "{{meldsession}}"}, "oa:motivatedBy": { "@id": "motivation:createNextSession" }, "oa:hasBody":{"@id":"{{meldscoreuri}}'+nexturi+'"} }'
   control.poststate.meldnextmeifile = nextexp
+  control.poststate.nextstage = JSON.stringify data.stage
+  control.poststate.nextstageix = data._index+1
+  add_stage_announcement control, null, data
   control.poststate.cued = "true"
   ex.controls.push control
   # no meld?!
@@ -476,6 +490,9 @@ for r in [1..1000]
   nexturi = encodeURIComponent(data.stage)
   nextexp = JSON.stringify data.meifile
   control.poststate.meldnextmeifile = nextexp
+  control.poststate.nextstage = JSON.stringify data.stage
+  control.poststate.nextstageix = data._index+1
+  add_stage_announcement control, null, data
   control.poststate.cued = "true"
   ex.controls.push control
 
@@ -636,6 +653,9 @@ for r in [1..1000]
         contentType: 'application/json'
         body: '{"oa:hasTarget": { "@id": "{{meldsession}}"}, "oa:motivatedBy": { "@id": "motivation:createNextSession" }, "oa:hasBody": { "@id": "{{meldscoreuri}}'+encodeURIComponent(data.stage)+'"} }'
   control.poststate.meldnextmeifile = JSON.stringify data.meifile
+  control.poststate.nextstage = JSON.stringify data.stage
+  control.poststate.nextstageix = data._index+1
+  add_stage_announcement control, null, data
   control.poststate.cued = "true"
 
   # MELD input POST
@@ -646,6 +666,9 @@ for r in [1..1000]
   control.precondition = 'params.meldmei==(meldmeiuri+'+(JSON.stringify encodeURIComponent(data.meifile))+')'
   # may be overriden by auto-cue
   control.poststate.meldnextmeifile = 'null'
+  control.poststate.nextstage = JSON.stringify ''
+  control.poststate.nextstageix = 0
+  add_stage_announcement control, {stage:' ', _index:0}
   ex.controls.push control
   set_stage control, data
   add_actions control, 'auto_', data, true
