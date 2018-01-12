@@ -104,6 +104,7 @@ ex.parameters.initstate =
   performanceid: '""'
   performancename: '""'
   stagecodeflags: 0
+  pedalnextpiece: '"no"'
 
 # performances
 if config.performances
@@ -826,14 +827,23 @@ control.actions.push
   # meldmei, meldcollection
 
 
-# pedal meld action
-control = {inputUrl:'post:pedal',actions:[]}
+# pedal meld action (next page)
+control = {inputUrl:'post:pedal',actions:[],precondition:'"yes"!=pedalnextpiece'}
 ex.controls.push control
 control.actions.push 
   url: '{{meldsessionpost}}'
   post: true
   contentType: 'application/ld+json'
   body: '{"oa:hasTarget": { "@id": "{{meldsession}}"},"oa:motivatedBy": { "@id": "motivation:nextPageOrPiece" }}'
+
+# pedal meld action (next piece)
+control = {inputUrl:'post:pedal',actions:[],precondition:'"yes"==pedalnextpiece'}
+ex.controls.push control
+control.actions.push 
+  url: '{{meldsessionpost}}'
+  post: true
+  contentType: 'application/ld+json'
+  body: '{"oa:hasTarget": { "@id": "{{meldsession}}"},"oa:motivatedBy": { "@id": "motivation:transitionToNextSession" }}'
 
 # pedal back meld action
 control = {inputUrl:'post:pedal.back',actions:[]}

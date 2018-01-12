@@ -150,7 +150,8 @@
     contenturi: JSON.stringify((ref5 = config.contenturi) != null ? ref5 : 'http://localhost:3000/content/'),
     performanceid: '""',
     performancename: '""',
-    stagecodeflags: 0
+    stagecodeflags: 0,
+    pedalnextpiece: '"no"'
   };
 
   if (config.performances) {
@@ -1147,7 +1148,8 @@
 
   control = {
     inputUrl: 'post:pedal',
-    actions: []
+    actions: [],
+    precondition: '"yes"!=pedalnextpiece'
   };
 
   ex.controls.push(control);
@@ -1157,6 +1159,21 @@
     post: true,
     contentType: 'application/ld+json',
     body: '{"oa:hasTarget": { "@id": "{{meldsession}}"},"oa:motivatedBy": { "@id": "motivation:nextPageOrPiece" }}'
+  });
+
+  control = {
+    inputUrl: 'post:pedal',
+    actions: [],
+    precondition: '"yes"==pedalnextpiece'
+  };
+
+  ex.controls.push(control);
+
+  control.actions.push({
+    url: '{{meldsessionpost}}',
+    post: true,
+    contentType: 'application/ld+json',
+    body: '{"oa:hasTarget": { "@id": "{{meldsession}}"},"oa:motivatedBy": { "@id": "motivation:transitionToNextSession" }}'
   });
 
   control = {
