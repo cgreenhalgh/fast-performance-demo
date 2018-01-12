@@ -2,8 +2,10 @@
 
 Clone
 ```
-git clone https://github.com/oerc-music/meld-client
+git clone https://github.com/cgreenhalgh/meld-client
+git checkout climb
 ```
+(forked from https://github.com/oerc-music/meld-client)
 (install docker)
 then
 ```
