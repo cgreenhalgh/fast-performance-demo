@@ -136,6 +136,15 @@ Volumes:
 
 #### Pedal
 
+Build see [phidgets/install.md](phidgets/install.md).
+
+```
+something like
+```
+docker run -d -t --restart=always --name=pedal --network=mc-net cgreenhalgh/pedal python pedal.py http://musiccodes:3000/input
+```
+plus some option to pass in the USB device; not sure what yet!
+
 TODO
 
 #### Scoretools

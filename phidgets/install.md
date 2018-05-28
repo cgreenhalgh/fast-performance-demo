@@ -1,11 +1,19 @@
 # Phidgets Install notes
 
+## docker install
+
+```
+docker build -t pedal .
+```
+
+
+## non-docker install
 
 Plug in Phidget interface kit.
 
 If running in VM, in VirtualBox UI open settings for VM, ports, USB, add, select 'Phidgets inc. PhidgetInterfaceKit [...]'
 
-## linux drivers / libraries
+### linux drivers / libraries
 
 Linux see [instructions](http://www.phidgets.com/docs/OS_-_Linux)
 ```
@@ -29,7 +37,7 @@ gcc HelloWorld.c -o HelloWorld -lphidget21
 sudo ./HelloWorld
 ```
 
-## Python support
+### Python support
 
 python support [instructions](http://www.phidgets.com/docs/Language_-_Python#Linux)
 ```
