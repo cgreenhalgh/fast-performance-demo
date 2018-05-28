@@ -17,6 +17,7 @@ services:
       DEFAULT_MPM_SERVER: 'http://mpm:3003'
     depends_on: 
       - mpm
+    restart: unless-stopped
     
   
   meld:
@@ -29,6 +30,7 @@ services:
       - "5000:5000"
     volumes:
       - ./volumes/score:/root/work/score
+    restart: unless-stopped
       
   meld-client:
     image: cgreenhalgh/meld-client
@@ -38,6 +40,7 @@ services:
       mode: global
     ports:
       - "8080:8080"
+    restart: unless-stopped
   
   redis:
     image: redis:4.0
@@ -45,6 +48,7 @@ services:
       - mc-net
     deploy:
       mode: global
+    restart: unless-stopped
       
   mpm:
     image: cgreenhalgh/mpm
@@ -59,6 +63,7 @@ services:
     volumes:
       - ./volumes/templates:/srv/mpm/templates
       - ./logs/mpm:/srv/mpm/logs
+    restart: unless-stopped
   
   pedal:
     image: cgreenhalgh/pedal
@@ -70,6 +75,7 @@ services:
       mode: global
     command: ["python","pedal.py","http://musiccodes:3000/input"]
     tty: true
+    restart: unless-stopped
     
 networks:
   mc-net:

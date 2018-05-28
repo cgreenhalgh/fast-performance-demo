@@ -61,5 +61,14 @@ Vagrant.configure("2") do |config|
     chmod +x /usr/local/bin/docker-compose
     # git already installed (for building images)
     #apt install -y git
+    # run using docker-compose
+    cd /vagrant
+    docker-compose up -d
   SHELL
+  config.vm.provision "shell", run: "always", inline: <<-SHELL
+    # work-around for race condition with docker restart and vagrant mount
+    cd /vagrant
+    docker-compose restart
+  SHELL
+  
 end

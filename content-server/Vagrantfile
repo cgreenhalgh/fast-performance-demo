@@ -17,7 +17,7 @@ Vagrant.configure(2) do |config|
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
   # `vagrant box outdated`. This is not recommended.
-  # config.vm.box_check_update = false
+  config.vm.box_check_update = false
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
@@ -64,8 +64,20 @@ Vagrant.configure(2) do |config|
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
-  # config.vm.provision "shell", inline: <<-SHELL
-  #   sudo apt-get update
-  #   sudo apt-get install -y apache2
-  # SHELL
+  config.vm.provision "docker" do |d|
+    #d.pull_images "ubuntu"
+  end
+  config.vm.provision "shell", inline: <<-SHELL
+    cd ..
+    # using mount is meant to be better than -v with the
+    # restart-always race, but isn't working for me in 18.05.0-ce, build f150324
+    docker run --name frontend -d --restart=always \
+      -p :80:80 --mount type=bind,source="$(pwd)"/html,target=/usr/share/nginx/html \
+      frontend
+  SHELL
+  # there seems to be a race between docker restart-always and mounting /vagrant
+  # this ugly hack restarts docker
+  # https://serverfault.com/questions/808239/systemd-vagrant-and-virtualbox-wait-for-synced-folder-to-mount?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+  config.vm.provision "shell", run: "always", inline: "systemctl restart docker"
+  
 end
