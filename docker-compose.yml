@@ -1,0 +1,59 @@
+version: "3"
+services:
+
+  musiccodes:
+    image: cgreenhalgh/musiccodes
+    networks: 
+      - mc-net
+    deploy:
+      mode: global
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./volumes/experiences:/srv/musiccodes/experiences
+      - ./volumes/content:/srv/musiccodes/public/content
+      - ./logs/musiccodes:/srv/musiccodes/logs
+  
+  meld:
+    image: cgreenhalgh/meld
+    networks: 
+      - mc-net
+    deploy:
+      mode: global
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./volumes/score:/root/work/score
+      
+  meld-client:
+    image: cgreenhalgh/meld-client
+    networks: 
+      - mc-net
+    deploy:
+      mode: global
+    ports:
+      - "8080:8080"
+  
+  redis:
+    image: redis:4.0
+    networks:
+      - mc-net
+    deploy:
+      mode: global
+      
+  mpm:
+    image: cgreenhalgh/mpm
+    networks: 
+      - mc-net
+    depends_on: 
+      - redis
+    ports:
+      - "3003:3003"
+    deploy:
+      mode: global
+    volumes:
+      - ./volumes/templates:/srv/mpm/templates
+      - ./logs/mpm:/srv/mpm/logs
+      
+networks:
+  mc-net:

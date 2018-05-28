@@ -2,7 +2,20 @@
 
 Utilities for working with score and building/processing experience files.
 
+## Docker build
+
+```
+docker build -t scoretools .
+docker tag scoretools cgreenhalgh/scoretools
+```
+
+run:
+```
+docker run --rm -v `pwd`/test:/srv/scoretools/test -v `pwd`/../mei-files:/srv/mei-files scoretools
+```
+
 New...
+## Non-docker install
 
 Note: install muzicodes first to get npm, etc.
 
@@ -11,6 +24,13 @@ Note: install muzicodes first to get npm, etc.
 sudo npm install -g coffee-script
 npm install --no-bin-links
 ```
+
+Run (climb):
+```
+node lib/makemuzicodes.js test/mkGameEngine-config.yml
+```
+
+## Configuration
 
 Config file in YAML, `config.yml`:
 ```

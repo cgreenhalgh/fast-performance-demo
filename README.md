@@ -35,7 +35,17 @@ Note, the following ports are forwarded to the VM:
 ### docker-compose
 
 One-shot set-up... 
-TODO
+
+```
+docker-compose up -d
+```
+
+And that should be it.
+
+Then
+```
+./scripts/setup.sh
+```
 
 ### Network
 
@@ -54,6 +64,8 @@ The following containers are needed:
 - `meld-client`
 - `pedal` - if using Phidgets pedal controller
 
+The scoretools image is also needed.
+
 Note: try to use stretch & node:8.12.2-stretch
 
 #### Musiccodes
@@ -64,6 +76,11 @@ for docker build info, or (hopefully) use a version from docker hub.
 ```
 docker run --restart always -d -p 3000:3000 --network=mc-net --name=musiccodes cgreenhalgh/musiccodes
 ```
+Volumes:
+- `/srv/musiccodes/experiences` => `volumes/experiences`
+- `/srv/musiccides/public/content` => `volumes/content`
+
+
 Note, to copy experiences and content in use 
 ```
 docker cp XXX musiccodes:/srv/musiccodes/experiences/
@@ -83,8 +100,8 @@ version from docker hub.
 sudo docker run -d --network=mc-net --name=meld --restart=always -p 5000:5000 cgreenhalgh/meld
 ```
 Volumes:
-- /root/work/score - score-related files
-- /root/work/sessions (not actually a volume!) - logs/session files
+- `/root/work/score` - score-related files => `volumes/score`
+- `/root/work/sessions` (not actually a volume!) - `logs/sessions`
 
 #### Meld-client
 
@@ -114,10 +131,26 @@ or (hopefully) use a version from docker hub.
 ```
 docker run -d --restart=always --network=mc-net --name=mpm -p 3003:3003 mpm
 ```
+Volumes:
+- `/srv/mpm/logs` => `logs/mpm`
 
 #### Pedal
 
 TODO
+
+#### Scoretools
+
+Image, rather than container... as it is used as a command.
+
+For build see [scoretools/README.md](scoretools/README.md).
+
+Volumes:
+- `/srv/scoretools/test` => `scoretools/test`
+- `/srv/mei-files` => `mei-files` (and `mei-files/out`)
+
+```
+docker run --rm -v `pwd`/scoretools/test:/srv/scoretools/test -v `pwd`/mei-files:/srv/mei-files scoretools
+```
 
 ## previous stuff...
 
