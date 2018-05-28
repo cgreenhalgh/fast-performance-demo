@@ -32,6 +32,11 @@ Note, the following ports are forwarded to the VM:
 - `5000` - MELD server
 - `8081` (-> `8080`) - MELD client (server)
 
+### docker-compose
+
+One-shot set-up... 
+TODO
+
 ### Network
 
 User bridge network
@@ -106,7 +111,13 @@ Ports:
 For docker build info see [MPM readme](https://github.com/cgreenhalgh/music-performance-manager),
 or (hopefully) use a version from docker hub.
 
+```
+docker run -d --restart=always --network=mc-net --name=mpm -p 3003:3003 mpm
+```
 
+#### Pedal
+
+TODO
 
 ## previous stuff...
 
