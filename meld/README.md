@@ -2,20 +2,25 @@
 
 Hmm. Meld won't work on virtual box fs folder (rename fails).
 
-Dockerise...?!
+Dockerise...
+
+## Docker build
 
 ```
-git clone https://github.com/oerc-music/meld
+git clone https://github.com/oerc-music/meld-web-services
+#git clone https://github.com/oerc-music/meld
 ```
 (docker -see below)
 ```
 sudo docker build -t meld .
+sudo docker tag meld cgreenhalgh/meld
+sudo docker tag meld cgreenhalgh/meld:20180529.1s
 ```
-run
+## Docker run
 ```
 sudo docker run -d --name=meld --restart=always -v `pwd`/meld/server/score/:/root/work/score/ -p 5000:5000 meld
 ```
-(not?! -v `pwd`/meld/server/sessions:/root/work/sessions/ )
+(not?! -v `pwd`/meld/server/sessions:/root/work/sessions/ -- that won't work over virtual box fs on windows!)
 
 update score files
 ```
@@ -34,7 +39,9 @@ sudo docker exec meld /bin/sh -c 'rm sessions/*'
 
 
 
-## docker
+## docker pre-requisites
+
+If you need to install docker...
 
 See [docs](https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/#install-using-the-repository)
 ```
@@ -60,6 +67,3 @@ Optional,
 ```
 sudo docker run hello-world
 ```
-
-
-

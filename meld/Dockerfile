@@ -3,7 +3,7 @@ FROM python:2.7-stretch
 RUN mkdir /root/work
 WORKDIR /root/work
 
-COPY meld/server/requirements.txt /root/work
+COPY meld-web-services/requirements.txt /root/work
 RUN pip install -r requirements.txt
 
 ENV MELD_BASE_URI http://127.0.0.1:5000
@@ -12,7 +12,7 @@ ENV MELD_SCORE_URI http://127.0.0.1:5000/score
 
 EXPOSE 5000
 
-COPY meld/server/ /root/work
+COPY meld-web-services/ /root/work
 VOLUME /root/work/score
 #(doesn't work) VOLUME /root/work/sessions
 #COPY meld/server/mkGameEngine-meld.json .

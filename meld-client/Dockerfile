@@ -1,4 +1,4 @@
-FROM node:8.9.1-stretch
+FROM node:8.11.2-stretch
 
 RUN mkdir -p /root/work
 WORKDIR /root/work

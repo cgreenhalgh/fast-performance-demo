@@ -1,61 +1,65 @@
-Vagrant.configure(2) do |config|
-    config.vm.box = "ubuntu/trusty64"
-    config.vm.box_check_update = false
-    
-  config.vm.provider "virtualbox" do |v|
-    v.memory = 2048
-    # for tests (chrome)
-    v.gui = true
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
 
-    # Enable the VM's virtual USB controller & enable the virtual USB 2.0 controller
-    v.customize ["modifyvm", :id, "--usb", "on", "--usbehci", "on"]
-  end
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+Vagrant.configure("2") do |config|
+  # The most common configuration options are documented and commented below.
+  # For a complete reference, please see the online documentation at
+  # https://docs.vagrantup.com.
 
+  # Every Vagrant development environment requires a box. You can search for
+  # boxes at https://vagrantcloud.com/search.
+  config.vm.box = "ubuntu/xenial64"
+
+  # Disable automatic box update checking. 
+  config.vm.box_check_update = false
+
+  # Create a forwarded port mapping which allows access to a specific port
   # node server for muzicodes
   config.vm.network "forwarded_port", guest: 3000, host: 3000
-  # nginx https proxy for muzicodes
-  config.vm.network "forwarded_port", guest: 3443, host: 3443
   # node server for music-performance-manager
-  config.vm.network "forwarded_port", guest: 3003, host: 3003
+  config.vm.network "forwarded_port", guest: 3003, host: 3003, host_ip: "127.0.0.1"
   # meld server
   config.vm.network "forwarded_port", guest: 5000, host: 5000
-  # muzivisual test/dev only
-  config.vm.network "forwarded_port", guest: 8000, host: 8000
   # meld client (avoid mrl-music 8080)
   config.vm.network "forwarded_port", guest: 8080, host: 8081
 
-  # requires root :-(
-  #config.vm.network "forwarded_port", guest: 80, host: 80
+  # Create a private network, which allows host-only access to the machine
+  # using a specific IP.
+  # config.vm.network "private_network", ip: "192.168.33.10"
 
-  config.vm.provision "shell", privileged: false, inline: <<-SHELL
-    sudo apt-get update
-    sudo apt-get install -y git zip
-  SHELL
+  # Create a public network, which generally matched to bridged network.
+  # Bridged networks make the machine appear as another physical device on
+  # your network.
+  # config.vm.network "public_network"
 
-  # Muzicodes - see musiccodes/scripts
+  # Provider-specific configuration for VirtualBox:
+  config.vm.provider "virtualbox" do |vb|
+    # Display the VirtualBox GUI when booting the machine
+    #vb.gui = true
 
-  # Meld pre-reqs - then see meld/README.md
-  config.vm.provision "shell", privileged: false, inline: <<-SHELL
-    # also for pedal!
-    sudo apt-get install -y python-pip python-dev
-    #sudo apt-get install -y python-dev libxml2-dev libxslt1-dev zlib1g-dev 
+    # Customize the amount of memory on the VM:
+    vb.memory = "2048"
+  end
+  #
+  # View the documentation for the provider you are using for more
+  # information on available options.
+
+  # docker provisioner... (just install it)
+  config.vm.provision "docker" do |d|
+    #d.pull_images "ubuntu"
+  end
   
-    # nginx reverse proxy - for presenting as remote servers
-    #sudo apt-get install -y nginx
-
-    # for mei xslt
-    #sudo apt-get install -y xsltproc
-    #sudo apt-get install -y openjdk-7-jre-headless
-    #sudo apt-get install -y libsaxonb-java
+  # Provisioning
+  config.vm.provision "shell", inline: <<-SHELL
+    #apt update
+    # install docker-compose
+    curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+    chmod +x /usr/local/bin/docker-compose
+    # git already installed (for building images)
+    #apt install -y git
   SHELL
-
-  # nginx https frontend - what about hostname??
-  #config.vm.provision "shell", privileged: false, inline: <<-SHELL
-  #  sudo apt-get install -y nginx
-  #  sudo update-rc.d nginx defaults
-  #  
-  #SHELL
-  
-
 end
-

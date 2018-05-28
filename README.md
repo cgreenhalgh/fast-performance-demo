@@ -1,5 +1,115 @@
 # FAST IMPACt project Performance Demonstrator
 
+## Docker runtime
+
+Note: 20180529 converting to use docker.
+
+### Pre-Requisites
+
+Needs [docker](https://docs.docker.com/install/) and 
+[docker-compose](https://docs.docker.com/compose/install/#install-compose).
+E.g. install docker-for-windows / docker-for-mac and docker-compose. 
+
+Or run in a VM, for example...
+
+#### Running in Vagrant/VirtualBox VM
+
+Can be run in Vagrant/virtualbox with (e.g.) an ubuntu 16.04 image.
+```
+vagrant up
+```
+Note: if using virtualbox, DNS can be more reliable if, once after first creating VM, you shut down VM (`sudo halt`) and 
+```
+vboxmanage list vms
+vboxmanage modifyvm "fast-performance-demo_default_XXXX" --natdnshostresolver1 on
+vagrant up
+```
+(where XXXX is the actual ID show by `list vms`)
+
+Note, the following ports are forwarded to the VM:
+- `3000` - musiccodes server
+- `3003` - music-performance-manager server
+- `5000` - MELD server
+- `8081` (-> `8080`) - MELD client (server)
+
+### Network
+
+User bridge network
+```
+docker network create mc-net
+```
+
+### Containers
+
+The following containers are needed:
+- `musiccodes`
+- `mpm`
+- `redis` - used by MPM
+- `meld`
+- `meld-client`
+- `pedal` - if using Phidgets pedal controller
+
+Note: try to use stretch & node:8.12.2-stretch
+
+#### Musiccodes
+
+See [Musiccodes README](https://github.com/cgreenhalgh/musiccodes)
+for docker build info, or (hopefully) use a version from docker hub.
+
+```
+docker run --restart always -d -p 3000:3000 --network=mc-net --name=musiccodes cgreenhalgh/musiccodes
+```
+Note, to copy experiences and content in use 
+```
+docker cp XXX musiccodes:/srv/musiccodes/experiences/
+docker cp XXX musiccodes:/srv/musiccodes/pubic/content/
+```
+To copy logs out use
+```
+docker cp musiccodes:/srv/musiccodes/logs logs/
+```
+
+#### Meld
+
+See [meld/README.md](meld/README.md) for build info, or (hopefully) use a 
+version from docker hub.
+
+```
+sudo docker run -d --network=mc-net --name=meld --restart=always -p 5000:5000 cgreenhalgh/meld
+```
+Volumes:
+- /root/work/score - score-related files
+- /root/work/sessions (not actually a volume!) - logs/session files
+
+#### Meld-client
+
+See [meld-client/README.md](meld-client/README.md) for build info, 
+or (hopefully) use a version from docker hub.
+
+```
+sudo docker run -d --network=mc-net --name=meld-client --restart=always -p 8080:8080 cgreenhalgh/meld-client
+```
+No volumes.
+
+#### Redis
+
+Vanilla redis on internal network:
+```
+docker run --name redis --network=mc-net -d --restart=always redis:4.0
+```
+
+Ports:
+- `6379` - standard redis port (note, not exposed outside internal network!)
+
+#### Music Performance Manager
+
+For docker build info see [MPM readme](https://github.com/cgreenhalgh/music-performance-manager),
+or (hopefully) use a version from docker hub.
+
+
+
+## previous stuff...
+
 Files and resources for the EPSRC-funded [FAST IMPACt](http://www.semanticaudio.ac.uk/) project Performance Demonstrator, 2016/2017.
 
 At least initially this comprises an integration of [Muzicodes](https://github.com/cgreenhalgh/musiccodes), [MELD](https://github.com/oerc-music/meld) and the [Music Performance Manager (MPM)](https://github.com/cgreenhalgh/music-performance-manager) to support a new composition/performance by [Maria Kallionpaa](https://uk.linkedin.com/in/mariakallionpaa).
