@@ -9,9 +9,5 @@ cp scoretools/test/mkGameEngine-meld.json volumes/score/
 cp mei-files/out/*.mei volumes/content/
 #cp mei-files/*.mei volumes/content/
 
-# keep old logs
-sudo docker exec vagrant_meld_1 /bin/sh -c 'du -sk sessions'
-sudo docker cp vagrant_meld_1:/root/work/sessions/ logs/sessions
-
 #sudo docker cp meld/meld/server/mkGameEngine-meld.json meld:/root/work/
 sudo docker exec vagrant_meld_1 python generate_climb_scores.py score/mkGameEngine-meld.json score

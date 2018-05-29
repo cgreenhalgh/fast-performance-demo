@@ -76,12 +76,15 @@ MEI files for scores should be in [mei-files/](mei-files/)
 
 Content files for the visuals should be in [images/](images/)
 
+Template file(s) for MPM (downloaded from the hub) should be in 
+[volumes/templates](volumes/templates).
+
 After any changes the files are regenerated and copied into the appropriate (musiccodes) sub-directories using
 ```
 ./scripts/setup.sh
 ```
 
-In particular this creates the muzicodes experience file [musiccodes/server/experience/mkGameEngine-out.json](musiccodes/server/experience/mkGameEngine-out.json)
+In particular this creates the muzicodes experience file [volumes/experiences/mkGameEngine-out.json](musiccodes/server/experience/mkGameEngine-out.json)
 
 ## running
 
@@ -91,9 +94,22 @@ The editor view for the final experience files is accessible as [http://localhos
 
 The player view is accessible from the editor or as [http://localhost:3000/player.html#?f=%2Fexperiences%2FmkGameEngine-out.json](http://localhost:3000/player.html#?f=%2Fexperiences%2FmkGameEngine-out.json)
 
-The climb visual view is accessible as [http://localhost:3000/climbview.html#?config=%2Fassets%2FmkGameEngine-view.json&test=1](http://localhost:3000/climbview.html#?config=%2Fassets%2FmkGameEngine-view.json&test=1) or
+The climb visual view (usually run on another machine) is accessible as [http://localhost:3000/climbview.html#?config=%2Fassets%2FmkGameEngine-view.json&test=1](http://localhost:3000/climbview.html#?config=%2Fassets%2FmkGameEngine-view.json&test=1) or
 [http://localhost:3000/climbview.html#?config=%2Fassets%2FmkGameEngine-view.json](http://localhost:3000/climbview.html#?config=%2Fassets%2FmkGameEngine-view.json) (no testing) 
 
 MELD client should be  accessible as [http://127.0.0.1:8080/startTheClimb](http://127.0.0.1:8080/startTheClimb) (NB, NOT localhost!; also note change of port from old meld (5000, now just used by the meld server)).
 
 The Music performance manager dashboard as [http://localhost:3003/dashboard.html](http://localhost:3003/dashboard.html)
+
+The MPM browser view(s) as [http://localhost:3003/browserview.html](http://localhost:3003/browserview.html).
+
+## Logs
+
+Session logs can be extracted from MELD with
+```
+scripts/getmeldsessions.sh
+```
+There are copied into `logs/sessions`.
+
+Musicodes log files should be in `logs/musiccodes` and MPM log files in `logs/mpm`.
+
