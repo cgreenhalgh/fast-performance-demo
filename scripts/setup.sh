@@ -1,7 +1,7 @@
 
 cp images/* volumes/content/
 
-docker run --rm -v `pwd`/scoretools/test:/srv/scoretools/test -v `pwd`/mei-files:/srv/mei-files scoretools
+docker run --rm -v `pwd`/scoretools/test:/srv/scoretools/test -v `pwd`/mei-files:/srv/mei-files cgreenhalgh/scoretools
 
 cp scoretools/test/mkGameEngine-out.json volumes/experiences/
 cp scoretools/test/mkGameEngine-view.json volumes/content/
