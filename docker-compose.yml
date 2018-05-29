@@ -5,8 +5,6 @@ services:
     image: cgreenhalgh/musiccodes
     networks: 
       - mc-net
-    deploy:
-      mode: global
     ports:
       - "3000:3000"
     volumes:
@@ -24,8 +22,6 @@ services:
     image: cgreenhalgh/meld
     networks: 
       - mc-net
-    deploy:
-      mode: global
     ports:
       - "5000:5000"
     volumes:
@@ -36,8 +32,6 @@ services:
     image: cgreenhalgh/meld-client
     networks: 
       - mc-net
-    deploy:
-      mode: global
     ports:
       - "8080:8080"
     restart: unless-stopped
@@ -46,8 +40,6 @@ services:
     image: redis:4.0
     networks:
       - mc-net
-    deploy:
-      mode: global
     restart: unless-stopped
       
   mpm:
@@ -58,8 +50,6 @@ services:
       - redis
     ports:
       - "3003:3003"
-    deploy:
-      mode: global
     volumes:
       - ./volumes/templates:/srv/mpm/templates
       - ./logs/mpm:/srv/mpm/logs
@@ -71,8 +61,6 @@ services:
       - mc-net
     depends_on:
       - musiccodes
-    deploy:
-      mode: global
     command: ["python","pedal.py","http://musiccodes:3000/input"]
     tty: true
     restart: unless-stopped
