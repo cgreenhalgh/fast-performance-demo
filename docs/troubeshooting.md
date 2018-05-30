@@ -148,9 +148,7 @@ docker-compose down
 ### Temporarily starting/stopping processes
 
 Again, in the `fast-performance-demo` directory (in a Vagrant VM this
-will be `/vagrant`) you can create and start all the processes with
-```
-restart all the processes with
+will be `/vagrant`) you can restart all the processes with
 ```
 docker-compose restart
 ```
