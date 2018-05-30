@@ -55,15 +55,19 @@ services:
       - ./logs/mpm:/srv/mpm/logs
     restart: unless-stopped
   
-  pedal:
-    image: cgreenhalgh/pedal
-    networks:
-      - mc-net
-    depends_on:
-      - musiccodes
-    command: ["python","pedal.py","http://musiccodes:3000/input"]
-    tty: true
-    restart: unless-stopped
+# assume using a HID pedal
+# this USB/phidget-based version would need extra configuration/
+# permissions to access the relevant USB device
+#
+#  pedal:
+#    image: cgreenhalgh/pedal
+#    networks:
+#      - mc-net
+#    depends_on:
+#      - musiccodes
+#    command: ["python","pedal.py","http://musiccodes:3000/input"]
+#    tty: true
+#    restart: unless-stopped
     
 networks:
   mc-net:

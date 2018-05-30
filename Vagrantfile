@@ -64,6 +64,9 @@ Vagrant.configure("2") do |config|
     # run using docker-compose
     cd /vagrant
     docker-compose up -d
+    
+    # one-time setup?!
+    ./scripts/setup.sh
   SHELL
   config.vm.provision "shell", run: "always", inline: <<-SHELL
     # work-around for race condition with docker restart and vagrant mount

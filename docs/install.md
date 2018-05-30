@@ -1,6 +1,8 @@
 # Install
 
-assumes you have set up pre-reqs as per ../Vagrantfile!
+This information deals with building/running the individual applications.
+In general this has been superceded by the use of docker,
+see [docker.md](docker.md).
 
 ## vagrant dns
 

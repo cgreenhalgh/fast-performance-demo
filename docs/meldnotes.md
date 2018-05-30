@@ -2,7 +2,7 @@
 
 ## General
 
-Latest code is on github (https://github.com/oerc-music/meld)
+Latest code is on github (was https://github.com/oerc-music/meld)
 
 ## Configuration
 

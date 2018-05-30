@@ -1,24 +1,16 @@
 # FAST IMPACt project Performance Demonstrator
 
-## Docker runtime
 
-Note: 20180529 converting to use docker.
-
-### Pre-Requisites
-
-Needs [docker](https://docs.docker.com/install/) and 
-[docker-compose](https://docs.docker.com/compose/install/#install-compose).
-E.g. install docker-for-windows / docker-for-mac and docker-compose. 
-
-Or run in a VM, for example...
-
-#### Running in Vagrant/VirtualBox VM
+## Running in Vagrant/VirtualBox VM
 
 Can be run in Vagrant/virtualbox with (e.g.) an ubuntu 16.04 image.
+
+First install [VirtualBox](https://www.virtualbox.org/wiki/Downloads) 
+and [Vagrant](https://www.vagrantup.com/downloads.html). Then
 ```
 vagrant up
 ```
-Note: if using virtualbox, DNS can be more reliable if, once after first creating VM, you shut down VM (`sudo halt`) and 
+Note: if using virtualbox, DNS can be more reliable if, once after first creating VM, you shut down VM (`vagrant halt`) and 
 ```
 vboxmanage list vms
 vboxmanage modifyvm "fast-performance-demo_default_XXXX" --natdnshostresolver1 on
@@ -30,14 +22,31 @@ Note, the following ports are forwarded to the VM:
 - `3000` - musiccodes server
 - `3003` - music-performance-manager server
 - `5000` - MELD server
-- `8081` (-> `8080`) - MELD client (server)
+- `8081` (forwarded to `8080`) - MELD client (server)
+
+That should be it.
+
+For troubleshooting information see [docs/troubleshooting.md](docs/troubleshooting.md).
+
+## Docker runtime
+
+If not using Vagrant/VM (e.g. using docker for mac/windows) then the system can 
+be started as follows.
+
+### Pre-Requisites
+
+Needs [docker](https://docs.docker.com/install/) and 
+[docker-compose](https://docs.docker.com/compose/install/#install-compose).
+E.g. install docker-for-windows / docker-for-mac and docker-compose. 
 
 ### docker-compose
 
-Get images if necessary, e.g.
+Docker machine images should be downloaded automatically from dockerhub.
+Otherwise get hold of the images and load them, e.g.
 ```
 docker load -i climb-docker-images.tar.bz2
 ```
+Or build them all yourself - see [docs/docker.md](docs/docker.md).
 
 One-shot set-up... 
 
@@ -47,13 +56,10 @@ docker-compose up -d
 
 And that should be it.
 
-Then
+Then a bit of one-time initialisation:
 ```
 ./scripts/setup.sh
 ```
-
-More details of docker stuff in [docs/docker.md](docs/docker.md).
-
 
 ## previous stuff...
 
@@ -63,7 +69,7 @@ At least initially this comprises an integration of [Muzicodes](https://github.c
 
 See [docs/install.md](docs/install.md) for initial installation. See also [docs/](docs/) for other design/technical documentation.
 
-## set up
+### Non-docker set up
 
 See [docs/install.md](docs/install.md)
 
@@ -86,7 +92,7 @@ After any changes the files are regenerated and copied into the appropriate (mus
 
 In particular this creates the muzicodes experience file [volumes/experiences/mkGameEngine-out.json](musiccodes/server/experience/mkGameEngine-out.json)
 
-## running
+## Using
 
 Once installed, muzicodes should be running (as a background service) on part 3000. Open url [http://localhost:3000/](http://localhost:3000/) to access the initial muzicodes interface.
 
