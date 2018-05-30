@@ -12,7 +12,14 @@ vboxmanage modifyvm "fast-performance-demo_default_XXXX" --natdnshostresolver1 o
 vagrant up
 ```
 
-Content is served from `html/`
+(to stop again, `vagrant halt`)
+
+Content is served from `content-server/html/` on port 3000.
+
+Typically images/video should be copied in `content-server/html/content`, i.e. URLs
+`http://localhost:3000/content/...`
+
+## potential problems
 
 Note, if after restart of vagrant VM you get permission denied for http request 
 try restarting the docker container:
@@ -21,6 +28,15 @@ vagrant ssh
 docker restart frontend
 ```
 
+You can check if the process is running with
+```
+docker ps -a
+```
+
+You can check process logs with 
+```
+docker logs frontend
+```
 
 ## by hand (no vagrant)
 
