@@ -12,7 +12,8 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
-  config.vm.box = "ubuntu/xenial64"
+  config.vm.box = "bento/ubuntu-22.04"
+
 
   # Disable automatic box update checking. 
   config.vm.box_check_update = false
@@ -57,14 +58,9 @@ Vagrant.configure("2") do |config|
   # Provisioning
   config.vm.provision "shell", inline: <<-SHELL
     #apt update
-    # install docker-compose
-    curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
-    chmod +x /usr/local/bin/docker-compose
-    # git already installed (for building images)
-    #apt install -y git
-    # run using docker-compose
+    # docker-compose replaced by docker compose
     cd /vagrant
-    docker-compose up -d
+    docker compose up -d
     
     # one-time setup?!
     ./scripts/setup.sh
@@ -72,7 +68,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", run: "always", inline: <<-SHELL
     # work-around for race condition with docker restart and vagrant mount
     cd /vagrant
-    docker-compose restart
+    docker compose restart
   SHELL
   
 end

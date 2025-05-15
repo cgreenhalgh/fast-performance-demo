@@ -35,11 +35,10 @@ be started as follows.
 
 ### Pre-Requisites
 
-Needs [docker](https://docs.docker.com/install/) and 
-[docker-compose](https://docs.docker.com/compose/install/#install-compose).
-E.g. install docker-for-windows / docker-for-mac and docker-compose. 
+Needs [docker](https://docs.docker.com/install/) including support for compose.
+E.g. install docker-for-windows / docker-for-mac. 
 
-### docker-compose
+### docker compose
 
 Docker machine images should be downloaded automatically from dockerhub.
 Otherwise get hold of the images and load them, e.g.
@@ -51,7 +50,7 @@ Or build them all yourself - see [docs/docker.md](docs/docker.md).
 One-shot set-up... 
 
 ```
-docker-compose up -d
+docker compose up -d
 ```
 
 And that should be it.

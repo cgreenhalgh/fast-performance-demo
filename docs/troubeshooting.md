@@ -91,7 +91,7 @@ This system comprises five processes, each in it own container:
 - `redis` - runs a Redis database (used by mpm)
 
 The docker configuration is all in [../docker-compose.yml](../docker-compose.yml).
-This is a [docker-compose](https://docs.docker.com/compose/) file. It tells docker
+This is a [docker compose](https://docs.docker.com/compose/) file. It tells docker
 to run the five containers listed above.
 
 ### Checking processes
@@ -120,10 +120,10 @@ You can check the log/debug output of a process with
 ```
 docker logs NAME
 ```
-Note that the names used with `docker` (rather than `docker-compose`)
-are longer, e.g. `vagrant_musiccodes_1` rather than `musiccodes`.
+Note that the names used with `docker` (rather than `docker compose`)
+are longer, e.g. `vagrant-musiccodes-1` rather than `musiccodes`.
 
-E.g. `docker logs vagrant_musiccodes_1` should show the log/debug output
+E.g. `docker logs vagrant-musiccodes-1` should show the log/debug output
 of the musiccodes process.
 
 You can get more details about how the process is set up in docker with
@@ -138,11 +138,11 @@ being used and which file volumes are being shared with the process.
 In the `fast-performance-demo` directory (in a Vagrant VM this
 will be `/vagrant`) you can create and start all the processes with
 ```
-docker-compose up -d
+docker compose up -d
 ```
 stop and destroy all the processes with
 ```
-docker-compose down
+docker compose down
 ```
 
 ### Temporarily starting/stopping processes
@@ -150,20 +150,20 @@ docker-compose down
 Again, in the `fast-performance-demo` directory (in a Vagrant VM this
 will be `/vagrant`) you can restart all the processes with
 ```
-docker-compose restart
+docker compose restart
 ```
 
 stop all the processes (or one process) with
 ```
-docker-compose stop
-docker-compose stop NAME
+docker compose stop
+docker compose stop NAME
 ```
 or start all the processes (or one process) with
 ```
-docker-compose start
-docker-compose start NAME
+docker compose start
+docker compose start NAME
 ```
-Note that the names used with `docker-compose` are just `musiccodes`, 
+Note that the names used with `docker compose` are just `musiccodes`, 
 `meld`, `meld-client` and `mpm`.
 
 ### Checking the network
