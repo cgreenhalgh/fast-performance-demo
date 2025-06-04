@@ -10,4 +10,4 @@ cp mei-files/out/*.mei volumes/content/
 #cp mei-files/*.mei volumes/content/
 
 #sudo docker cp meld/meld/server/mkGameEngine-meld.json meld:/root/work/
-sudo docker exec vagrant-meld-1 python generate_climb_scores.py score/mkGameEngine-meld.json score
+docker exec vagrant-meld-1 python generate_climb_scores.py score/mkGameEngine-meld.json score
